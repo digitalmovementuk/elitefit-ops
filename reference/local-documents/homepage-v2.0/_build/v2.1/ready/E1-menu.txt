@@ -1,1 +1,0 @@
-E1 menu polish + EF-style social icons: in the sources at 2026-10-01 19:16 WITA (partials/header.html, assets/css/hero.css, assets/js/main.js, assets/js/hero.js). Builds clean (node build.mjs --out). Render check (WebKit 390/375/375x667/320) queued; results in _qa/v2.1/E1/r4-menu/.

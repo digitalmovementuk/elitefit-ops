@@ -1,2 +1,0 @@
-2026-10-01 16:09:32 WITA lane A v2.1.1 in sources (partials/whatsapp.html, assets/css/whatsapp.css): always-visible button lifts above the buy bar, two-ring pulse + heartbeat, footer clearance on phones; private build OK (SP/lane-A), render measurements still to come
-2026-10-01 19:16:42 WITA lane A v2.1.2 in sources: hover now really stops the pulse (:where() specificity fix), narrow-width lift bands for the buy bar (68.2 px at 328-345, 84-100 px at 320-324); re-cut the preview, re-measuring now

@@ -1,2 +1,0 @@
-E3 passes-mobile ready in sources (partials/passes.html, assets/css/shop.css, assets/js/shop.js), private build OK: 2026-10-01 16:15:04 WITA
-E3 passes-mobile updated (buy bar tucks away over the tier rows, so the floating WhatsApp button stays clear of them): 2026-10-01 16:29:44 WITA

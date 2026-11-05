@@ -1,0 +1,16 @@
+{
+ "_meta": {
+  "what": "Loud (s4-kinetic) v1.8 overlay for engine-v2: coach avatars come from engine-v2/img/r head-and-shoulders crops (RULINGS #53, #53a). Paths are relative to this file.",
+  "date": "2026-10-29"
+ },
+ "srcset": {
+  "avatar-rey.webp": "../../../../engine-v2/img/r/avatar-rey-48.webp 48w, ../../../../engine-v2/img/r/avatar-rey-64.webp 64w, ../../../../engine-v2/img/r/avatar-rey-96.webp 96w, ../../../../engine-v2/img/r/avatar-rey-128.webp 128w",
+  "avatar-rey-64.webp": "../../../../engine-v2/img/r/avatar-rey-48.webp 48w, ../../../../engine-v2/img/r/avatar-rey-64.webp 64w, ../../../../engine-v2/img/r/avatar-rey-96.webp 96w, ../../../../engine-v2/img/r/avatar-rey-128.webp 128w",
+  "avatar-tinos.webp": "../../../../engine-v2/img/r/avatar-tinos-48.webp 48w, ../../../../engine-v2/img/r/avatar-tinos-64.webp 64w, ../../../../engine-v2/img/r/avatar-tinos-96.webp 96w, ../../../../engine-v2/img/r/avatar-tinos-128.webp 128w",
+  "avatar-tinos-64.webp": "../../../../engine-v2/img/r/avatar-tinos-48.webp 48w, ../../../../engine-v2/img/r/avatar-tinos-64.webp 64w, ../../../../engine-v2/img/r/avatar-tinos-96.webp 96w, ../../../../engine-v2/img/r/avatar-tinos-128.webp 128w",
+  "avatar-ain.webp": "../../../../engine-v2/img/r/avatar-ain-48.webp 48w, ../../../../engine-v2/img/r/avatar-ain-64.webp 64w, ../../../../engine-v2/img/r/avatar-ain-96.webp 96w, ../../../../engine-v2/img/r/avatar-ain-128.webp 128w",
+  "avatar-ain-64.webp": "../../../../engine-v2/img/r/avatar-ain-48.webp 48w, ../../../../engine-v2/img/r/avatar-ain-64.webp 64w, ../../../../engine-v2/img/r/avatar-ain-96.webp 96w, ../../../../engine-v2/img/r/avatar-ain-128.webp 128w",
+  "avatar-icha.webp": "../../../../engine-v2/img/r/avatar-icha-48.webp 48w, ../../../../engine-v2/img/r/avatar-icha-64.webp 64w, ../../../../engine-v2/img/r/avatar-icha-96.webp 96w, ../../../../engine-v2/img/r/avatar-icha-128.webp 128w",
+  "avatar-icha-64.webp": "../../../../engine-v2/img/r/avatar-icha-48.webp 48w, ../../../../engine-v2/img/r/avatar-icha-64.webp 64w, ../../../../engine-v2/img/r/avatar-icha-96.webp 96w, ../../../../engine-v2/img/r/avatar-icha-128.webp 128w"
+ }
+}

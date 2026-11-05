@@ -1,0 +1,16 @@
+video.clip{display: block;width: 100%;height: 100%;object-fit: cover;object-position: var(--clip-pos,50% 50%);background: var(--clip-tone,transparent);}
+.zones__img video.clip{aspect-ratio: 4 / 5;}
+@media (min-width: 760px){.zones__img video.clip{min-height: 20rem;}
+}
+@media (min-width: 1024px){.zones__img video.clip{min-height: 0;}
+}
+@media (min-width: 1024px) and (hover: hover){.zones__img video.clip{height: calc(100% + 2.5rem);margin-block: -1.25rem;}
+}
+.visit__img video.clip{position: absolute;inset: 0;}
+video.clip[data-clip="zone-perform"]{--clip-pos: 50% 50%;--clip-tone: #282322;}
+video.clip[data-clip="zone-recharge"]{--clip-pos: 50% 50%;--clip-tone: #4a8188;}
+video.clip[data-clip="zone-classes"]{--clip-pos: 50% 50%;--clip-tone: #6e6c63;}
+video.clip[data-clip="rec-ice"]{--clip-pos: 50% 70%;--clip-tone: #69543e;}
+video.clip[data-clip="rec-steam"]{--clip-pos: 50% 50%;--clip-tone: #835a32;}
+video.clip[data-clip="rec-sauna"]{--clip-pos: 50% 50%;--clip-tone: #6d3f19;}
+video.clip[data-clip="visit-entrance"]{--clip-pos: 50% 60%;--clip-tone: #726a55;}

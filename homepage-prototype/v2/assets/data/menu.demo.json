@@ -1,0 +1,54 @@
+{
+  "_readme": {
+    "version": "v3.0 - 2026-10-02",
+    "what": "PLACEHOLDER DATA for design review of the 'create your own bowl' INTERACTION only. It is NOT the club's menu: every option name and every price below is invented on purpose (Base 1, Protein A, ...). It is loaded by assets/js/nutrition.js only when the page URL carries ?demo=bowl, replaces menu.json's bowl for that view, and shows the banner below on the component. It is never the default and must never be linked from the page.",
+    "shape": "Same shape as menu.json's `bowl` (documented at the top of assets/js/nutrition.js), plus `demo` (true), `banner` (visible banner text) and `previewLabel` (shown instead of opening WhatsApp, so a review click never sends a message to the club).",
+    "toReplace": "When the club's real bowl steps and prices are known, put them into menu.json under `bowl` with priceUnitConfirmed true. No code change. This file can then be deleted."
+  },
+  "demo": true,
+  "banner": "DEMO DATA: not the club's menu",
+  "previewLabel": "Demo only, nothing is sent. This button would open WhatsApp with:",
+  "bowl": {
+    "currency": "IDR",
+    "priceUnitConfirmed": true,
+    "basePrice": 0,
+    "steps": [
+      {
+        "id": "base", "name": "Base", "pick": "one", "required": true,
+        "options": [
+          { "id": "base-1", "name": "Base 1", "price": 40000 },
+          { "id": "base-2", "name": "Base 2", "price": 45000 },
+          { "id": "base-3", "name": "Base 3", "price": 50000 }
+        ]
+      },
+      {
+        "id": "protein", "name": "Protein", "pick": "one", "required": true,
+        "options": [
+          { "id": "protein-a", "name": "Protein A", "price": 30000 },
+          { "id": "protein-b", "name": "Protein B", "price": 35000 },
+          { "id": "protein-c", "name": "Protein C", "price": 40000 },
+          { "id": "protein-d", "name": "Protein D", "price": 20000 }
+        ]
+      },
+      {
+        "id": "toppings", "name": "Toppings", "pick": "many", "max": 3, "required": false,
+        "options": [
+          { "id": "topping-1", "name": "Topping 1", "price": 5000 },
+          { "id": "topping-2", "name": "Topping 2", "price": 5000 },
+          { "id": "topping-3", "name": "Topping 3", "price": 10000 },
+          { "id": "topping-4", "name": "Topping 4", "price": 10000 },
+          { "id": "topping-5", "name": "Topping 5", "price": 15000 },
+          { "id": "topping-6", "name": "Topping 6", "price": 0 }
+        ]
+      },
+      {
+        "id": "sauce", "name": "Sauce", "pick": "one", "required": false,
+        "options": [
+          { "id": "sauce-1", "name": "Sauce 1", "price": 0 },
+          { "id": "sauce-2", "name": "Sauce 2", "price": 5000 },
+          { "id": "sauce-3", "name": "Sauce 3", "price": 5000 }
+        ]
+      }
+    ]
+  }
+}

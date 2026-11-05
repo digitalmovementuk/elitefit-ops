@@ -1,0 +1,54 @@
+{
+  "version": "v3.0 — 2026-10-02",
+  "status": "numbers verified live 2026-10-02 (FACTS F-TMP); unit not printed by the club (F-TMP-05)",
+  "note": "Temperatures of the four Recharge rooms, rendered by assets/js/rest.js (no number is typed into the page copy). Owner: rest lane. Values and names are from the club's own Recharge page FAQ ('What is the sauna and steam room temperature?': Sauna 80 - 100, Steam room 38 - 40, Ice Bath 4 - 6, Jacuzzi 38 - 40; 'The ice bath temperature is 4-6 degrees') and match Raoul's brief; each room carries its FACTS.md id. The club prints the word 'degrees' once and no unit elsewhere (F-TMP-05): the unit is shown as Celsius, the only reading that fits a 4-6 degree ice bath and an 80-100 degree sauna. To drop the unit, set every unit to an empty string and scale.unit to ''. Order is hot to cold (sauna, steam room, jacuzzi, ice bath) to match the live lead line 'four rooms from hot to cold'. 'short' is the label of the pinned phone box only (the box has four narrow columns); the list keeps the club's full name.",
+  "scale": {
+    "min": 0,
+    "max": 100,
+    "unit": "°C",
+    "unitWord": "degrees Celsius",
+    "unitPrinted": false
+  },
+  "rooms": [
+    {
+      "id": "sauna",
+      "name": "Sauna",
+      "min": 80,
+      "max": 100,
+      "unit": "°C",
+      "fact": "F-TMP-01",
+      "source": "https://elitefitbali.com/recharge/ (FAQ), FACTS.md F-TMP-01, read live 2026-10-02",
+      "short": "Sauna"
+    },
+    {
+      "id": "steam",
+      "name": "Steam room",
+      "min": 38,
+      "max": 40,
+      "unit": "°C",
+      "fact": "F-TMP-02",
+      "source": "https://elitefitbali.com/recharge/ (FAQ), FACTS.md F-TMP-02, read live 2026-10-02",
+      "short": "Steam"
+    },
+    {
+      "id": "jacuzzi",
+      "name": "Jacuzzi",
+      "min": 38,
+      "max": 40,
+      "unit": "°C",
+      "fact": "F-TMP-04",
+      "source": "https://elitefitbali.com/recharge/ (FAQ), FACTS.md F-TMP-04, read live 2026-10-02",
+      "short": "Jacuzzi"
+    },
+    {
+      "id": "ice",
+      "name": "Ice bath",
+      "min": 4,
+      "max": 6,
+      "unit": "°C",
+      "fact": "F-TMP-03",
+      "source": "https://elitefitbali.com/recharge/ (FAQ), FACTS.md F-TMP-03, read live 2026-10-02",
+      "short": "Ice bath"
+    }
+  ]
+}

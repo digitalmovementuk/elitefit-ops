@@ -1,0 +1,57 @@
+/* training.css · Version: v3.0 — 2026-10-02 · owner: training lane
+   Changelog: v3.0 created. Top = shared pillar block (verbatim from _build/pillar-anatomy.md, identical in nutrition.css, training.css, rest.css). Below = .trn-* parts of this lane only. Tokens only. */
+/* >>> pil-shared v1 · identical in nutrition.css, training.css, rest.css · source: _build/pillar-anatomy.md */
+.sec--pillar { --pil-name-fs: clamp(52px, 15.5vw, 176px); --pil-row-pad: var(--s-3); background: var(--bg); border-top: var(--bw) solid var(--line); }
+.pil { display: grid; gap: var(--s-5); grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "clip" "facts" "extra" "cta"; }
+.pil__head { grid-area: head; display: grid; gap: var(--s-3); align-content: start; }
+.pil__num { margin: 0; font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.pil__name { margin: 0; font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--pil-name-fs); line-height: var(--lh-tight); letter-spacing: var(--tr-display); text-wrap: balance; overflow-wrap: break-word; }
+.pil__lead { margin: 0; max-width: 34ch; font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--fg-muted); }
+.pil__clip { grid-area: clip; margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-sunken); border-radius: var(--r-1); }
+.pil__clip video, .pil__clip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pil__facts { grid-area: facts; margin: 0; padding: 0; list-style: none; border-top: var(--bw) solid var(--line-strong); }
+.pil__fact { display: grid; gap: var(--s-1); padding: var(--pil-row-pad) 0; border-bottom: var(--bw) solid var(--line); }
+.pil__k { font: var(--fw-mono) var(--fs-label)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.pil__v { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); }
+.pil__extra { grid-area: extra; min-width: 0; }
+.pil__cta { grid-area: cta; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.pil__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--s-5); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1); font: var(--fw-mono) var(--fs-small)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); transition: background-color var(--dur-ui) var(--ease-out), color var(--dur-ui) var(--ease-out), border-color var(--dur-ui) var(--ease-out), transform var(--dur-press) var(--ease-press); }
+.pil__btn:hover { background: var(--fg); color: var(--fg-inverse); border-color: var(--fg); }
+.pil__btn:active { transform: scale(.98); }
+@media (min-width: 900px) {
+  .pil { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s-8); row-gap: var(--s-6); grid-template-areas: "head clip" "facts clip" "extra extra" "cta cta"; align-items: start; }
+  .pil__fact { grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); gap: var(--s-5); align-items: baseline; }
+}
+/* <<< pil-shared v1 */
+
+/* ---- Elite Training: lane parts (.trn-*) ---- */
+.trn .pil__btn--quiet { border-color: var(--line); color: var(--fg-muted); }
+.trn .pil__btn--quiet:hover { color: var(--fg-inverse); }
+
+/* brands: hairline mono tags */
+.trn-brands { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.trn-brand { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-3); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1); font: var(--fw-mono) var(--fs-small)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); }
+
+/* classes: the count is data (timetable), set in the body weight of the row */
+.trn-num { font-weight: var(--fw-strong); font-variant-numeric: tabular-nums; }
+
+/* coaches: names in a hairline-divided run, first names as the club writes them */
+.trn-names { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; row-gap: var(--s-1); }
+.trn-names li { display: inline-flex; align-items: baseline; font-weight: var(--fw-strong); }
+.trn-names li + li::before { content: ""; display: inline-block; width: var(--bw); height: 1em; margin: 0 var(--s-3); background: var(--line-strong); align-self: center; }
+.trn-names:empty { display: none; }
+
+/* hours: one line, or one line per distinct pattern, plus the live open/closed readout */
+.trn-hours { display: block; font-variant-numeric: tabular-nums; }
+.trn-hrow { display: flex; flex-wrap: wrap; column-gap: var(--s-3); font-variant-numeric: tabular-nums; }
+.trn-hrow b { font: var(--fw-mono) var(--fs-label)/1.5 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); min-width: 7ch; }
+.trn-live { display: inline-flex; align-items: center; gap: var(--s-2); margin-top: var(--s-2); font: var(--fw-mono) var(--fs-label)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.trn-live[hidden] { display: none; }
+.trn-live::before { content: ""; width: 8px; height: 8px; border-radius: var(--r-pill); background: var(--fg-faint); flex: none; }
+.trn-live[data-open="true"] { color: var(--fg); }
+.trn-live[data-open="true"]::before { background: var(--ok); }
+
+/* clip is decorative: the poster stays when motion is off */
+.sec--training .pil__video { background: var(--bg-sunken); }
+@media (min-width: 900px) { .trn-hours { display: block; } }
+@media (prefers-reduced-motion: reduce) { .trn .pil__btn { transition: none; } }

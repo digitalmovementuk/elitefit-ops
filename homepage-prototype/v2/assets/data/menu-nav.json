@@ -1,0 +1,80 @@
+{
+  "version": "v3.0 — 2026-10-02 (menu sheet lane)",
+  "note": "Content model of the header menu sheet (partials/01-menu.html). Page order, eight section links (Phase 1 sections plus the Phase 2 anchors coaches, reviews, visit that now exist): a link appears only while its target id exists in the page (menu.js prunes and renumbers at open); nothing here points to a section that is not built. Address, hours and the WhatsApp number are NOT here: they are read from site.json and hours.json at run time. Labels live in copy/slots/menu.json (data-copy keys), not in this file.",
+  "links": [
+    {
+      "id": "classes",
+      "copy": "menu.link_classes",
+      "label": "Classes"
+    },
+    {
+      "id": "elite-nutrition",
+      "copy": "menu.link_nutrition",
+      "label": "Elite Nutrition"
+    },
+    {
+      "id": "elite-training",
+      "copy": "menu.link_training",
+      "label": "Elite Training"
+    },
+    {
+      "id": "elite-rest",
+      "copy": "menu.link_rest",
+      "label": "Elite Rest"
+    },
+    {
+      "id": "coaches",
+      "copy": "menu.link_coaches",
+      "label": "Coaches"
+    },
+    {
+      "id": "pricing",
+      "copy": "menu.link_pricing",
+      "label": "Pricing"
+    },
+    {
+      "id": "reviews",
+      "copy": "menu.link_reviews",
+      "label": "Reviews"
+    },
+    {
+      "id": "visit",
+      "copy": "menu.link_visit",
+      "label": "Visit"
+    }
+  ],
+  "primary": {
+    "id": "pricing",
+    "copy": "menu.buy",
+    "label": "Buy a pass"
+  },
+  "whatsapp": {
+    "numberFrom": "assets/data/site.json#whatsapp.number",
+    "textCopy": "menu.wa_text",
+    "note": "The number (status TO CONFIRM in site.json) is read at run time and never copied here."
+  },
+  "social": [
+    {
+      "id": "instagram",
+      "url": "https://www.instagram.com/elitefitbali/",
+      "copyAria": "menu.social_instagram",
+      "source": "FACTS F-ADR-16 (Instagram @elitefitbali; exact href as printed in the club's page footers)"
+    },
+    {
+      "id": "facebook",
+      "url": "https://www.facebook.com/elitefitbali",
+      "copyAria": "menu.social_facebook",
+      "source": "FACTS F-ADR-16 (facebook.com/elitefitbali)"
+    },
+    {
+      "id": "tiktok",
+      "url": "https://www.tiktok.com/@elitefitbali",
+      "copyAria": "menu.social_tiktok",
+      "source": "FACTS F-ADR-16 (TikTok @elitefitbali)"
+    }
+  ],
+  "visit": {
+    "addressFrom": "assets/data/site.json#address (line, mapsUrl)",
+    "hoursFrom": "assets/data/hours.json (days, areas.perform, areas.recharge); open state through timetable.js loadHours/openState"
+  }
+}

@@ -1,0 +1,29 @@
+/* buybar.css · Version: v3.0 — 2026-10-02 · owner: pricing lane
+   Changelog: v3.0 created. Sticky bottom bar, phones only (< 760 px): cheapest day pass price + "Buy a pass". Slides in after the hero, out while #pricing is on screen.
+   Own classes (.buy*). Only var(--token). Slide = transform only (280 ms in, 200 ms out, never bounces); visibility flips after the slide. Reduced motion: appears and disappears in place. */
+.buy {
+  --buy-fs-price: 24px; --buy-btn-h: 48px; --buy-btn-w: 132px;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-buybar);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--bg-raised); border-top: var(--bw) solid var(--line-strong);
+  transform: translate3d(0, 100%, 0); visibility: hidden;
+}
+.buy[data-state="open"] { transform: translate3d(0, 0, 0); visibility: visible; }
+.motion-ok .buy { transition: transform 200ms var(--ease-inout), visibility 0s linear 200ms; }
+.motion-ok .buy[data-state="open"] { transition: transform 280ms var(--ease-out), visibility 0s; }
+.buy__in {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); height: var(--buybar-h);
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+}
+.buy__txt { display: grid; gap: var(--s-1); min-width: 0; margin: 0; }
+.buy__lab { font: var(--fw-mono) var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.buy__price { display: flex; align-items: baseline; gap: var(--s-2); font: var(--fw-strong) var(--buy-fs-price)/1 var(--font-mono); letter-spacing: -.03em; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.buy__cur { font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); color: var(--fg-muted); }
+.buy__btn {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: var(--buy-btn-w); min-height: var(--buy-btn-h); padding: 0 var(--s-5);
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--r-1);
+  font: var(--fw-mono) var(--fs-small)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; touch-action: manipulation;
+}
+.motion-ok .buy__btn { transition: transform var(--dur-press) var(--ease-press); }
+.motion-ok .buy__btn:active { transform: scale(.97); }
+@media (min-width: 760px) { .buy { display: none; } }

@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- v1.10 (29 Oct 2026, handover v2): the Sculpt chapter and card use the face-safe re-cut card-sculpt-v110b (#46); display letters reveal with a wipe in place (kinetic.css v1.10). -->
+<!-- v1.9 (29 Oct 2026, RULINGS #54): the sticky-bar face row overlaps by 6 px instead of 10, so no neighbour paints over a face box; assets/js/avatars.js (right after api.js) points coach.avatar at the new crops before the engine renders. -->
+<!-- v1.8 (29 Oct 2026, RULINGS #53 and #53a): every coach avatar is the head-and-shoulders crop from engine-v2/img/r (48/64/96/128w srcset), in the page and, through assets/data/engine-overlay-v18.json, in the sheet. -->
+<!-- v1.7 (29 Oct 2026, RULINGS #51 faces): the Conditioning chapter and card use the face-safe re-cut card-conditioning-v17; the boxing card is a face-free club still (page.js). -->
+<!-- v1.6 (29 Oct 2026, layout gate v1): the moving class names are aria-hidden with a visually hidden full list (RULINGS #50); the pause dock sits on its own lane under the names (kinetic.css v1.6). -->
+<!-- v1.5 (29 Oct 2026, fix round 5): renamed Loud (#48, folder stays s4-kinetic); Now bar order "Next · class · coach · countdown" with the concept line at the right end (#43); Visit email row (#47); the Sculpt chapter plays the re-cropped club clip, the desktop hero clip is cut to its kettlebell shots, the Mobility chapter clip is cropped clear of a third person at its right edge, and the Eat. and What-to-bring photos are swapped (#46: no head cut by a source edge); the last two words of each section headline are bound (no lone last word); clips button label (2.5.3). -->
+<!-- v1.4 motion (29 Oct 2026, MOTION-BRIEF v1.0): motion hooks only (data-chars, data-motion rise / lift / num / cascade / mask, data-mq on the two hero cuts); motion lives in assets/css/kinetic.css (v1.4 MOTION block) and assets/js/motion.js -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Group classes · Elite Fit Bali · Loud</title>
+<meta name="description" content="Boxing, HYROX, sculpt and stretch at Elite Fit Bali in Pererenan. 33 group classes a week. Design concept, Loud, with a demo booking flow.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B1B1B">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="../../v1/assets/logo/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Group classes · Elite Fit Bali · Loud">
+<meta property="og:description" content="Boxing, HYROX, sculpt and stretch. 33 classes a week in Pererenan. Design concept, Loud.">
+<meta property="og:url" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/variants/s4-kinetic/">
+<meta property="og:image" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/variants/s4-kinetic/og-s4-kinetic.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(d){var r=d.documentElement,c='js';try{var m=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var n=navigator.connection;if(!m&&!(n&&n.saveData)){c+=' motion-ok';}if(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()')){c+=' sdt';}}catch(e){}r.className+=' '+c;})(document);</script>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-extrabold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/kinetic.css">
+<link rel="stylesheet" href="../../engine-v2/sheet-base.css">
+<link rel="stylesheet" href="assets/css/sheet-v2.css">
+</head>
+<body>
+<a class="skip" href="#schedule">Skip to the schedule</a>
+
+<div class="page" id="page">
+<!-- 0. NOW / NEXT: what runs right now, with a live countdown (Raoul 29 Oct). The go button first (RULINGS #43 wording), then the concept line (from 1024 px) and "All concepts" at the right end. -->
+<div class="nowbar" data-nowbar role="region" aria-label="Now and next class">
+  <div class="nowbar__bg" aria-hidden="true">
+    <img class="nowbar__poster" src="assets/img/bar-conditioning-poster.webp" alt="" width="480" height="40" data-nowbar-poster>
+    <video class="nowbar__v" data-clip data-group="hero" muted loop playsinline preload="none" src="assets/video/bar-conditioning.mp4" data-nowbar-video></video>
+  </div>
+  <div class="nowbar__in wrap">
+    <button class="nowbar__go" type="button" data-nowbar-go data-testid="nowbar" hidden>
+      <span class="nowbar__k" data-nowbar-k>Next</span>
+      <span class="nowbar__sep" aria-hidden="true">·</span>
+      <span class="nowbar__icon" data-nowbar-icon aria-hidden="true"></span>
+      <span class="nowbar__cls" data-nowbar-cls></span>
+      <span class="nowbar__sep" aria-hidden="true">·</span>
+      <span class="nowbar__who"><img src="../../engine-v2/img/r/avatar-rey-48.webp" srcset="../../engine-v2/img/r/avatar-rey-48.webp 48w, ../../engine-v2/img/r/avatar-rey-64.webp 64w, ../../engine-v2/img/r/avatar-rey-96.webp 96w, ../../engine-v2/img/r/avatar-rey-128.webp 128w" sizes="22px" alt="" width="22" height="22" data-nowbar-av><span data-nowbar-coach></span></span>
+      <span class="nowbar__sep" aria-hidden="true">·</span>
+      <span class="nowbar__t" aria-hidden="true"><span data-nowbar-pre>starts in</span> <b data-nowbar-t></b><span data-nowbar-post></span></span>
+      <span class="vh" data-nowbar-label></span>
+    </button>
+    <span class="vh" role="timer" data-nowbar-sr></span>
+    <p class="nowbar__demo">Loud · demo</p>
+    <a class="nowbar__all" href="../../"><span>All concepts</span> <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="hdr__in wrap">
+    <a class="brand" href="#top">
+      <img class="brand__type" src="../../v1/assets/logo/elitefit-logotype-white.svg" width="152" height="16" alt="Elite Fit">
+      <span class="brand__focus">PERFORM</span>
+    </a>
+    <nav class="hdr__nav" aria-label="On this page">
+      <a href="#schedule">Schedule</a>
+      <a href="#classes">Classes</a>
+      <a href="#coaches">Coaches</a>
+      <a href="#after">After class</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a class="hdr__all" href="../../"><span>All concepts</span> <span aria-hidden="true">→</span></a>
+    <button class="btn btn--primary btn--sm hdr__cta" type="button" data-book-next data-testid="hdr-book" tabindex="-1" aria-hidden="true">Book a class <span class="arr" aria-hidden="true">→</span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1. HERO: type is the hero, real class footage sits in the gap the words leave -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap hero__in">
+    <div class="hero__top">
+      <p class="eyebrow label"><span class="label__no">(.01)</span> PERFORM · GROUP CLASSES</p>
+      <!-- desktop trust row (1024 px and up): the hero's rating line moves in here, plus verified facts (FACTS F2-HRS-01, F2-FAC-04, F2-FAC-06) -->
+      <ul class="trustrow" data-trust-badge aria-label="Elite Fit in short">
+        <li><a class="tbadge tbadge--g" href="https://maps.app.goo.gl/4qwxZzF3nnM1jeh36" target="_blank" rel="noopener" title="Google rating, read 28 Oct 2026" data-testid="trust-badge"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews" data-bind="rating-aria"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num" data-bind="rating-value">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-badge"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-badge)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src"><span data-bind="rating-count">497</span> Google reviews</span></span></a></li>
+        <li class="tbadge">Open 6am to 10pm, every day</li>
+        <li class="tbadge">Arsenal Strength, Panatta and Prime kit</li>
+        <li class="tbadge">Pool, ice bath, sauna and steam room</li>
+      </ul>
+    </div>
+    <div class="hero__type" data-hero-type>
+      <h1 class="hero__h" id="hero-title">
+        <span class="hl hl--1" data-drift="xl"><span class="w"><span class="wi">Find</span></span></span>
+        <span class="hl hl--2" data-drift="xr"><span class="w"><span class="wi">your</span></span></span>
+        <span class="hl hl--3" data-drift="xl"><span class="w"><span class="wi t">people.</span></span></span>
+      </h1>
+      <figure class="hero__tile" aria-hidden="true">
+        <picture>
+          <source media="(min-width: 768px)" srcset="assets/img/hero-wide-poster.webp" width="1280" height="610">
+          <img class="media__poster" src="assets/img/hero-tall-poster.webp" alt="" width="720" height="900" fetchpriority="high">
+        </picture>
+        <video class="hero__v hero__v--tall" data-clip data-group="hero" data-mq="(max-width: 767.98px)" muted loop playsinline preload="none" src="assets/video/hero-tall.mp4"></video>
+        <video class="hero__v hero__v--wide" data-clip data-group="hero" data-mq="(min-width: 768px)" muted loop playsinline preload="none" src="assets/video/hero-wide-v15.mp4"></video>
+      </figure>
+      <button class="pause pause--tile" type="button" data-pause="hero" aria-pressed="false" aria-label="Pause the videos at the top"><span class="pause__icon" aria-hidden="true"></span></button>
+      <div class="hero__foot">
+        <p class="lead hero__lead">Boxing, HYROX, sculpt and stretch in Pererenan, with coaches who learn your name.</p>
+        <div class="actions">
+          <button class="btn btn--primary" type="button" data-book-next data-testid="hero-book" aria-haspopup="dialog">Book a class <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+        <div class="htrust">
+          <div class="htrust__row">
+            <a class="trust" href="https://maps.app.goo.gl/4qwxZzF3nnM1jeh36" target="_blank" rel="noopener" title="Google rating, read 28 Oct 2026" data-testid="hero-rating"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews" data-bind="rating-aria"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num" data-bind="rating-value">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-hero"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-hero)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src"><span data-bind="rating-count">497</span> Google reviews</span></span></a>
+            <button class="hq__pause" type="button" data-hq-pause aria-pressed="false" aria-label="Pause the review quotes" hidden><span class="pause__icon" aria-hidden="true"></span></button>
+          </div>
+          <div class="hq" role="region" aria-roledescription="carousel" aria-label="What people say about our classes" data-hq>
+            <div class="hq__slides"><figure class="hq__slide is-on" role="group" aria-roledescription="slide" aria-label="1 of 1"><blockquote><p>“Amazing facilities and great classes.”</p></blockquote><figcaption><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Alex F., Google review</span></figcaption></figure></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THE WEEK (section 1, Raoul 29 Oct): a today-first 7-day grid on desktop, a day selector and that day's list on phones. The only timetable on the page. -->
+<section class="sec sec--white sec--week" id="schedule" aria-labelledby="schedule-title" tabindex="-1">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow eyebrow--dark label"><span class="label__no">(.02)</span> THE WEEK</p>
+        <h2 class="h2" id="schedule-title" data-split>When works <span class="nw">for <span class="t">you?</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">Every class this week. Tap one to book it.</p></div>
+    </div>
+
+    <div class="sched" data-schedule data-motion="cascade">
+      <div class="days" role="tablist" aria-label="Pick a day" data-days></div>
+      <div class="sched__tools">
+        <div class="fchips" role="group" aria-label="Class type" data-fchips>
+          <button class="fchip" type="button" data-fam="" aria-pressed="true">All classes</button>
+          <button class="fchip" type="button" data-fam="boxing" aria-pressed="false">Boxing</button>
+          <button class="fchip" type="button" data-fam="conditioning" aria-pressed="false">Conditioning</button>
+          <button class="fchip" type="button" data-fam="sculpt" aria-pressed="false">Sculpt</button>
+          <button class="fchip" type="button" data-fam="mobility" aria-pressed="false">Mobility &amp; Stretch</button>
+        </div>
+        <button class="btn btn--outline-dark btn--sm filters-btn" type="button" data-open-filters data-testid="open-filters" aria-haspopup="dialog">Filters <span class="badge" data-filter-count hidden>0</span></button>
+      </div>
+      <div class="wk" data-week aria-label="The next seven days, starting today"></div>
+      <div class="sched__day" aria-live="polite">
+        <h3 class="sched__date" data-day-title>This week</h3>
+        <p class="sched__count" data-day-count></p>
+      </div>
+      <p class="sched__done" data-day-done hidden></p>
+      <ol class="rows" data-rows aria-label="Classes"></ol>
+      <div class="sched__empty" data-empty hidden>
+        <p>Nothing matches on this day. Try another day or clear the filters.</p>
+        <button class="btn btn--outline-dark btn--sm" type="button" data-clear-filters>Clear filters</button>
+      </div>
+      <p class="sched__note" data-bind="weekend-note">Weekend classes run on set dates. Check the GymMaster app or ask at the front desk.</p>
+      <p class="sched__note"><span class="sample sample--dark">Sample</span> Spots, class sizes, waitlists and dates are sample data. The live page would read them from the club's booking system. <span class="legend" aria-hidden="true"><i class="seat seat--free"></i> free spot <i class="seat"></i> taken</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. NEXT UP: the next three classes, each with its own clip on top -->
+<section class="sec sec--black" id="today" aria-labelledby="today-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow label"><span class="label__no">(.03)</span> NEXT UP</p>
+        <h2 class="h2" id="today-title" data-split>Your coach is saving you <span class="nw">a <span class="t">spot.</span></span></h2>
+      </div>
+      <div class="sec__side"><button class="clipsbtn" type="button" data-pause="next" aria-pressed="false" aria-label="Pause clips of the next classes"><span class="pause__icon" aria-hidden="true"></span><span><span class="pause__txt">Pause</span> clips</span></button></div>
+    </div>
+    <div class="nextup" data-nextup>
+      <p class="nextup__loading">Loading the next classes…</p>
+    </div>
+    <p class="footnote"><span class="sample">Sample</span> Class sizes are placeholders until the club confirms them.</p>
+  </div>
+</section>
+
+<!-- 4. MARQUEE: the ten real class names -->
+<section class="marq" id="marquee" aria-labelledby="marq-title" data-marquee>
+  <h2 class="vh" id="marq-title">Every class on this week's timetable</h2>
+  <ul class="vh"><li>HYROX Conditioning</li><li>Boxercise Beginner</li><li>Stretching</li><li>Booty and Core</li><li>Injury Prevention &amp; Mobility</li><li>Booty</li><li>Off-Court Training</li><li>Boxercise Advanced</li><li>Mobility</li><li>Body Sculpt</li></ul>
+  <div class="marq__clip">
+  <div class="marq__view" data-drift="m" aria-hidden="true">
+    <div class="marq__track" data-marquee-track>
+      <ul class="marq__list" data-marquee-list>
+        <li>HYROX Conditioning</li>
+        <li>Boxercise Beginner</li>
+        <li>Stretching</li>
+        <li>Booty and Core</li>
+        <li>Injury Prevention &amp; Mobility</li>
+        <li>Booty</li>
+        <li>Off-Court Training</li>
+        <li>Boxercise Advanced</li>
+        <li>Mobility</li>
+        <li>Body Sculpt</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="marq__dock"><button class="marq__pause pause pause--dark" type="button" data-marquee-pause aria-pressed="false" aria-label="Pause the class names"><span class="pause__icon" aria-hidden="true"></span></button></div>
+</section>
+
+<!-- 5. NUMBERS -->
+<section class="sec sec--black nums" id="numbers" aria-labelledby="nums-title">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="label__no">(.04)</span> THE WEEK IN NUMBERS</p>
+    <h2 class="vh" id="nums-title">The week in numbers</h2>
+    <ul class="nums__list">
+      <li class="num" data-motion="num" style="--i:0"><div class="num__n"><span data-count data-bind="weekly-count">33</span></div><p class="num__cap">classes a week.</p></li>
+      <li class="num" data-motion="num" style="--i:1"><div class="num__n"><span data-count data-bind="class-count">10</span></div><p class="num__cap">different classes, from Boxercise to Stretching.</p></li>
+      <li class="num" data-motion="num" style="--i:2"><div class="num__n"><span data-count data-bind="coach-count">4</span></div><p class="num__cap">coaches teach all of them.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6. CLASSES -->
+<section class="sec sec--black sec--classes" id="classes" aria-labelledby="classes-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow label"><span class="label__no">(.05)</span> THE CLASSES</p>
+        <h2 class="h2" id="classes-title" data-split>What do you feel <span class="nw">like <span class="t">today?</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">Four kinds of class. Pick the one that fits your mood.</p></div>
+    </div>
+  </div>
+  <div class="chapters" data-chapters>
+    <article class="chap wrap" data-chapter="boxing" id="family-boxing">
+      <h3 class="chap__name" data-chars=".ln" data-drift="r" style="--fit:3.62"><span class="chap__no" aria-hidden="true">01<i>//</i>04</span><span class="ln">Boxing</span></h3>
+      <div class="chap__grid">
+        <figure class="chap__media" data-motion="lift" style="--focus:50% 30%">
+          <img class="media__poster" src="../../v1/assets/img/boxing-poster.webp" alt="A boxer working the pads with a coach" width="720" height="960" loading="lazy" decoding="async">
+          <video data-clip data-group="chap-boxing" muted loop playsinline preload="none" src="../../v1/assets/video/boxing.mp4" aria-hidden="true"></video>
+          <button class="pause" type="button" data-pause="chap-boxing" aria-pressed="false" aria-label="Pause the boxing video"><span class="pause__icon" aria-hidden="true"></span></button>
+        </figure>
+        <div class="chap__body" data-chap-body="boxing"></div>
+      </div>
+    </article>
+    <article class="chap wrap chap--flip" data-chapter="conditioning" id="family-conditioning">
+      <h3 class="chap__name" data-chars=".ln" data-drift="l" style="--fit:6.95"><span class="chap__no" aria-hidden="true">02<i>//</i>04</span><span class="ln">Conditioning</span></h3>
+      <div class="chap__grid">
+        <figure class="chap__media chap__media--wide" data-motion="lift" style="--focus:50% 50%">
+          <img class="media__poster" src="assets/img/card-conditioning-v17-poster.webp" alt="Members doing kettlebell deadlifts on the outdoor turf at Elite Fit" width="960" height="540" loading="lazy" decoding="async">
+          <video data-clip data-group="chap-conditioning" muted loop playsinline preload="none" src="assets/video/card-conditioning-v17.mp4" aria-hidden="true"></video>
+          <button class="pause" type="button" data-pause="chap-conditioning" aria-pressed="false" aria-label="Pause the conditioning video"><span class="pause__icon" aria-hidden="true"></span></button>
+        </figure>
+        <div class="chap__body" data-chap-body="conditioning"></div>
+      </div>
+    </article>
+    <article class="chap wrap" data-chapter="sculpt" id="family-sculpt">
+      <h3 class="chap__name" data-chars=".ln" data-drift="r" style="--fit:3.46"><span class="chap__no" aria-hidden="true">03<i>//</i>04</span><span class="ln">Sculpt</span></h3>
+      <div class="chap__grid">
+        <figure class="chap__media chap__media--wide" data-motion="lift" style="--focus:50% 50%">
+          <img class="media__poster" src="assets/img/card-sculpt-v110b-poster.webp" alt="Members doing core work on mats on the outdoor turf at Elite Fit" width="960" height="540" loading="lazy" decoding="async">
+          <video data-clip data-group="chap-sculpt" muted loop playsinline preload="none" src="assets/video/card-sculpt-v110b.mp4" aria-hidden="true"></video>
+          <button class="pause" type="button" data-pause="chap-sculpt" aria-pressed="false" aria-label="Pause the sculpt video"><span class="pause__icon" aria-hidden="true"></span></button>
+        </figure>
+        <div class="chap__body" data-chap-body="sculpt"></div>
+      </div>
+    </article>
+    <article class="chap wrap chap--flip" data-chapter="mobility" id="family-mobility">
+      <h3 class="chap__name chap__name--two" data-chars=".ln" data-drift="l" style="--fit:4.9"><span class="chap__no" aria-hidden="true">04<i>//</i>04</span><span class="ln">Mobility</span> <span class="ln">&amp; Stretch</span></h3>
+      <div class="chap__grid">
+        <figure class="chap__media" data-motion="lift" style="--focus:60% 30%">
+          <img class="media__poster" src="assets/img/chap-mobility-poster.webp" alt="Two people stretching on mats in a warm, wood-lined studio" width="620" height="960" loading="lazy" decoding="async">
+          <video data-clip data-group="chap-mobility" muted loop playsinline preload="none" src="assets/video/chap-mobility.mp4" aria-hidden="true"></video>
+          <button class="pause" type="button" data-pause="chap-mobility" aria-pressed="false" aria-label="Pause the mobility video"><span class="pause__icon" aria-hidden="true"></span></button>
+        </figure>
+        <div class="chap__body" data-chap-body="mobility"></div>
+      </div>
+    </article>
+  </div>
+  <div class="wrap">
+    <p class="footnote"><span class="sample">Sample</span> The four families, their levels and the lines on how each feels are our suggestion.</p>
+  </div>
+</section>
+
+<!-- 7. COACHES -->
+<section class="sec sec--black sec--coaches" id="coaches" aria-labelledby="coaches-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow label"><span class="label__no">(.06)</span> THE TEAM</p>
+        <h2 class="h2" id="coaches-title" data-split>Meet <span class="nw">your <span class="t">coaches.</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">Tap a coach to see when they're on this week.</p></div>
+    </div>
+    <div class="coaches" data-coaches></div>
+  </div>
+</section>
+
+<!-- 8. AFTER CLASS -->
+<section class="sec sec--white" id="after" aria-labelledby="after-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow eyebrow--dark label"><span class="label__no">(.07)</span> AFTER CLASS</p>
+        <h2 class="h2" id="after-title" data-split>Pull up <span class="nw">a <span class="t">chair.</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">Class done? Stay for a coffee, have lunch, open the laptop or cool down in Recharge. The restaurant's open to everyone.</p></div>
+    </div>
+
+    <ul class="words" aria-label="Train, recover, eat and work, together">
+      <li class="word">
+        <p class="word__w"><span class="wd" data-chars="whole" data-drift="r">Train.</span></p>
+        <figure class="word__ph" data-motion="lift"><img src="../../v1/assets/img/train-together.webp" alt="Two members talking on the gym floor" width="342" height="609" loading="lazy" decoding="async" style="--focus:50% 30%"><span class="tchip" aria-hidden="true">together</span></figure>
+        <p class="word__line">Perform and Elite passes include the gym floor and the outdoor area.</p>
+      </li>
+      <li class="word word--flip">
+        <p class="word__w"><span class="wd" data-chars="whole" data-drift="l">Recover.</span></p>
+        <figure class="word__ph" data-motion="lift"><img src="../../v1/assets/img/rec-ice.webp" alt="The ice baths at Recharge" width="900" height="1125" loading="lazy" decoding="async"><span class="tchip" aria-hidden="true">together</span></figure>
+        <p class="word__line">Recharge is included with Elite and the Duo Day Pass.</p>
+      </li>
+      <li class="word">
+        <p class="word__w"><span class="wd" data-chars="whole" data-drift="r">Eat.</span></p>
+        <figure class="word__ph" data-motion="lift"><img src="assets/img/eat-bowl.webp" alt="A fruit, coconut and granola bowl from the restaurant" width="640" height="640" loading="lazy" decoding="async"><span class="tchip" aria-hidden="true">together</span></figure>
+        <p class="word__line">Healthy food and good company, with coffee before or after class.</p>
+      </li>
+      <li class="word word--flip">
+        <p class="word__w"><span class="wd" data-chars="whole" data-drift="l">Work.</span></p>
+        <figure class="word__ph" data-motion="lift"><img src="../../v1/assets/img/hero-cafe.webp" alt="The café counter in warm evening light" width="1544" height="1029" loading="lazy" decoding="async" style="--focus:40% 50%"><span class="tchip" aria-hidden="true">together</span></figure>
+        <p class="word__line">Co-working is free in the café and restaurant with an Elite membership.</p>
+      </li>
+    </ul>
+
+    <div class="recharge" data-motion="mask">
+      <img class="recharge__img" src="../../v1/assets/img/rec-sauna.webp" alt="The wooden sauna at Recharge in amber light" width="900" height="1125" loading="lazy" decoding="async">
+      <div class="wcard">
+        <p class="eyebrow eyebrow--dark">RECHARGE</p>
+        <h3 class="h3">Recover together.</h3>
+        <p>Sauna, ice bath, jacuzzi, steam room and pool, open from 06:30.</p>
+        <p class="wcard__price">Recharge day pass <strong data-price="recharge_day">300K</strong></p>
+        <a class="link-t" href="https://elitefitbali.com/recharge/" target="_blank" rel="noopener"><span>Book a soak</span> <span aria-hidden="true">→</span></a>
+        <img class="wcard__mark" src="../../v1/assets/logo/elitefit-logogram-black.svg" width="48" height="28" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. OFFER: the one terracotta moment -->
+<section class="sec sec--terra offer" id="plus-one" aria-labelledby="offer-title">
+  <div class="wrap">
+    <h2 class="offer__h" id="offer-title" data-chars=".ol"><span class="ol ol--1" data-drift="il">Bring</span> <span class="ol ol--2" data-drift="ir">your</span> <span class="ol ol--3" data-drift="ir">+1.</span></h2>
+    <div class="offer__grid">
+      <p class="offer__big" data-motion="rise"><span class="offer__k" data-price="duo">225K</span> <span class="offer__each">each</span></p>
+      <div class="offer__copy">
+        <div class="offer__deal">Buy 1, get 1.</div>
+        <p class="offer__body">An Elite day pass for each of you: every class, the gym floor, pool, ice bath, sauna, café and co-working.</p>
+        <p class="offer__price"><span class="vh">Was </span><s data-price="duo-old">450K</s> <span class="offer__now">now <span data-price="duo">225K</span> each</span></p>
+      </div>
+      <div class="offer__act">
+        <button class="btn btn--white" type="button" data-duo-start data-testid="offer-book" aria-haspopup="dialog">Get a Duo Day Pass <span class="arr" aria-hidden="true">→</span></button>
+        <p class="offer__fine">Decide to join after? We'll credit your day pass toward your membership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. FIRST CLASS -->
+<section class="sec sec--white" id="first" aria-labelledby="first-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow eyebrow--dark label"><span class="label__no">(.08)</span> YOUR FIRST CLASS</p>
+        <h2 class="h2" id="first-title" data-split>New here? Here's <span class="nw">the <span class="t">plan.</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">You don't need to know the moves yet.</p></div>
+    </div>
+    <ol class="steps">
+      <li class="step" data-motion="rise" style="--i:0"><span class="step__n" aria-hidden="true">01<span class="step__of"><i>//</i>03</span></span><div><h3 class="h4">Come 10 minutes early</h3><p>Say hi at the front desk. We'll show you the lockers, the showers and where everything is.</p></div></li>
+      <li class="step" data-motion="rise" style="--i:1"><span class="step__n" aria-hidden="true">02<span class="step__of"><i>//</i>03</span></span><div><h3 class="h4">Tell your coach</h3><p>Let them know it's your first class so they can keep an eye out for you.</p></div></li>
+      <li class="step" data-motion="rise" style="--i:2"><span class="step__n" aria-hidden="true">03<span class="step__of"><i>//</i>03</span></span><div><h3 class="h4">Stay a while</h3><p>Nobody's rushing you out. Grab a coffee and tell us how it went.</p></div></li>
+    </ol>
+    <div class="first">
+      <div class="bring">
+        <h3 class="h3">What to bring</h3>
+        <ul class="ticks">
+          <li>Your own water bottle.</li>
+          <li>Clothes you can move in, and trainers.</li>
+          <li>Towels, showers and lockers are at the club.</li>
+        </ul>
+        <figure class="bring__photo" data-motion="lift">
+          <img src="assets/img/bring-training.webp" alt="A member on the cable machine with a coach on the gym floor" width="576" height="720" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <div class="faq">
+        <h3 class="h3">Good questions</h3>
+        <details>
+          <summary>Do I need a membership?</summary>
+          <div class="faq__a"><p>No. Book a class drop-in (<span data-price="class-1">300K</span>) or bring a friend on the Duo Day Pass (<span data-price="duo">225K</span> each). Members book with "I'm a member" in the booking, in the GymMaster app or at the front desk. You can also join through ClassPass.</p></div>
+        </details>
+        <details>
+          <summary>I'm a total beginner. Where do I start?</summary>
+          <div class="faq__a"><p>Start with Boxercise Beginner, Booty and Core or Off-Court Training. All three welcome beginners.</p></div>
+        </details>
+        <details>
+          <summary>How long is a class?</summary>
+          <div class="faq__a"><p>An hour, whichever class you pick.</p></div>
+        </details>
+        <details>
+          <summary>What if I can't make it?</summary>
+          <div class="faq__a"><p>Please cancel in advance so someone else can take your spot. If nobody has arrived 15 minutes after the start, the class is called off.</p></div>
+        </details>
+        <details>
+          <summary>Is there an age limit?</summary>
+          <div class="faq__a"><p>Boxercise is recommended from age 14.</p></div>
+        </details>
+        <details>
+          <summary>Are weekend classes every week?</summary>
+          <div class="faq__a"><p>Not every week. The weekend times in the schedule are the usual pattern, so ask us on WhatsApp which dates are on.</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. VISIT -->
+<section class="sec sec--black" id="visit" aria-labelledby="visit-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="eyebrow label"><span class="label__no">(.09)</span> VISIT US</p>
+        <h2 class="h2" id="visit-title" data-split>See it <span class="nw">for <span class="t">yourself.</span></span></h2>
+      </div>
+      <div class="sec__side"><p class="lead">Come for a class, or come for a coffee first.</p></div>
+    </div>
+    <div class="visit">
+      <figure class="visit__media" data-motion="mask">
+        <img class="media__poster" src="../../v1/assets/img/visit-entrance-poster.webp" alt="The Elite Fit entrance wall with the logo and palms" width="720" height="614" loading="lazy" decoding="async">
+        <video data-clip data-group="visit" muted loop playsinline preload="none" src="../../v1/assets/video/visit-entrance.mp4" aria-hidden="true"></video>
+        <button class="pause" type="button" data-pause="visit" aria-pressed="false" aria-label="Pause the entrance video"><span class="pause__icon" aria-hidden="true"></span></button>
+      </figure>
+      <div class="visit__copy">
+        <dl class="facts">
+          <div><dt>Address</dt><dd data-bind="address">Jalan Sempol No. 26, Pererenan, Bali</dd></div>
+          <div><dt>Gym and classes</dt><dd>06:00 to 22:00, every day</dd></div>
+          <div><dt>Recharge</dt><dd>From 06:30</dd></div>
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/6285720221101" target="_blank" rel="noopener" data-bind="wa-link">+62 857-2022-1101</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:info@elitefitbali.com">info@elitefitbali.com</a></dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn--outline" href="https://www.google.com/maps/search/?api=1&amp;query=Elite+Fit+Bali+Jalan+Sempol+26+Pererenan" target="_blank" rel="noopener">Get directions</a>
+          <a class="btn btn--outline" href="https://wa.me/6285720221101" target="_blank" rel="noopener" data-bind="wa-btn">WhatsApp us</a>
+        </div>
+      </div>
+    </div>
+    <figure class="quote" data-rating-mark>
+      <p class="quote__score"><span class="quote__n" data-bind="rating-value">4.7</span><a class="quote__of" href="https://maps.app.goo.gl/4qwxZzF3nnM1jeh36" target="_blank" rel="noopener" title="Google rating, read 28 Oct 2026">from <span data-bind="rating-count">497</span> Google reviews, 28 Oct 2026</a></p>
+      <blockquote><p>“A welcoming, laid-back space with genuinely friendly people and a restaurant worth staying for…”</p></blockquote>
+      <figcaption><span class="quote__stars" role="img" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></span> Skye D.S., Google review</figcaption>
+    </figure>
+  </div>
+</section>
+</main>
+
+<footer class="ftr" id="footer">
+  <div class="wrap">
+    <img class="ftr__logo" src="../../v1/assets/logo/elitefit-logotype-white.svg" width="301" height="32" alt="Elite Fit">
+    <div class="ftr__cols">
+      <p>Elite Fit Bali<br>A boutique health club<br>Jalan Sempol No. 26, Pererenan</p>
+      <ul>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#first">Your first class</a></li>
+      </ul>
+      <ul>
+        <li><a href="https://www.instagram.com/elitefitbali/" target="_blank" rel="noopener">Instagram @elitefitbali</a></li>
+        <li><a href="https://elitefitbali.com/" target="_blank" rel="noopener">elitefitbali.com</a></li>
+        <li><a href="https://elitefitbali.com/terms-conditions/" target="_blank" rel="noopener">Terms and conditions</a></li>
+        <li><a href="../../">All design concepts</a></li>
+      </ul>
+    </div>
+    <p class="ftr__note">Design concept, Loud (folder s4-kinetic), 29 October 2026. Bookings on this page are a demo: no payment is taken and nothing you type leaves your browser. Items marked Sample are placeholders. The boxing and mobility clips are free stock footage (Pexels) and say so; every other clip is the club's own footage.</p>
+  </div>
+</footer>
+</div>
+
+<!-- Sticky bar, phones and desktop (Raoul 28 Oct): coach faces, the dictated quote, the Google line, one pulsing Book -->
+<div class="buybar" data-buybar aria-hidden="true">
+  <div class="buybar__in">
+    <div class="buybar__txt">
+      <p class="buybar__quote">One of the top premium gyms in Bali! Must see!</p>
+      <p class="buybar__rate" data-testid="dock-rating"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews" data-bind="rating-aria"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num" data-bind="rating-value">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-bar"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-bar)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src"><span data-bind="rating-count">497</span> Google reviews</span></span></p>
+    </div>
+    <span class="buybar__faces" aria-hidden="true"><img src="../../engine-v2/img/r/avatar-rey-48.webp" srcset="../../engine-v2/img/r/avatar-rey-48.webp 48w, ../../engine-v2/img/r/avatar-rey-64.webp 64w, ../../engine-v2/img/r/avatar-rey-96.webp 96w, ../../engine-v2/img/r/avatar-rey-128.webp 128w" sizes="34px" alt="" width="34" height="34"><img src="../../engine-v2/img/r/avatar-ain-48.webp" srcset="../../engine-v2/img/r/avatar-ain-48.webp 48w, ../../engine-v2/img/r/avatar-ain-64.webp 64w, ../../engine-v2/img/r/avatar-ain-96.webp 96w, ../../engine-v2/img/r/avatar-ain-128.webp 128w" sizes="34px" alt="" width="34" height="34"><img src="../../engine-v2/img/r/avatar-icha-48.webp" srcset="../../engine-v2/img/r/avatar-icha-48.webp 48w, ../../engine-v2/img/r/avatar-icha-64.webp 64w, ../../engine-v2/img/r/avatar-icha-96.webp 96w, ../../engine-v2/img/r/avatar-icha-128.webp 128w" sizes="34px" alt="" width="34" height="34"><img src="../../engine-v2/img/r/avatar-tinos-48.webp" srcset="../../engine-v2/img/r/avatar-tinos-48.webp 48w, ../../engine-v2/img/r/avatar-tinos-64.webp 64w, ../../engine-v2/img/r/avatar-tinos-96.webp 96w, ../../engine-v2/img/r/avatar-tinos-128.webp 128w" sizes="34px" alt="" width="34" height="34"></span>
+    <button class="btn btn--primary buybar__btn" type="button" data-book-next data-testid="buybar-book" tabindex="-1" aria-haspopup="dialog">Book a class <span class="arr" aria-hidden="true">→</span></button>
+  </div>
+</div>
+
+<!-- Sheet: finder, class flow, coach and filters share one dialog (engine: ../../engine-v2/booking.js, store key ef-gf-v3-s4) -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet__scrim" data-sheet-close></div>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1" data-testid="sheet">
+    <div class="sheet__bar">
+      <span class="sheet__handle" aria-hidden="true"></span>
+      <button class="iconbtn" type="button" data-sheet-back data-testid="sheet-back" aria-label="Back"><span aria-hidden="true">←</span></button>
+      <div class="sheet__mid"><p class="sheet__num" aria-hidden="true" data-sheet-num hidden></p><p class="sheet__step" data-sheet-step aria-live="polite"></p></div>
+      <button class="iconbtn" type="button" data-sheet-close data-testid="sheet-close" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="sheet__progress" data-sheet-progress aria-hidden="true" hidden><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="sheet__body" data-sheet-body></div>
+    <div class="sheet__foot" data-sheet-foot></div>
+  </div>
+</div>
+
+<p class="toast" data-toast role="status" aria-live="polite" hidden></p>
+
+<script src="../../engine-v2/api.js" data-store-key="ef-gf-v3-s4" data-overlay="data/v2.json ../variants/s4-kinetic/assets/data/engine-overlay-v18.json" defer></script>
+<script src="assets/js/avatars.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/media.js" defer></script>
+<script src="../../engine-v2/booking.js" defer></script>
+<script src="assets/js/page.js" defer></script>
+</body>
+</html>

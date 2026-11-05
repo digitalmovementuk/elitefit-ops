@@ -1,0 +1,126 @@
+/* Design tokens · Version: v3.0 — 2026-10-02 · owner: design-system lane (D1, Fable 5.1)
+   Changelog: v3.0-provisional (orchestrator, 10:13) set the NAMES. v3.0 (D1, 11:40) replaces every value with the measured Performance Lab system
+   (research/lab/system/tokens/TOKENS-RAW.md) translated for Elite Fit: AA fixes, warm text white, open fonts. Names are the contract (CONTRACT §3):
+   never renamed, only added (new names carry a role prefix). Lanes use only var(--token); a lane-local token lives in the lane's own file.
+   Where a value deviates from the measurement, the reason is one line in DECISIONS.md and in DESIGN-SYSTEM-PERFLAB.md §"adapted". */
+
+/* ---------- fonts: self-hosted, SIL OFL 1.1, Latin subset (assets/fonts/LICENSES.md). Display + body = Hanken Grotesk (variable 100-900, closest
+   open twin of the reference's rigid grotesque); UI mono = Fragment Mono 400 (closest open twin of the reference's Swiss mono, 0.618 em advance).
+   Fallback faces are metric-matched local fonts so the swap moves nothing (size-adjust from measured widths, overrides from the real vertical metrics). */
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../fonts/hanken-grotesk-latin-wght.woff2") format("woff2-variations"), url("../fonts/hanken-grotesk-latin-wght.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Hanken Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 100.41%; ascent-override: 99.6%; descent-override: 30.2%; line-gap-override: 0%; }
+@font-face { font-family: "Fragment Mono"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/fragment-mono-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Fragment Fallback"; src: local("Menlo"), local("Courier New"); size-adjust: 102.65%; ascent-override: 92.5%; descent-override: 24.4%; line-gap-override: 0%; }
+
+:root {
+  /* ---------- colour: the dark world (page default). Reference: #171717 base, #292929 secondary surface, #f2f2f2 text, #bbbbbb secondary,
+     1 px lines #4e4e4e, one accent #ff350d. Elite Fit: text white warmed to the hero's ink (#f3f1ec), faint grey lifted to AA, taupe brand. */
+  --bg: #171717;                 /* page and section base (measured) */
+  --bg-raised: #292929;          /* cards, bands, the secondary dark surface (measured: inputs, idle chips, close tile) */
+  --bg-sunken: #202020;          /* media placeholders, wells: half a step between base and raised (added shade, no reference value) */
+  --bg-inverse: #ffffff;         /* the light world's page (measured: the reference's biggest surface) */
+  --bg-inverse-raised: #f2f2f2;  /* NEW · light world tiles and secondary buttons (measured) */
+  --fg: #f3f1ec;                 /* text on dark: warm off-white = the hero's ink; 15.9:1 on #171717 (reference #f2f2f2, 16.0:1) */
+  --fg-muted: #bbbbbb;           /* secondary text on dark, 9.3:1 (measured) */
+  --fg-faint: #979797;           /* tertiary on dark, 6.1:1 AA (reference used #727272 at 3.7:1: FAILS, lifted) */
+  --fg-inverse: #171717;         /* text on light surfaces and on the accent */
+  --line: #4e4e4e;               /* 1 px hairline on dark (measured: partner chips) */
+  --line-strong: #727272;        /* 1 px line that must read as a control edge: 3.7:1 non-text on #171717 (reference: white at 28 %) */
+  --line-faint: rgba(243, 241, 236, .15); /* NEW · the quiet rule inside a card (measured: #f2f2f2 at 15 %) */
+  --brand: #a48f82;              /* Elite Fit taupe, traced from the club's own mark (hero lane); 5.8:1 on #171717 */
+  --accent: #ff350d;             /* the one accent (measured): primary buttons, live/now, the selected state */
+  --accent-ink: #171717;         /* text on the accent: 4.9:1 AA (reference put #f2f2f2 on it at 3.25:1: FAILS) */
+  --focus: #f3f1ec;              /* focus ring on dark (the reference ships none); the light world flips it to ink */
+  --ok: #7fbf8f;                 /* open / on time (no reference value; calm green, 8.3:1) */
+  --live: #ff350d;               /* now / live / countdown = the accent, used only while something is happening */
+  --wa: #25d366;                 /* WhatsApp's own green (brand convention, not the reference) */
+  --overlay: rgba(23, 23, 23, .6); /* sheet backdrop on dark pages (reference: 20 % over white; 20 % is invisible on #171717) */
+  --overlay-blur: 8px;           /* NEW · backdrop blur behind sheets (measured) */
+  --scrim-top: linear-gradient(180deg, rgba(26,26,26,.8) 0%, rgba(26,26,26,0) 25%, rgba(26,26,26,0) 60%, rgba(26,26,26,.7) 75%); /* NEW · the phone hero scrim shape (measured) */
+
+  /* ---------- type families */
+  --font-display: "Hanken Grotesk", "Hanken Fallback", Arial, Helvetica, sans-serif;
+  --font-body:    "Hanken Grotesk", "Hanken Fallback", Arial, Helvetica, sans-serif;
+  --font-mono:    "Fragment Mono", "Fragment Fallback", Menlo, "Courier New", monospace;
+
+  /* ---------- type scale, phone (reference: fixed rem on a 16 px root below 768 px). Body never below 16 px, mono never below 12 px. */
+  --fs-micro: 12px;              /* smallest mono: chips, legal, the HUD (reference 12) */
+  --fs-label: 13px;              /* mono UI: buttons, tabs, eyebrows, readout labels (reference 12 on buttons, 14 in the nav: one size between) */
+  --fs-small: 14px;              /* body-small (reference 14) */
+  --fs-body: 16px;               /* body (reference has no 16 on phones; house floor) */
+  --fs-lead: 20px;               /* lead / body-large (reference 24: trimmed so a two-sentence lead stays inside the first viewport) */
+  --fs-h3: 24px;                 /* card and row titles (reference 28: trimmed for the live class card in the first viewport) */
+  --fs-h2: 36px;                 /* section titles (reference 36) */
+  --fs-h1: 52px;                 /* the oversized headline family size (reference 52; the hero sets its own vw size on top) */
+  --fs-giant: 120px;             /* NEW · stat numbers and service-row titles (reference 120 on phones, 180 for stats) */
+  --lh-tight: .8;                /* giant display (measured) */
+  --lh-snug: 1;                  /* h2, h3, lead (measured) */
+  --lh-body: 1.4;                /* body (measured 1.3-1.4) */
+  --tr-display: -.04em;          /* every display size (measured) */
+  --tr-body: -.01em;             /* body (measured) */
+  --tr-label: -.02em;            /* mono UI, uppercase (measured; the reference never letterspaces wide) */
+  --fw-display: 500;             /* medium, never bold (measured: only 400 and 500 exist on the page) */
+  --fw-body: 400;
+  --fw-strong: 500;              /* emphasis = medium (measured) */
+  --fw-mono: 400;                /* the mono has one weight */
+
+  /* ---------- space: quarter-rem steps (measured). Section rhythm 40/68 phone, 48/108 desktop on the reference. */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 144px;
+  --gutter: 16px;                /* phone body gutter (measured 16; header and footer 28 on the reference) */
+  --maxw: 1360px;                /* the reference has no max width (scales with vw); ours stops at 1360 so 1920 px screens keep a measure */
+  --header-h: 56px;              /* measured */
+  --buybar-h: 64px;              /* 52 px button + 6 px above and below */
+  --section-y: 48px;             /* reference 40 top / 68 bottom: one symmetric value between */
+  --control-h: 52px;             /* NEW · buttons, inputs, icon tiles (measured 3.25rem on phones, 4.25rem = 51 px at 1440) */
+  --control-h-sm: 36px;          /* NEW · chips and small toggles (measured 2.25rem) */
+  --tap: 44px;                   /* NEW · minimum tap target */
+
+  /* ---------- shape: rectangles only (measured: zero radius on 3,470 element records, no shadow, 1 px lines) */
+  --r-0: 0; --r-1: 0; --r-2: 0; --r-3: 0;
+  --r-pill: 999px;               /* kept ONLY for things that must read as round: state dots, the WhatsApp disc, switch knobs, radio marks, spinner */
+  --bw: 1px;
+
+  /* ---------- motion (measured easings; UI feedback <= 600 ms, atmospheric <= 900 ms) */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);      /* the reference's ease-out-expo */
+  --ease-inout: cubic-bezier(.76, 0, .24, 1);   /* the reference's in-out-quart */
+  --ease-press: cubic-bezier(.4, 0, .2, 1);     /* the reference's default (colour, press) */
+  --dur-press: 150ms;            /* colour and press feedback (measured .15 s) */
+  --dur-ui: 450ms;               /* tiles and labels moving (measured .45 s) */
+  --dur-reveal: 600ms;           /* opacity reveals (measured .5-.7 s) */
+  --dur-slow: 900ms;             /* the header condensing, media settling (measured .6 s + headroom) */
+
+  /* ---------- stacking */
+  --z-base: 1; --z-sticky: 20; --z-header: 40; --z-buybar: 50; --z-wa: 55; --z-overlay: 80;
+}
+
+/* ---------- desktop: the reference scales every size with the viewport (1rem = vw/120 from 768 px). Elite Fit keeps that curve for display sizes
+   and floors the reading sizes (body 16, mono 12) where the reference drops to 12 and 10.5 px at 1440. */
+@media (min-width: 760px) {
+  :root {
+    --gutter: 32px; --header-h: 64px; --section-y: 72px;
+    --fs-micro: clamp(12px, .833vw, 14px);        /* reference 0.75rem = 0.625vw: 9 px at 1440, floored */
+    --fs-label: clamp(12px, .9vw, 15px);          /* reference 0.875rem = 0.729vw: 10.5 px at 1440, floored */
+    --fs-small: clamp(14px, .972vw, 18px);
+    --fs-body: clamp(16px, 1.111vw, 20px);
+    --fs-lead: clamp(20px, 1.667vw, 32px);        /* reference 2rem = 1.667vw: 24 px at 1440 */
+    --fs-h3: clamp(24px, 2.708vw, 52px);          /* reference 3.25rem: 39 px at 1440 */
+    --fs-h2: clamp(36px, 4.167vw, 100px);         /* reference 5rem: 60 px at 1440 */
+    --fs-h1: clamp(72px, 9.375vw, 225px);         /* reference 11.25rem: 135 px at 1440, 180 at 1920 */
+    --fs-giant: clamp(72px, 9.375vw, 225px);
+  }
+}
+@media (min-width: 1200px) { :root { --gutter: 48px; --section-y: 96px; } }
+
+/* ---------- the light world: the reference flips whole sections hard between #171717 and #ffffff. A section or sheet opts in with .theme-light
+   and every component keeps working. Greys are the AA versions (reference used #bbbbbb on white at 1.9:1). */
+.theme-light {
+  --bg: #ffffff; --bg-raised: #f2f2f2; --bg-sunken: #f2f2f2; --bg-inverse: #171717; --bg-inverse-raised: #292929;
+  --fg: #171717; --fg-muted: #5c5c5c; --fg-faint: #6a6a6a; --fg-inverse: #f3f1ec;
+  --line: #e0e0e0; --line-strong: #171717; --line-faint: rgba(23, 23, 23, .12);
+  --focus: #171717; --overlay: rgba(23, 23, 23, .2);
+  background: var(--bg); color: var(--fg); color-scheme: light;
+}

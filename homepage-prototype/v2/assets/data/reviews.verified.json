@@ -1,0 +1,51 @@
+{
+ "version": "v3.0 — 2026-10-02",
+ "_comment": "Verbatim quotes for #reviews in display order: only reviews FACTS section 14 marks ELIGIBLE (5 stars, Google-labelled on the club's own page, full text matched 2026-10-02; _build/facts/reviews-verification.json). Left out on purpose: Marianne (F-REV-05) and everything FACTS does not mark eligible. Eligible but held back (the section shows at most 5): F-REV-08, F-REV-09, F-REV-10, F-REV-13. Rating, count and the Google link come from reviews.json. reviews.js shows a quote only if stars === 5, verified !== false, origin === 'google' and, where reviews.json has the same author, that text (minus a trailing ellipsis) starts ours. Not re-read on Google itself.",
+ "quotes": [
+  {
+   "fact": "F-REV-07",
+   "author": "Tom J.",
+   "stars": 5,
+   "origin": "google",
+   "verified": true,
+   "text": "Top-level equipment, strong classes, and real recovery facilities but what stands out most is the atmosphere. People train seriously, then genuinely socialise afterward.",
+   "club_page": "https://elitefitbali.com/promo-duo/"
+  },
+  {
+   "fact": "F-REV-04",
+   "author": "Åsmund Tveitevoll",
+   "stars": 5,
+   "origin": "google",
+   "verified": true,
+   "text": "Fantastic equipment, great aircondition and high level of service. A real gem in Bali: lots of Arsenal equipment, solid platforms and lots of space!",
+   "club_page": "https://elitefitbali.com/perform/"
+  },
+  {
+   "fact": "F-REV-12",
+   "author": "Skye D.S.",
+   "stars": 5,
+   "origin": "google",
+   "verified": true,
+   "text": "A welcoming, laid-back space with genuinely friendly people and a restaurant worth staying for. It feels less like a gym and more like a community.",
+   "club_page": "https://elitefitbali.com/promo-duo/"
+  },
+  {
+   "fact": "F-REV-11",
+   "author": "Joy F.",
+   "stars": 5,
+   "origin": "google",
+   "verified": true,
+   "text": "Spent a full day trying every facility; gym, pool, recovery, and the restaurant. The macro-friendly menu made post-workout meals easy. Will definitely be back.",
+   "club_page": "https://elitefitbali.com/promo-duo/"
+  },
+  {
+   "fact": "F-REV-06",
+   "author": "asyraf140796",
+   "stars": 5,
+   "origin": "google",
+   "verified": true,
+   "text": "Awesome gym. Amazing natural lighting. Good equipment. Friendly staff !",
+   "club_page": "https://elitefitbali.com/perform/"
+  }
+ ]
+}

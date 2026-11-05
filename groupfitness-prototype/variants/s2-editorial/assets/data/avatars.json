@@ -1,0 +1,9 @@
+{
+ "_note": "Glossy (s2) overlay, RULINGS #53/#53a: the engine sheet's coach avatars come from engine-v2/img/r head-and-shoulders crops, never the shared v1 avatar files. Paths are relative to this file.",
+ "srcset": {
+  "avatar-rey.webp": "../../../../engine-v2/img/r/avatar-rey-48.webp 48w, ../../../../engine-v2/img/r/avatar-rey-64.webp 64w, ../../../../engine-v2/img/r/avatar-rey-96.webp 96w, ../../../../engine-v2/img/r/avatar-rey-128.webp 128w",
+  "avatar-tinos.webp": "../../../../engine-v2/img/r/avatar-tinos-48.webp 48w, ../../../../engine-v2/img/r/avatar-tinos-64.webp 64w, ../../../../engine-v2/img/r/avatar-tinos-96.webp 96w, ../../../../engine-v2/img/r/avatar-tinos-128.webp 128w",
+  "avatar-ain.webp": "../../../../engine-v2/img/r/avatar-ain-48.webp 48w, ../../../../engine-v2/img/r/avatar-ain-64.webp 64w, ../../../../engine-v2/img/r/avatar-ain-96.webp 96w, ../../../../engine-v2/img/r/avatar-ain-128.webp 128w",
+  "avatar-icha.webp": "../../../../engine-v2/img/r/avatar-icha-48.webp 48w, ../../../../engine-v2/img/r/avatar-icha-64.webp 64w, ../../../../engine-v2/img/r/avatar-icha-96.webp 96w, ../../../../engine-v2/img/r/avatar-icha-128.webp 128w"
+ }
+}

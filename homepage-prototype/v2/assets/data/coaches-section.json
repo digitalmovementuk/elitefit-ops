@@ -1,0 +1,14 @@
+{
+  "version": "v3.0",
+  "updated": "2026-10-02",
+  "owner": "coaches lane",
+  "_note": "Switches of the Coaches section only. Names come from coaches.json, classes and times from the timetable (schedule.club.json); nothing about a coach is typed here except which verified extras may show. portraits = coach-<id>.webp files that exist in assets/img (id = lowercase letters of the display name; anyone else gets a monogram). roleLines = coaches whose club role line (coaches.json 'role', verbatim) may be shown: FACTS lists Rey's line in 'What the page may say' (F-COA-02); remove \"rey\" to hide it (the line carries the words 'Weight loss', an outcome word under the voice guard, which is why the training lane left it out). facts = data-fact ids set on each rendered row for the ledger. A coach without classes in the timetable is never shown (Putu: F-COA-07).",
+  "portraits": ["rey", "ain", "icha", "tinos"],
+  "roleLines": [],
+  "facts": {
+    "rey": "F-COA-02",
+    "ain": "F-COA-03",
+    "icha": "F-COA-04",
+    "tinos": "F-COA-05 F-COA-06"
+  }
+}

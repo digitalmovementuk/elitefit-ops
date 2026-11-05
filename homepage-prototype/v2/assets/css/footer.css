@@ -1,0 +1,105 @@
+/* footer.css · Version: v3.0 — 2026-10-02 · owner: footer lane
+   Changelog: v3.0 created (Phase 2). The page footer: dark world, 1 px hairlines, mono small-caps labels, one column on phones, the big place name as the last thing on the page.
+   Own classes (.ftr*), only var(--token), buttons and icon tiles come from components.css (.btn .btn--ghost .btn--icon .btn--block).
+   Local constants (--ftr-*): the bottom clearance (WhatsApp button 56 px + 2 x 16 px; the buy bar, 64 px, hides itself while the footer is on screen but this keeps the last line clear anyway),
+   the reserved heights of the three blocks that are filled from data (so nothing moves when footer.js fills them), the cropped place name's size (container query units, so it fills the column at any width).
+   Motion: light colour/transform transitions of its own on press and hover; reveals come from the motion lane through the data-reveal hooks in the partial. */
+.ftr {
+  --ftr-clear: 88px;
+  --ftr-row: var(--tap);                    /* section link rows: the 44 px floor */
+  --ftr-addr-h: 2.4em;                      /* the address is one or two lines at lead size */
+  --ftr-hours-h: calc(28px + 1px + 2 * (13px + 1.2 * var(--fs-small)) + 8px + 1.2 * var(--fs-label));   /* state line + two rows + the note as footer.js fills them, from the same tokens (112.2 px at 390) */
+  --ftr-wa-h: var(--control-h);
+  position: relative; background: var(--bg); color: var(--fg);
+  border-top: var(--bw) solid var(--line-strong);
+  padding-top: var(--section-y);
+  padding-bottom: calc(var(--ftr-clear) + env(safe-area-inset-bottom));
+}
+.ftr-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ftr__grid { display: grid; gap: var(--s-6); }
+
+/* labels: mono small caps */
+.ftr__k { margin: 0 0 var(--s-3); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-faint); }
+
+/* identity */
+.ftr__id { display: grid; gap: var(--s-4); align-content: start; }
+.ftr__logo { width: 60px; height: auto; }
+.ftr__tag { max-width: 30ch; font-size: var(--fs-lead); line-height: var(--lh-snug); letter-spacing: var(--tr-display); color: var(--fg-muted); }
+
+/* section links: hairline rows */
+.ftr__links { border-top: var(--bw) solid var(--line-strong); }
+.ftr__links li { border-bottom: var(--bw) solid var(--line); }
+.ftr__link { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: var(--ftr-row); padding-block: var(--s-2);
+  font: var(--fw-strong) var(--fs-lead)/var(--lh-snug) var(--font-display); letter-spacing: var(--tr-display); color: var(--fg); touch-action: manipulation; }
+.ftr__arr { flex: none; color: var(--fg-faint); }
+.ftr__link:active { background: var(--bg-raised); box-shadow: 0 0 0 var(--s-3) var(--bg-raised); }
+
+/* visit: address, open state, hours */
+.ftr__addr { display: flex; width: fit-content; align-items: flex-start; gap: var(--s-2); min-height: var(--ftr-addr-h); max-width: 100%;
+  font: var(--fw-strong) var(--fs-lead)/1.2 var(--font-body); letter-spacing: var(--tr-display); color: var(--fg);
+  text-decoration: underline; text-decoration-thickness: var(--bw); text-underline-offset: .2em; text-decoration-color: var(--line-strong); }
+.ftr__ext { flex: none; margin-top: .3em; color: var(--fg-muted); }
+.ftr__hours { min-height: var(--ftr-hours-h); margin-top: var(--s-4); }
+.ftr__state { display: flex; align-items: center; gap: var(--s-2); min-height: 20px; margin: 0 0 var(--s-2); font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); }
+.ftr__dot { flex: none; width: 8px; height: 8px; border-radius: var(--r-pill); background: var(--fg-faint); }
+.ftr__state[data-state="open"] .ftr__dot { background: var(--ok); }
+.ftr__state-v { color: var(--fg-muted); }
+.ftr__dl { margin: 0; border-top: var(--bw) solid var(--line); }
+.ftr__dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); padding-block: 6px; border-bottom: var(--bw) solid var(--line); }
+.ftr__dl dt { font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.ftr__dl dd { margin: 0; font: var(--fw-mono) var(--fs-small)/1.2 var(--font-mono); font-variant-numeric: tabular-nums; color: var(--fg); text-align: right; }
+.ftr__note { margin: 0; padding-top: var(--s-2); font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-faint); }
+
+/* contact: WhatsApp, profiles, terms */
+.ftr__contact { display: grid; gap: var(--s-6); align-content: start; }
+.ftr__wa { min-height: var(--ftr-wa-h); gap: var(--s-3); }
+.ftr .ftr__wa-ic { width: 20px; height: 20px; color: var(--wa); }
+.ftr__soc-list { display: flex; gap: var(--s-2); }
+.ftr__soc-list .btn svg { width: 22px; height: 22px; }
+.ftr__terms { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap); justify-self: start;
+  font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted);
+  text-decoration: underline; text-decoration-thickness: var(--bw); text-underline-offset: .22em; text-decoration-color: var(--line-strong); }
+.ftr__terms .ftr__ext { margin-top: 0; }
+
+/* data not here yet (before footer.js has filled it): the blocks keep their final height, and stay out of the way of focus and screen readers.
+   No script at all: they are not shown. */
+.ftr:not([data-ready]) :is(.ftr__addr, .ftr__hours, .ftr__wa) { visibility: hidden; }
+.no-js .ftr :is(.ftr__addr, .ftr__hours, .ftr__wa) { display: none; }
+.ftr [data-ftr-addr][hidden], .ftr [data-ftr-wa][hidden], .ftr [data-ftr-hours][hidden] { display: none; }
+
+/* back to top: a full hairline row above the place name */
+.ftr__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: var(--control-h); margin-top: var(--s-6);
+  border-top: var(--bw) solid var(--line-strong); border-bottom: var(--bw) solid var(--line);
+  font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); touch-action: manipulation; }
+.ftr__top .ftr__arr { color: var(--fg); }
+.ftr__top:active { background: var(--bg-raised); box-shadow: 0 0 0 var(--s-3) var(--bg-raised); }
+
+/* the place name: the width of the column, set by container query units; two lines on phones, one line from 760 px. Caps only, nothing clipped. */
+.ftr__mark { container-type: inline-size; margin-top: var(--s-6); white-space: nowrap; user-select: none; -webkit-user-select: none; }
+.ftr__mark-l { display: block; margin-left: -.054em; font: var(--fw-display) 26.5cqw/.8 var(--font-display); letter-spacing: var(--tr-display); text-transform: uppercase; white-space: nowrap; color: var(--fg); }
+.ftr__base { margin-top: var(--s-5); font: var(--fw-mono) var(--fs-micro)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-faint); }
+
+/* hover only where a pointer exists */
+@media (hover: hover) {
+  .ftr__link:hover { background: var(--bg-raised); box-shadow: 0 0 0 var(--s-3) var(--bg-raised); }
+  .ftr__link:hover .ftr__arr { transform: translateX(3px); color: var(--fg); }
+  .ftr__top:hover .ftr__arr { transform: translateY(-3px); }
+  .ftr__addr:hover, .ftr__terms:hover { text-decoration-color: var(--fg); }
+  .ftr__top:hover { background: var(--bg-raised); box-shadow: 0 0 0 var(--s-3) var(--bg-raised); }
+}
+.motion-ok .ftr__link, .motion-ok .ftr__top { transition: background-color var(--dur-press) var(--ease-press), box-shadow var(--dur-press) var(--ease-press); }
+.motion-ok .ftr__arr { transition: transform var(--dur-ui) var(--ease-out), color var(--dur-press) var(--ease-press); }
+
+/* tablet: two columns */
+@media (min-width: 760px) {
+  .ftr__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-8) var(--s-7); }
+  .ftr__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: var(--s-5); }
+  .ftr__link { font-size: var(--fs-body); }
+  .ftr__mark-l { display: inline; margin-left: 0; font-size: 17.2cqw; }
+  .ftr__mark-l:first-child { margin-left: -.054em; }
+  .ftr__mark-l + .ftr__mark-l { margin-left: .22em; }
+}
+/* desktop: four columns */
+@media (min-width: 1200px) {
+  .ftr__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s-7); }
+}

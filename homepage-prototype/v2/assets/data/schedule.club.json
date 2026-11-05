@@ -1,0 +1,65 @@
+{
+  "_comment": "REAL timetable captured 2026-10-01 from https://elitefitbali.com/class-schedule/ (sourceUrl; desktop grid Mon-Sun, cross-checked against the mobile carousel on the same page). Real: weekday, start time, class name, coach, one-hour length (end = start + 60; every class page says \"1 hour training\"). Row _source = the class page that names the coach. NOT real: booking (the page never books; bookable only means bookable in the GymMaster app) and seats: the club publishes no capacity or spots left, so both are null; the mock adapter in api.js still fills them with deterministic INVENTED values and flags them in mockFields (SHOW_SPOTS = false in schedule.js hides them). trainer = the club's own body-copy spelling (Ain, Tinos); trainerPublished = the exact timetable string (AIN, TINOS); schedule.js maps Tinos to Martijn (BRAND-NOTES 7). Sat and Sun rows are the standing pattern: the club says weekend classes run on set dates and the GymMaster app has the current week. dow 1=Mon ... 7=Sun. zone: the club pages name no room; workout is inherited from the mock. Extra row keys (trainerPublished, _source, _note) are ignored by api.js. Class descriptions and the one class page without a slot: _build/v2.1/media/sourcing/raw-schedule/class-catalogue.json.",
+  "_mock_fields": ["spotsLeft", "capacity"],
+  "_real_fields": ["title", "start", "end", "trainer", "dow"],
+  "_not_published_by_club": ["spotsLeft", "capacity", "room or zone", "level as a structured field"],
+  "version": "1.1",
+  "updated": "2026-10-01",
+  "source": "club-website-timetable",
+  "sourceUrl": "https://elitefitbali.com/class-schedule/",
+  "sourcePageModified": "2026-05-21T10:00:24+00:00",
+  "capturedAt": "2026-10-01",
+  "tz": "Asia/Makassar",
+  "template": [
+    { "dow": 1, "classes": [
+      {"id": "mon-0800", "start": "08:00", "end": "09:00", "title": "HYROX Conditioning", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/hyrox-conditioning/"},
+      {"id": "mon-0900", "start": "09:00", "end": "10:00", "title": "Boxercise Beginner", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-beginner/"},
+      {"id": "mon-1000", "start": "10:00", "end": "11:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching/"},
+      {"id": "mon-1100", "start": "11:00", "end": "12:00", "title": "Booty and Core", "trainer": "Icha", "trainerPublished": "Icha", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty-and-core/"},
+      {"id": "mon-1300", "start": "13:00", "end": "14:00", "title": "Mobility", "trainer": "Tinos", "trainerPublished": "TINOS", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-3/"},
+      {"id": "mon-1700", "start": "17:00", "end": "18:00", "title": "Booty", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty/"},
+      {"id": "mon-1800", "start": "18:00", "end": "19:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching-2/"}
+    ] },
+    { "dow": 2, "classes": [
+      {"id": "tue-0700", "start": "07:00", "end": "08:00", "title": "Mobility", "trainer": "Tinos", "trainerPublished": "TINOS", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-3/"},
+      {"id": "tue-0800", "start": "08:00", "end": "09:00", "title": "HYROX Conditioning", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/hyrox-conditioning/"},
+      {"id": "tue-1000", "start": "10:00", "end": "11:00", "title": "Booty", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty/"},
+      {"id": "tue-1200", "start": "12:00", "end": "13:00", "title": "Off-Court Training", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/off-court-training/"},
+      {"id": "tue-1500", "start": "15:00", "end": "16:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching/"},
+      {"id": "tue-1630", "start": "16:30", "end": "17:30", "title": "Boxercise Advanced", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-advanced/"},
+      {"id": "tue-1800", "start": "18:00", "end": "19:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching-2/"}
+    ] },
+    { "dow": 3, "classes": [
+      {"id": "wed-0800", "start": "08:00", "end": "09:00", "title": "Boxercise Beginner", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-beginner/"},
+      {"id": "wed-0900", "start": "09:00", "end": "10:00", "title": "Booty and Core", "trainer": "Icha", "trainerPublished": "Icha", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty-and-core/"},
+      {"id": "wed-1000", "start": "10:00", "end": "11:00", "title": "Calisthenics", "trainer": "Tinos", "trainerPublished": "TINOS", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/calisthenics-2/"},
+      {"id": "wed-1630", "start": "16:30", "end": "17:30", "title": "Boxercise Advanced", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-advanced/"},
+      {"id": "wed-1800", "start": "18:00", "end": "19:00", "title": "Mobility", "trainer": "Tinos", "trainerPublished": "TINOS", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-3/"}
+    ] },
+    { "dow": 4, "classes": [
+      {"id": "thu-0700", "start": "07:00", "end": "08:00", "title": "Body Sculpt", "trainer": "Icha", "trainerPublished": "Icha", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/body-sculpt/"},
+      {"id": "thu-0830", "start": "08:30", "end": "09:30", "title": "HYROX Conditioning", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/hyrox-conditioning/", "_note": "The page carries a second, hidden-on-all-devices time field (8:00 am) for this item; the visible published time is 8:30 am."},
+      {"id": "thu-1000", "start": "10:00", "end": "11:00", "title": "Mobility", "trainer": "Tinos", "trainerPublished": "TINOS", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-3/", "_note": "The page carries a second, hidden-on-all-devices time field (7:00 am) for this item; the visible published time is 10:00 am."},
+      {"id": "thu-1200", "start": "12:00", "end": "13:00", "title": "Off-Court Training", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/off-court-training/"},
+      {"id": "thu-1630", "start": "16:30", "end": "17:30", "title": "Boxercise Advanced", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-advanced/"}
+    ] },
+    { "dow": 5, "classes": [
+      {"id": "fri-0800", "start": "08:00", "end": "09:00", "title": "Boxercise Beginner", "trainer": "Rey", "trainerPublished": "Rey", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/boxercise-beginner/"},
+      {"id": "fri-0900", "start": "09:00", "end": "10:00", "title": "Booty", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty/"},
+      {"id": "fri-1030", "start": "10:30", "end": "11:30", "title": "Mobility", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-2/"},
+      {"id": "fri-1400", "start": "14:00", "end": "15:00", "title": "Body Sculpt", "trainer": "Icha", "trainerPublished": "Icha", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/body-sculpt/"},
+      {"id": "fri-1500", "start": "15:00", "end": "16:00", "title": "Booty and Core", "trainer": "Icha", "trainerPublished": "Icha", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty-and-core/"},
+      {"id": "fri-1700", "start": "17:00", "end": "18:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching/"}
+    ] },
+    { "dow": 6, "classes": [
+      {"id": "sat-0800", "start": "08:00", "end": "09:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching/"},
+      {"id": "sat-0900", "start": "09:00", "end": "10:00", "title": "Booty", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty/"},
+      {"id": "sat-1100", "start": "11:00", "end": "12:00", "title": "Mobility", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-2/"}
+    ] },
+    { "dow": 7, "classes": [
+      {"id": "sun-1400", "start": "14:00", "end": "15:00", "title": "Booty", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/booty/"},
+      {"id": "sun-1600", "start": "16:00", "end": "17:00", "title": "Mobility", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/mobility-2/"},
+      {"id": "sun-1800", "start": "18:00", "end": "19:00", "title": "Stretching", "trainer": "Ain", "trainerPublished": "AIN", "zone": "workout", "spotsLeft": null, "capacity": null, "bookable": true, "_source": "https://elitefitbali.com/schedule/stretching/"}
+    ] }
+  ]
+}

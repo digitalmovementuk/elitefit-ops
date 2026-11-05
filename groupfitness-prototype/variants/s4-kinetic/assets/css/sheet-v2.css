@@ -1,0 +1,382 @@
+/* Elite Fit /groupfitness · Loud (s4-kinetic, earlier "Kinetic type") · sheet-v2.css · v1.5 (29 Oct 2026; v1.0 earlier that day)
+   v1.5: the panel room is padding on .page (F1), By-day tab labels fit (F2), Sample chip 12 px (F3), the step-2 strip fits
+   in full at 360 px (F4), sheet titles balance (F5); see the "v1.5" block at the end.
+   The Kinetic skin for engine-v2's two-step booking sheet (markup: variants/s3-home-v2/assets/js/booking.js).
+   Replaces sheet.css at the engine switch; the builder links it. Layout, keyboard and size behaviour follow Home v2's sheet.css;
+   the look is Kinetic's: a black panel, white type, hairlines, Gilroy at poster size, the step as a giant numeral ("01//02"),
+   a hero-scale Confirmed. Raoul (images/13.png): "too much cognitive effort; coach and quote well visible; options easy to tap".
+   Terracotta: on step 1 only the drop-in outline and its "Most chosen" pill; on every other state only the one footer button.
+   Bottom sheet on phones (modal), a non-modal side panel from 1024 px (rulings #20).
+   Changelog: v1.0, 29 Oct 2026, first release. */
+
+/* ---------- frame ---------- */
+/* the sheet gutter keeps the footer button at >= 90 % of the panel width at every size (P7-6) */
+.sheet { --sg: clamp(16px, 4.2vw, 20px); position: fixed; inset: 0; z-index: var(--z-sheet); }
+.sheet[hidden] { display: none; }
+.sheet__scrim { position: absolute; inset: 0; background: var(--scrim); opacity: 0; transition: opacity .25s var(--ease); }
+.sheet.is-open .sheet__scrim { opacity: 1; }
+.sheet__panel { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-height: 94vh; max-height: 94svh; max-height: 94dvh; background: var(--black); color: var(--white); border-radius: 22px 22px 0 0; border-top: 1px solid var(--w-20); transform: translateY(100%); transition: transform var(--t-sheet) var(--ease-out); outline: none; }
+.sheet.is-open .sheet__panel { transform: none; }
+.sheet--tall .sheet__panel { height: 94vh; height: 94svh; height: 94dvh; }
+.sheet__panel.is-drag { transition: none; }
+#sheet-title:focus { outline: none; }
+html.sheet-open .toast { bottom: auto; top: calc(env(safe-area-inset-top, 0px) + 14px); }
+
+/* the bar: back, the giant step numeral with the step name beside it, close */
+.sheet__bar { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px var(--sg) 8px; touch-action: none; }
+.sheet__handle { position: absolute; left: 50%; top: 7px; width: 44px; height: 4px; margin-left: -22px; border-radius: 4px; background: var(--w-20); }
+.sheet__mid { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+.sheet__num { margin: 0; font-weight: 800; font-size: clamp(2.75rem, 2.2rem + 2.4vw, 3.5rem); line-height: .8; letter-spacing: -.04em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sheet__num i { font-style: normal; font-weight: 400; font-size: .42em; letter-spacing: 0; margin: 0 .12em 0 .16em; vertical-align: .9em; color: var(--w-56); }
+.sheet__num b { font-weight: 400; font-size: .42em; letter-spacing: 0; vertical-align: .9em; color: var(--w-56); }
+.motion-ok .sheet__num.is-new { animation: numUp .32s var(--ease-out); }
+@keyframes numUp { from { transform: translateY(40%); opacity: 0; } }
+.sheet__step { margin: 0; min-width: 0; font-weight: 600; font-size: .8125rem; line-height: 1.3; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--w-72); }
+.sheet__step:empty { display: none; }
+.sheet .iconbtn { border-color: var(--w-20); color: var(--white); }
+@media (hover: hover) { .sheet .iconbtn:hover { background: var(--white); color: var(--black); border-color: var(--white); } }
+[data-sheet-back][hidden] { display: inline-grid; visibility: hidden; }
+/* the old five-step progress bar is not part of the two-step sheet (P7) */
+.sheet__progress, .sheet__progress[hidden] { display: none; }
+
+.sheet__body { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 10px var(--sg) 24px; }
+.sheet__foot { flex: none; display: grid; gap: 8px; padding: 12px var(--sg) calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--w-14); background: var(--black); }
+.sheet__foot:empty { display: none; }
+.sheet__foot .btn { width: 100%; }
+.sheet__foot .btn--primary { min-height: 56px; }
+.sheet .btn--outline { border-color: var(--white); color: var(--white); background: transparent; }
+@media (hover: hover) { .sheet .btn--outline:hover { background: var(--white); color: var(--black); } }
+
+/* step change: a short slide (0.25 s), a fade without motion */
+.step-in { animation: stepIn .25s var(--ease-out); }
+.step-back { animation: stepBack .25s var(--ease-out); }
+.step-swap { animation: fade .2s linear; }
+@keyframes stepIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@keyframes stepBack { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* phones: a modal bottom sheet riding on the keyboard; step 1 hugs its content (top stays >= 40 px down) */
+@media (max-width: 1023.98px) {
+  .sheet__panel { bottom: var(--kb, 0px); max-height: calc(94vh - var(--kb, 0px)); max-height: calc(94svh - var(--kb, 0px)); max-height: calc(94dvh - var(--kb, 0px)); }
+  .sheet--tall .sheet__panel { height: calc(94vh - var(--kb, 0px)); height: calc(94svh - var(--kb, 0px)); height: calc(94dvh - var(--kb, 0px)); }
+  .sheet[data-mode="step1"] .sheet__panel { height: auto; max-height: 94vh; max-height: 94svh; }
+}
+/* from 1024 px: a non-modal side panel, flush right and full height, the page makes room (rulings #20) */
+@media (min-width: 1024px) {
+  .sheet.is-panel { pointer-events: none; }
+  .sheet.is-panel .sheet__panel { pointer-events: auto; }
+  .sheet.is-panel .sheet__scrim { display: none; }
+  .sheet { --sg: 20px; }
+  .sheet__panel { left: auto; top: 0; width: min(540px, 42vw); max-height: none; height: auto; border-radius: 22px 0 0 22px; border-top: 0; border-left: 1px solid var(--w-20); transform: translateX(100%); }
+  .sheet--tall .sheet__panel { height: auto; }
+  .sheet__handle { display: none; }
+  .sheet__bar { padding-top: 22px; padding-bottom: 10px; touch-action: auto; }
+  .sheet__body { padding-top: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet__panel, .sheet.is-open .sheet__panel { transform: none; transition: opacity .15s linear; opacity: 0; }
+  .sheet.is-open .sheet__panel { opacity: 1; }
+  .step-in, .step-back, .step-swap { animation: fade .15s linear; }
+}
+
+/* ---------- page around the sheet ---------- */
+/* one terracotta button per screen: page buttons under the open phone sheet go dark grey */
+html.sheet-open #page .btn--primary { background-color: var(--grey); }
+@media (min-width: 1024px) {
+  /* v1.5 (F1): the room is padding on .page (a size container, kinetic.css v1.5), so the pinned Now bar can still span the
+     full width; it changes at once (no margin or padding animation), the panel slides in over it */
+  html.has-panel .page { padding-right: min(540px, 42vw); }
+  html.has-panel #page .btn--primary { background: transparent; color: inherit; border-color: currentColor; transition: none; }
+  html.has-panel .buybar { visibility: hidden; }
+}
+
+/* ---------- shared bits inside the sheet ---------- */
+.sheet .sample { color: var(--w-72); border-color: var(--w-56); }
+.sheet .chip { border-color: var(--w-20); color: var(--white); font-size: 1rem; }
+/* links in the sheet are white and underlined, so the footer button stays the one terracotta click */
+.sheet .link-t { color: var(--white); font-size: 1rem; }
+.sheet :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+.view { min-width: 0; }
+.sh-k { margin: 0 0 6px; font-weight: 600; font-size: .75rem; line-height: 1.3; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--w-72); }
+.sh-title { font-weight: 800; text-transform: uppercase; font-size: clamp(2.5rem, 1.7rem + 3.2vw, 3.5rem); line-height: .88; letter-spacing: -.025em; overflow-wrap: break-word; text-wrap: balance; }   /* v1.5: balance, no lone last word */
+.sh-lead { margin: 0; color: var(--w-72); font-size: 1rem; line-height: 1.5; }
+.sh-h { margin: 24px 0 8px; font-weight: 800; text-transform: uppercase; font-size: 1.125rem; letter-spacing: 0; }
+.group { margin: 0; padding: 0; border: 0; min-width: 0; }
+.group__legend { margin: 0 0 10px; font-weight: 600; font-size: .8125rem; line-height: 1.3; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--white); }
+.vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- step 1 "Who and how": coach, invitation, the full review, four tiles ---------- */
+.view--step1 { display: grid; gap: 14px; padding-bottom: 2px; }
+.sheet[data-mode="step1"] .sheet__body { padding-bottom: 18px; }
+.coachwrap { display: grid; gap: 14px; }
+/* rulings #26: the portrait is 112x140 at 390 (4:5, head to mid-torso, straight Kinetic frame); 96x120 only as .is-compact */
+.coachhead { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 16px; align-items: end; }
+.coachhead__photo { display: block; width: 112px; height: 140px; overflow: hidden; border-radius: 14px; background: var(--grey); }
+.coachhead__photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.7); transform-origin: 50% 6%; }
+.coachhead__photo[data-coach="ain"] img { transform-origin: 50% 0%; }
+.coachhead__photo[data-coach="icha"] img { transform-origin: 50% 2%; }
+.coachhead__photo[data-coach="tinos"] img { transform: scale(1.5); transform-origin: 50% 22%; }
+.coachhead__txt { min-width: 0; container-type: inline-size; }
+.coachhead__k { font-weight: 600; font-size: .75rem; line-height: 1.3; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--w-72); }
+/* the coach's name at poster size, fitted to the column beside the portrait */
+.coachhead__name { margin-top: 4px; font-weight: 800; text-transform: uppercase; font-size: 3rem; line-height: .84; letter-spacing: -.03em; white-space: nowrap; }
+@supports (width: 1cqi) { .coachhead__name { font-size: min(24cqi, 3.75rem); } }
+.coachhead__cls { margin-top: 8px; font-size: 1rem; line-height: 1.3; color: var(--w-72); }
+.coachhead__cls b { font-weight: 700; color: var(--white); }
+.coachhead__seats { margin-top: 6px; }
+/* the invitation line: 20 px at 390, 22 px from 1024, weight 700 (P8) */
+.coachhead__say { margin: 0; }
+.coachhead__say p { font-weight: 700; font-size: 1.25rem; line-height: 1.3; color: var(--white); }
+.coachhead__say .sample { margin-left: .45em; vertical-align: .2em; font-size: .75rem; }   /* v1.5: 12 px (#41 meta floor), was 11 */
+/* the whole Google review, verbatim: the reviewer's stars, the text, the G and the name on their own line (P9) */
+.coachhead__rev { margin: 0; padding-top: 14px; border-top: 1px solid var(--w-20); }
+.coachhead__stars { margin: 0 0 6px; font-size: 1rem; line-height: 1.2; letter-spacing: .14em; color: var(--white); }
+.coachhead__text { margin: 0; }
+.coachhead__text p { font-size: 1.125rem; line-height: 1.42; color: var(--white); }
+.coachhead__text p + p { margin-top: .45em; }
+.coachhead__rev.is-after { padding-top: 16px; }
+.coachhead__cite { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-style: normal; font-weight: 600; font-size: 1rem; line-height: 1.3; color: var(--white); }
+.coachhead__cite .gmark { width: 16px; height: 16px; flex: none; }
+.stars5 { margin-right: .45em; letter-spacing: .06em; color: var(--white); }
+.sheet .seatrow { color: var(--white); flex-wrap: nowrap; gap: 6px; }
+.seatrow--free .seats { gap: 3px; }
+.seatrow--free .seat { width: 7px; height: 7px; }
+.view--step1.is-compact .coachhead { grid-template-columns: 96px minmax(0, 1fr); column-gap: 14px; }
+.view--step1.is-compact .coachhead__photo { width: 96px; height: 120px; }
+/* once the review sits under the tiles, the compact portrait is no longer needed: back to 112x140 (rulings #26) */
+.view--step1.is-compact:has(.coachhead__rev.is-after) .coachhead { grid-template-columns: 112px minmax(0, 1fr); column-gap: 16px; }
+.view--step1.is-compact:has(.coachhead__rev.is-after) .coachhead__photo { width: 112px; height: 140px; }
+
+/* four big tiles, 2x2, obviously tappable: a tap selects and goes on. Nothing is pressed on open (rulings #13). */
+.joining .group__legend { margin-bottom: 20px; } /* keeps the "Most chosen" pill clear of the legend */
+.jtiles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.jtile { position: relative; display: grid; align-content: center; gap: 4px; min-height: 76px; padding: 16px 26px 12px 14px; border-radius: 14px; border: 2px solid transparent; background: var(--grey); color: var(--white); font: inherit; text-align: left; cursor: pointer; transition: border-color var(--t-fast), background-color var(--t-fast), color var(--t-fast); }
+.jtile__name { font-weight: 700; font-size: 1.125rem; line-height: 1.2; letter-spacing: 0; }
+.jtile__price { font-weight: 700; font-size: 1rem; line-height: 1.25; color: var(--w-72); text-wrap: balance; }
+.jtile__go { position: absolute; right: 10px; top: 50%; translate: 0 -50%; font-weight: 700; font-size: 1.75rem; line-height: 1; color: var(--white); transition: translate var(--t-fast) var(--ease); }
+@media (hover: hover) { .jtile:not(:disabled):hover { border-color: var(--w-56); } .jtile:not(:disabled):hover .jtile__go { translate: 3px -50%; } }
+.motion-ok .jtile:active:not(:disabled) { scale: .98; }
+.jtile[aria-pressed="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.jtile[aria-pressed="true"] .jtile__price, .jtile[aria-pressed="true"] .jtile__go { color: var(--black); }
+.jtile:disabled { opacity: .55; cursor: not-allowed; }
+.jtile:disabled .jtile__price { font-weight: 600; font-size: .875rem; }
+.jtile:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+.jtile--wide { width: 100%; }
+/* the drop-in highlight: a flat 2 px terracotta outline and a "Most chosen" pill on the top edge, top-left.
+   White 19 px / 800 on terracotta = large text (3.73:1, P10). The only terracotta on step 1. */
+.jtile--hl, .jtile--hl[aria-pressed="true"] { border-color: var(--terra); }
+@media (hover: hover) { .jtile--hl:not(:disabled):hover { border-color: var(--terra); } }
+.jtile__badge { position: absolute; top: -2px; left: 12px; translate: 0 -50%; padding: 4px 10px 3px; border-radius: var(--r-pill); background: var(--terra); color: var(--white); font-weight: 800; font-size: 1.1875rem; line-height: 1; letter-spacing: 0; text-transform: none; white-space: nowrap; pointer-events: none; }
+
+/* waitlist, other times */
+.sh-others { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chipbtn { min-height: 44px; padding: 0 1rem; border-radius: var(--r-pill); border: 1.5px solid var(--w-56); background: transparent; color: var(--white); font-weight: 700; font-size: 1rem; cursor: pointer; }
+@media (hover: hover) { .chipbtn:hover { background: var(--white); color: var(--black); border-color: var(--white); } }
+.sh-pick { margin-left: 4px; }
+
+@media (min-width: 1024px) {
+  .view--step1 { gap: 20px; }
+  .coachwrap { gap: 18px; }
+  .coachhead, .view--step1.is-compact .coachhead, .view--step1.is-compact:has(.coachhead__rev.is-after) .coachhead { grid-template-columns: 148px minmax(0, 1fr); column-gap: 20px; }
+  .coachhead__photo, .view--step1.is-compact .coachhead__photo, .view--step1.is-compact:has(.coachhead__rev.is-after) .coachhead__photo { width: 148px; height: 185px; border-radius: 16px; }
+  @supports (width: 1cqi) { .coachhead__name { font-size: min(24cqi, 4.5rem); } }
+  .coachhead__say p { font-size: 1.375rem; }
+  .coachhead__text p { font-size: 1.1875rem; }
+  .jtile { min-height: 84px; }
+}
+
+/* ---------- step 2 "Your details": strip, (tiers), fields, the equal pay pair, one Confirm ---------- */
+.view--step2 { display: grid; gap: 16px; }
+/* the strip: one line, <= 56 px (rulings #16) */
+.strip { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; column-gap: 8px; align-items: center; min-height: 56px; max-height: 56px; padding: 6px 2px 6px 10px; border-radius: 14px; border: 1px solid var(--w-20); background: transparent; }
+.strip__photo { display: block; width: 32px; height: 32px; overflow: hidden; border-radius: 50%; background: var(--grey); }
+.strip__photo img { width: 100%; height: 100%; object-fit: cover; }
+.strip__h { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 700; font-size: .9375rem; line-height: 1.3; text-transform: none; letter-spacing: 0; }
+.strip__opt { font-weight: 800; }
+.sheet .strip__change { min-height: 44px; min-width: 44px; padding: 0 8px; justify-content: center; font-size: .9375rem; }
+/* membership: two equal tier tiles, none selected */
+.tiers { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.tiers .err { grid-column: 1 / -1; }
+/* below 480 px the two equal tiers stack, so "Perform 2.2M / 4 weeks" stays on one line */
+@media (max-width: 479.98px) { .tiers { grid-template-columns: minmax(0, 1fr); gap: 8px; } .ttile { min-height: 64px; } }
+.ttile { display: grid; align-content: start; gap: 4px; min-height: 72px; padding: 12px 14px; border-radius: 14px; border: 2px solid transparent; background: var(--grey); color: var(--white); font: inherit; text-align: left; cursor: pointer; transition: border-color var(--t-fast), background-color var(--t-fast), color var(--t-fast); }
+.ttile__name { font-weight: 800; font-size: 1rem; line-height: 1.2; text-wrap: balance; }
+.ttile__line { font-size: .875rem; line-height: 1.35; color: var(--w-72); }
+@media (hover: hover) { .ttile:hover { border-color: var(--w-56); } }
+.ttile[aria-pressed="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.ttile[aria-pressed="true"] .ttile__line { color: var(--b-72); }
+.ttile:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+/* fields: label above, boxed on dark grey, 18 px type, 54 px tall */
+.details { display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .label { font-weight: 600; font-size: .8125rem; line-height: 1.3; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--w-72); }
+.field .hint { margin: 0; color: var(--w-72); font-size: 1rem; }
+.input, .select { width: 100%; min-height: 54px; padding: 0 14px; border-radius: 12px; border: 2px solid transparent; background: var(--grey); color: var(--white); font: inherit; font-weight: 600; font-size: 1.125rem; line-height: 1.2; }
+.input::placeholder { color: var(--w-56); }
+.input:focus, .select:focus { outline: 3px solid var(--white); outline-offset: 2px; border-color: transparent; }
+.select { appearance: none; -webkit-appearance: none; padding-right: 36px; background-image: none; }
+.selectwrap { position: relative; }
+.selectwrap::after { content: ""; position: absolute; right: 14px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 2px solid var(--white); border-bottom: 2px solid var(--white); transform: rotate(45deg); pointer-events: none; }
+.phone { display: grid; grid-template-columns: minmax(9.5rem, 46%) minmax(0, 1fr); gap: 8px; }
+/* the compact code picker: "+62" in a 96 px column (<= 40 % of the row), the country names in the native list */
+.phone--cc { grid-template-columns: 96px minmax(0, 1fr); }
+.cc { position: relative; }
+.cc .select { color: transparent; padding-left: 12px; padding-right: 26px; text-overflow: clip; white-space: nowrap; overflow: hidden; }
+.cc .select option { color: var(--black); background: var(--white); }
+.cc__shown { position: absolute; left: 14px; top: 50%; translate: 0 -50%; font-weight: 600; font-size: 1.125rem; line-height: 1; color: var(--white); pointer-events: none; }
+.cc.selectwrap::after { right: 12px; }
+.field.is-bad .input, .field.is-bad .select { border-color: var(--white); border-style: dashed; }
+.err { display: none; margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.35; color: var(--white); }
+.err::before { content: "! "; }
+.err:not(:empty), .field.is-bad .err { display: block; }
+.err--group { margin-top: 8px; }
+.soft { margin: 0; font-size: .875rem; color: var(--w-72); }
+/* the equal pay pair: same component, same size, same unselected style; white fill when chosen; never terracotta (rulings #15) */
+.paybtns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.paybtn { position: relative; display: block; min-width: 0; cursor: pointer; }
+.paybtn input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.paybtn__face { display: grid; place-items: center; min-height: 56px; padding: 0 10px; border-radius: var(--r-pill); border: 2px solid var(--w-56); background: transparent; color: var(--white); font-weight: 700; font-size: 1.0625rem; line-height: 1.15; text-align: center; transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast); }
+@media (hover: hover) { .paybtn:hover .paybtn__face { border-color: var(--white); } }
+.paybtn input:checked + .paybtn__face { background: var(--white); color: var(--black); border-color: var(--white); }
+.paybtn input:focus-visible + .paybtn__face { outline: 3px solid var(--white); outline-offset: 3px; }
+.group.is-bad .ttile, .group.is-bad .paybtn__face { border-style: dashed; border-color: var(--white); }
+.sh-remember { margin: 0; font-size: .875rem; line-height: 1.4; color: var(--w-72); }
+/* the foot: the total, the one Confirm, the privacy line */
+.sh-total { margin: 0; font-weight: 800; font-size: 1.0625rem; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.sh-total[hidden] { display: none; }
+.err-summary { margin: 0; font-weight: 700; font-size: 1rem; }
+.err-summary[hidden] { display: none; }
+.sh-privacy { margin: 0; font-size: .8125rem; line-height: 1.35; color: var(--w-72); text-align: center; }
+.btn.is-busy .btn__label, .btn.is-busy .arr { visibility: hidden; }
+.btn.is-busy { position: relative; }
+.btn.is-busy::after { content: "\2022 \2022 \2022"; position: absolute; inset: 0; display: grid; place-items: center; letter-spacing: .2em; font-weight: 800; }
+
+/* keyboard up (phones): the strip stays, the chrome folds, so the focused field, the pay pair and Confirm stay in view */
+.sheet.is-typing .sh-total, .sheet.is-typing .sh-privacy { display: none; }
+.sheet.is-typing .view--step2 { gap: 8px; }
+.sheet.is-typing .details { gap: 8px; }
+@media (max-width: 1023.98px) {
+  .sheet.has-kb .sheet__handle, .sheet.has-kb .sheet__num, .sheet.has-kb .sheet__step, .sheet.has-kb .sh-privacy, .sheet.has-kb .sh-remember, .sheet.has-kb .sh-lead { display: none; }
+  .sheet.has-kb .sheet__bar { padding-top: 6px; padding-bottom: 2px; }
+  .sheet.has-kb .sheet__body { padding-top: 6px; padding-bottom: 12px; }
+  .sheet.has-kb .sheet__foot { padding-top: 8px; padding-bottom: 8px; gap: 6px; }
+  .sheet.has-kb .sheet__foot .btn--primary { min-height: 52px; }
+  .sheet.is-typing .sh-remember { display: none; }
+  .sheet.is-typing .sheet__body { padding-bottom: 12px; }
+}
+
+/* ---------- pay demo ---------- */
+.view--pay { display: grid; gap: 16px; }
+.demo-flag { display: flex; align-items: center; gap: 12px; margin: 0; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--white); font-weight: 800; font-size: 1.0625rem; line-height: 1.3; }
+.demo-flag::before { content: "i"; display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--white); color: var(--black); font-weight: 800; font-size: .9375rem; }
+.summary { margin: 0; padding: 2px 16px; border-radius: 14px; background: var(--grey); }
+.summary div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--w-14); font-size: 1rem; line-height: 1.35; }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { flex: none; color: var(--w-72); }
+.summary dd { margin: 0; min-width: 0; text-align: right; font-weight: 700; overflow-wrap: break-word; }
+.summary .total dd { font-weight: 800; font-size: 1.5rem; line-height: 1.15; }
+.summary .total small { display: block; font-weight: 600; font-size: 1rem; color: var(--w-72); }
+.summary dd .sample { margin: 0 0 0 .5em; }
+.fine { margin: 0 0 14px; color: var(--w-72); font-size: 1rem; }
+
+/* ---------- Confirmed: hero scale, Kinetic poster type ("SEE YOU AT 8AM, MAYA.") ---------- */
+.view--done { container-type: inline-size; }
+.done-mark { width: 44px; height: 44px; margin: 2px 0 14px; }
+.done-mark circle { fill: none; stroke: var(--white); stroke-width: 3; }
+.done-mark path { fill: none; stroke: var(--white); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 48; stroke-dashoffset: 0; }
+.motion-ok .done-mark path { animation: draw .5s var(--ease-out) .1s both; }
+@keyframes draw { from { stroke-dashoffset: 48; } }
+.done-title { font-weight: 800; text-transform: uppercase; font-size: clamp(2.75rem, 2rem + 3.6vw, 4.5rem); line-height: .86; letter-spacing: -.03em; overflow-wrap: break-word; }
+@supports (width: 1cqi) { .done-title { font-size: min(15cqi, 5rem); } }
+.done-lead { margin: 12px 0 16px; font-size: var(--fs-lead); line-height: 1.4; color: var(--w-72); }
+.done-lead .sample { margin-left: .4em; }
+.view--done .summary { margin-bottom: 14px; }
+.done-seats { margin: 0 0 14px; }
+.done-note { margin: 0 0 6px; font-size: 1rem; line-height: 1.45; color: var(--w-72); }
+.done-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; }
+.done-links .link-t { font-size: 1rem; }
+.mini-recharge { position: relative; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; align-items: center; margin-top: 20px; padding: 12px; border-radius: 14px; background: var(--white); color: var(--black); }
+.mini-recharge img { width: 96px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.mini-recharge p { margin: 0 0 4px; font-size: 1rem; }
+.mini-recharge b { display: block; font-weight: 800; text-transform: uppercase; font-size: 1.125rem; line-height: 1.1; margin-bottom: 4px; }
+.mini-recharge .link-t { min-height: 44px; color: var(--black); }
+.mini-recharge :focus-visible { outline-color: var(--black); }
+.payload { margin-top: 16px; font-size: .8125rem; }
+.payload pre { max-height: 240px; overflow: auto; padding: 10px; border-radius: 10px; background: var(--grey); white-space: pre-wrap; word-break: break-all; }
+
+/* ---------- coach sheet ---------- */
+.csheet__top { display: flex; align-items: flex-end; gap: 16px; margin: 0 0 18px; }
+.csheet__top .csheet__photo { flex: none; width: 128px; margin: 0; }
+.csheet__top .sh-title { font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem); }
+.csheet__top .sh-lead { margin-top: 8px; }
+@media (min-width: 1024px) { .csheet__top .csheet__photo { width: 190px; } }
+.csheet__photo { width: 100%; max-width: 360px; aspect-ratio: 4 / 5; margin: 0 0 18px; border-radius: 16px; overflow: hidden; background: var(--grey); }
+.csheet__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.view[data-testid="step-coach"] > .sh-lead { margin-bottom: 8px; }
+.mrows { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--w-14); }
+.mrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--w-14); }
+.mrow b { display: block; font-weight: 800; text-transform: uppercase; font-size: 1rem; }
+.mrow span { color: var(--w-72); font-size: 1rem; }
+.sheet .mrow .rbtn { border-color: var(--white); color: var(--white); min-height: 44px; }
+@media (hover: hover) { .sheet .mrow .rbtn:hover { background: var(--white); color: var(--black); } }
+
+/* ---------- filters (rendered by page.js into the sheet) ---------- */
+.fgroup { margin: 0 0 22px; padding: 0; border: 0; }
+.fgroup legend { margin-bottom: 10px; font-weight: 800; text-transform: uppercase; font-size: 1rem; }
+.fgroup .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+[data-testid="step-filters"] .sh-lead { margin: 12px 0 18px; }
+.tog { min-height: 44px; padding: 0 1rem; border-radius: var(--r-pill); border: 1.5px solid var(--w-20); background: transparent; color: var(--white); font-weight: 700; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.tog img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+.tog[aria-pressed="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.foot-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; }
+.foot-row .btn--outline { min-width: 0; }
+
+/* ---------- no motion (reduced motion, Save-Data, JS off): the sheet fades, steps fade, nothing slides or scales ---------- */
+html:not(.motion-ok) .sheet__panel, html:not(.motion-ok) .sheet.is-open .sheet__panel { transform: none; opacity: 0; transition: opacity .15s linear; }
+html:not(.motion-ok) .sheet.is-open .sheet__panel { opacity: 1; }
+html:not(.motion-ok) .step-in, html:not(.motion-ok) .step-back, html:not(.motion-ok) .step-swap { animation: fade .15s linear; }
+html:not(.motion-ok) .jtile, html:not(.motion-ok) .sheet .btn:active { scale: none; transform: none; }
+html:not(.motion-ok) .jtile__go, html:not(.motion-ok) .jtile:hover .jtile__go { translate: 0 -50%; }
+html:not(.motion-ok) .sheet .arr { transition: none; transform: none; }
+html:not(.motion-ok).has-panel .page { transition: none; }
+
+/* =====================================================================
+   The class finder (engine-v2 1.1, FINDER-SPEC v1.1 §7.9) in Big Hello's type. Tokens first; the core sizes, gaps,
+   wrapping and fit stay engine-v2's (sheet-base.css). No terracotta on any finder screen.
+   ===================================================================== */
+#sheet {
+  --find-surface: transparent; --find-ink: var(--white); --find-ink-soft: var(--w-72); --find-line: var(--w-20); --find-line-w: 1.5px;
+  --find-line-hover: var(--white); --find-sel-bg: var(--white); --find-sel-ink: var(--black); --find-full-ink: var(--w-56); --find-full-line: var(--w-14);
+  --find-focus: var(--white); --find-radius: 14px; --find-media-radius: 12px; --find-gap: 10px;
+  --find-title-size: clamp(2rem, 1.35rem + 2.6vw, 2.875rem); --find-name-size: 1.125rem; --find-time-size: 1.375rem; --find-sub-size: .9375rem; --find-meta-size: .8125rem;
+  --find-press-scale: .97; --find-dur: .3s; --find-ease: var(--ease-out);
+}
+.find-title { font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.02em; }
+.find-mode__name, .find-cls__name, .find-type__name, .find-row__name, .find-chip__name, .find-next__cls { font-weight: 800; text-transform: uppercase; letter-spacing: -.005em; }
+.find-row__time, .find-chip__time, .find-cls__time, .find-day__num { font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.find-mode__sub, .find-cls__line, .find-row__who, .find-dayline, .find-note { color: var(--w-72); }
+.find-next__k, .find-group__h, .find-wday__h, .find-day__dow, .find-mode__last { font-weight: 600; letter-spacing: var(--track-eyebrow); text-transform: uppercase; }
+/* Kinetic numerals on the three modes: "01", "02", "03" set in 800, from the list order */
+.find-modes { counter-reset: fmode; }
+.find-mode { counter-increment: fmode; }
+.find-mode__name::before { content: counter(fmode, decimal-leading-zero) "\2002"; font-weight: 400; color: var(--w-56); }
+.find-day.is-today .find-day__dow { font-weight: 800; }
+.find-day[aria-selected="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.find-type__stock { font-weight: 700; font-size: .8125rem; letter-spacing: .06em; text-transform: uppercase; color: var(--w-72); }
+.sheet[data-step="0"] .sheet__num { opacity: .9; }
+@media (prefers-reduced-motion: reduce) { .find-mode, .find-row, .find-chip, .find-cls { transition: none !important; transform: none !important; } }
+
+/* ---------- v1.5 · 29 Oct 2026 (fix round 5) ---------- */
+/* F2: the By-day tabs: the day label fits inside its 44 px tab ("Today" was 52 px wide with the eyebrow tracking) */
+.sheet .find-day__dow { letter-spacing: .02em; }
+@media (max-width: 414px) { .sheet .find-day__dow { font-size: .75rem; } }
+/* F4 (RULINGS #16): the step-2 strip stays one line <= 56 px and shows day, time, coach and option in full at 360 px:
+   14 px, a 28 px photo and tighter insets on small phones */
+@media (max-width: 414px) {
+  .strip { grid-template-columns: 28px minmax(0, 1fr) auto; column-gap: 6px; padding: 6px 0 6px 8px; }
+  .strip__photo { width: 28px; height: 28px; }
+  .strip__h { font-size: .875rem; }
+  .sheet .strip__change { padding: 0 6px; font-size: .875rem; }
+}
+/* F5: page.js binds the last two words of sheet titles (.nw); kinetic.css styles .nw as nowrap */
+.sheet .nw { white-space: nowrap; }

@@ -1,0 +1,214 @@
+/* hero.css · Version: v3.0 — 2026-10-02 · owner: hero lane (Opus 5.5)
+   Changelog: v3.0 created: minimal header (logo, Buy a pass, menu button) + hero (blur-treated club footage, oversized edge-cropped headline,
+   live mono readouts, Buy a pass / Today's classes, review line). v3.0 r2 (10:50): composition from the Lab hero study (research/lab/hero/HERO-STUDY.md):
+   split CTA, film grain, desktop headline anchored bottom-left and cut by the hero's bottom edge, header ink flips when it turns solid.
+   Built on tokens.css names; hero-only constants below under --hero-*. The hero always sits on a dark photograph, so its ink is its own constant.
+   Motion rules: transform + opacity only; arrival is CSS from first paint (html.hero-anim, set inline in <head>); reduced motion / data-saver = html.hero-still. */
+
+:root {
+  --hero-h: 62svh;                 /* hero height BELOW the header: ~66 % of the remaining first viewport (range 60-70) */
+  --hero-min: 520px;               /* floor for very short landscape phones */
+  --hero-fs: 21vw;                 /* phone display size: an 8-letter line is ~104 % of 390 px, both edges crop a sliver */
+  --hero-lh: var(--lh-tight);
+  --hero-tr: var(--tr-display);
+  --hero-fw: var(--fw-display);
+  --hero-ink: var(--fg);           /* on-photo ink = the page's warm white (tokens v3.0); the hero never sits in a .theme-light section */
+  --hero-ink-muted: var(--fg-muted);
+  --hero-ink-faint: var(--fg-faint);
+  --hero-scrim: 23, 23, 23;        /* rgb of --bg (#171717): the shade melts into the page below */
+  --hero-btn-h: var(--control-h);
+  --hero-btn-r: var(--r-0);
+  --hero-rise: .22em;              /* headline arrival distance */
+  --hero-dur-rise: 760ms;
+  --hero-dur-media: 900ms;
+  --hero-quote-lines: 3;           /* reserved height of the rotating quote (no layout shift on rotation) */
+  --hero-q-lh: 1.35;
+  --hero-grain: .14;
+  --hero-hdr-k: .69;               /* desktop header condenses to ~69 % of its height (measured 63 -> 33 px on the reference; ours keeps 44 px tap targets) */
+  --hero-ease-hdr: cubic-bezier(.22, 1, .36, 1);
+}
+@supports not (height: 1svh) { :root { --hero-h: 62vh; } }
+/* Phone (first-viewport rule, Raoul 2026-10-02): the hero ENDS at 60svh including the header, so the Classes head and its now/next card fit in the
+   first 844 px. The headline crops harder instead of the hero growing; the quote block keeps only what fits the height (see the quote rules below). */
+@media (max-width: 759px) {
+  :root { --hero-total: 60svh; --hero-min: 380px; --hero-fs: min(22vw, 12.6svh); --hero-quote-lines: 3; }
+}
+@supports not (height: 1svh) { @media (max-width: 759px) { :root { --hero-total: 60vh; } } }
+
+/* ---------- header ---------- */
+.hdr { position: fixed; inset: 0 0 auto 0; z-index: var(--z-header); height: var(--header-h); color: var(--hero-ink); }
+.hdr::before { content: ""; position: absolute; inset: 0; background: var(--bg); border-bottom: var(--bw) solid var(--line);
+  opacity: 0; transition: opacity var(--dur-ui) var(--ease-out); }
+.hdr[data-scrolled] { color: var(--fg); }
+.hdr[data-scrolled]::before { opacity: 1; }
+.hdr__bar { position: relative; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); padding-inline: var(--gutter); }
+.hdr__logo { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; margin-left: calc(-1 * var(--s-1)); padding: var(--s-1);
+  transform-origin: 0 50%; transition: transform var(--dur-ui) var(--ease-out); }
+.hdr__logo img { height: 32px; width: auto; }
+.hdr[data-condensed] .hdr__logo { transform: scale(.86); }
+.hdr__end { display: flex; align-items: center; gap: var(--s-2); }
+.hdr__buy { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding-inline: var(--s-4); position: relative;
+  background: var(--hero-ink); color: var(--fg-inverse); border-radius: var(--hero-btn-r);
+  font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; white-space: nowrap;
+  transition: transform var(--dur-press) var(--ease-press); }
+.hdr[data-scrolled] .hdr__buy { background: var(--accent); color: var(--accent-ink); }
+.hdr__buy::after { content: ""; position: absolute; inset: -4px 0; }              /* 44 px tap target */
+.hdr__buy:active { transform: scale(.97); }
+.hdr__menu { position: relative; width: 44px; height: 44px; display: inline-grid; place-items: center; margin-right: calc(-1 * var(--s-2)); }
+.hdr__menu-bars, .hdr__menu-bars::before { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform var(--dur-ui) var(--ease-out); }
+.hdr__menu-bars { position: relative; transform: translateY(-3.5px); }
+.hdr__menu-bars::before { content: ""; position: absolute; left: 0; top: 7px; }
+.hdr__menu:active .hdr__menu-bars { transform: translateY(-3.5px) scaleX(.8); }
+
+/* ---------- hero frame ---------- */
+.hero { position: relative; height: var(--hero-total, calc(var(--header-h) + var(--hero-h))); min-height: var(--hero-min); overflow: clip; isolation: isolate;
+  color: var(--hero-ink); background: rgb(var(--hero-scrim)); }
+.hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero__poster, .hero__clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.hero__clip { opacity: 0; transition: opacity var(--hero-dur-media) linear; }
+.hero[data-video="on"] .hero__clip { opacity: 1; }
+.hero__shade { position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(var(--hero-scrim), .62) 0, rgba(var(--hero-scrim), .18) 30%, rgba(var(--hero-scrim), .12) 46%,
+    rgba(var(--hero-scrim), .7) 72%, rgba(var(--hero-scrim), .9) 100%); }
+.hero__grain { position: absolute; inset: 0; opacity: var(--hero-grain); mix-blend-mode: overlay; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.hero__frame { position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: calc(var(--header-h) + var(--s-1)) var(--gutter) var(--s-3); }
+
+/* ---------- mono readouts (HUD) ---------- */
+.hero__hud { display: grid; grid-template-columns: 1fr 1fr; justify-items: center; column-gap: var(--s-3); width: 100%; max-width: 420px;
+  font: var(--fw-mono) var(--fs-micro)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }  /* fixed cells: live text never moves a neighbour (CLS 0) */
+.hero__hud--next { grid-template-columns: 1.7fr 1fr; }
+.hero__ro { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.hero__ro-k { color: var(--hero-ink-muted); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.hero__ro-v { color: var(--hero-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hero__ro--clock .hero__ro-v time { display: inline-block; min-width: 8ch; text-align: right; }
+.hero__ro-cd { color: var(--hero-ink-muted); }
+.hero__ro-cd:empty { display: none; }
+.hero__dot { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--hero-ink-faint); flex: none; }
+[data-state="open"] .hero__dot, [data-state="live"] .hero__dot { background: var(--ok); }
+.hero__ro, .hero__ro-v { max-width: 100%; }
+.hero__ro-v { white-space: normal; text-wrap: balance; }      /* never cut a readout; values are <= 24 characters so they stay on one line from 360 px */
+.hero__ro-cd::before { content: "\00b7"; margin-inline: .6ch; color: var(--hero-ink-faint); }
+.hero__hud--next { margin-top: auto; }
+
+/* ---------- oversized display headline ---------- */
+.hero__h1 { width: 100vw; margin: var(--s-2) calc(50% - 50vw) 0; font-size: var(--hero-fs); line-height: var(--hero-lh); font-weight: var(--hero-fw);
+  font-family: var(--font-display); letter-spacing: var(--hero-tr); text-transform: uppercase; color: var(--hero-ink); }
+.hero__display { display: block; }
+.hero__line { display: flex; justify-content: center; overflow: hidden; overflow-x: clip; overflow-y: visible; } /* flex centring: a too-wide line overflows BOTH edges */
+.hero__word { flex: none; display: block; white-space: nowrap; padding-inline: .02em; }
+
+/* ---------- actions ---------- */
+.hero__act { display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; margin-top: var(--s-2); }
+.hero__cta { display: inline-flex; align-items: stretch; justify-content: center; min-height: 44px; font: var(--fw-mono) var(--fs-label)/1 var(--font-mono);
+  letter-spacing: var(--tr-label); text-transform: uppercase; transition: transform var(--dur-press) var(--ease-press); }
+.hero__cta--buy { width: 100%; max-width: 420px; height: var(--hero-btn-h); gap: 4px; color: var(--accent-ink); }
+.hero__cta-l, .hero__cta-i { display: inline-flex; align-items: center; justify-content: center; background: var(--accent); border-radius: var(--hero-btn-r); }
+.hero__cta-l { flex: 1; padding-inline: var(--s-5); }
+.hero__cta-i { flex: none; width: var(--hero-btn-h); }
+.hero__cta-i svg { transition: transform var(--dur-ui) var(--ease-out); }
+.hero__cta--buy:hover .hero__cta-i svg { transform: translateX(2px); }
+.hero__cta--classes { align-items: center; gap: var(--s-2); color: var(--hero-ink); padding-inline: var(--s-3); }
+.hero__cta:active { transform: scale(.97); }
+.hero__arrow { width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+
+/* ---------- review line ---------- */
+.hero__rev { width: 100%; max-width: 440px; margin-top: var(--s-1); }
+.hero__rev-k { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0 6px; font: var(--fw-mono) var(--fs-micro)/1.3 var(--font-mono);
+  letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--hero-ink-muted); }
+.hero__rev-score, .hero__rev-count { color: var(--hero-ink); font-variant-numeric: tabular-nums; }
+.hero__stars { display: inline-flex; gap: 2px; margin-right: 2px; }
+.hero__stars i { width: 10px; height: 10px; background: var(--hero-ink);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.hero__quotes { display: grid; margin-top: 4px; min-height: calc(var(--hero-quote-lines) * var(--hero-q-lh) * 1em); font-size: var(--fs-body); line-height: var(--hero-q-lh); }
+.hero__q { grid-area: 1 / 1; margin: 0; display: block;
+  opacity: 0; transform: translateY(6px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); visibility: hidden; }
+.hero__q.is-on { opacity: 1; transform: none; visibility: visible; }
+.hero__q.is-off { opacity: 0; transform: translateY(-6px); visibility: visible; }
+.hero__q-t { display: inline; color: var(--hero-ink); }
+.hero__q-t::before { content: "\201C"; } .hero__q-t::after { content: "\201D"; }
+.hero__q-a { display: inline; white-space: nowrap; color: var(--hero-ink-faint); font: var(--fw-mono) var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }
+.hero__q-a::before { content: "\00a0\2014\00a0"; }
+/* quote fit (phone): data-fit = lines the full verbatim quote needs at 360-390 px (measured: asyraf 2-3, the others 4). Only quotes that fit the reserved
+   block are in the stack, decided by CSS at first paint (no shift): phones >= 385 px wide and >= 800 px tall reserve 4 lines and rotate all five;
+   narrower tall phones keep the short quote; phones under 800 px tall keep the rating line only, so the hero still ends at 60svh. Tablet/desktop: all five. */
+@media (max-width: 759px) {
+  .hero__q[data-fit="4"] { display: none; }
+}
+@media (max-width: 759px) and (min-width: 385px) and (min-height: 800px) {
+  :root { --hero-quote-lines: 4; }
+  .hero__q[data-fit="4"] { display: block; }
+}
+@media (max-width: 759px) and (max-height: 799px) {
+  .hero__quotes { display: none; }
+}
+@media (min-width: 760px) { :root { --hero-quote-lines: 4; } }
+
+/* ---------- arrival + scroll (transform/translate only; the poster and the H1 are never at opacity 0)
+   Arrival: the two lines slide in along the direction of the blur (left to right), 90 ms apart; the footage settles from a slight zoom.
+   Scroll: the lines drift apart along the same axis and the footage lags the page a little. Where the browser has scroll-driven animations the
+   scroll part runs in CSS off the main thread (named view timeline on the hero); elsewhere hero.js writes the same `translate` values in one rAF. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-anim .hero__word { animation: hero-in var(--hero-dur-rise) var(--ease-out) both; }
+  .hero-anim .hero__line + .hero__line .hero__word { animation-delay: 90ms; }
+  .hero-anim .hero__poster { animation: hero-settle var(--hero-dur-media) var(--ease-out) both; }
+  .hero-anim .hero__hud { animation: hero-fade var(--dur-reveal) var(--ease-out) 200ms both; }
+  @supports (animation-timeline: view()) {
+    .hero { view-timeline: --hero block; view-timeline-inset: 0px; }
+    .hero-anim .hero__word { animation: hero-in var(--hero-dur-rise) var(--ease-out) both, hero-drift-l linear both;
+      animation-timeline: auto, --hero; animation-range: normal, exit 0% exit 100%; }
+    .hero-anim .hero__line + .hero__line .hero__word { animation-name: hero-in, hero-drift-r; animation-delay: 90ms, 0s; }
+    .hero-anim .hero__media { animation: hero-lag linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
+  }
+}
+@keyframes hero-in { from { transform: translateX(var(--hero-in-x, -.32em)); } to { transform: none; } }
+@keyframes hero-settle { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hero-drift-l { to { translate: -9vw 0; } }
+@keyframes hero-drift-r { to { translate: 9vw 0; } }
+@keyframes hero-lag { to { translate: 0 18%; } }
+
+/* ---------- tablet: same order as the phone, left-aligned ---------- */
+@media (min-width: 760px) {
+  :root { --hero-fs: 17vw; }
+  .hdr__logo img { height: 36px; }
+  .hero__frame { align-items: flex-start; text-align: left; }
+  .hero__hud { justify-items: start; grid-template-columns: 22ch 22ch; max-width: none; }
+  .hero__hud--next { grid-template-columns: 34ch 16ch; }
+  .hero__ro { align-items: flex-start; }
+  .hero__line { justify-content: flex-start; padding-inline-start: calc(var(--gutter) - .07em); }
+  .hero__act { flex-direction: row; justify-content: flex-start; align-items: center; gap: var(--s-4); }
+  .hero__cta--buy { width: auto; }
+  .hero__rev { max-width: 520px; }
+  .hero__rev-k { justify-content: flex-start; }
+  .hero__q { align-items: flex-start; }
+}
+
+/* ---------- desktop: the Lab's composition. Headline bottom-left, cut by the hero's bottom edge; readouts across the top; the sale in a right column ---------- */
+@media (min-width: 1100px) {
+  :root { --hero-fs: min(13.4vw, calc(var(--hero-h) * .44)); }
+  .hero__frame { display: grid; grid-template-columns: 1fr minmax(320px, 380px); grid-template-rows: auto 1fr auto auto auto; column-gap: var(--s-7);
+    padding-bottom: var(--s-6); }
+  .hero__hud--top { grid-column: 1 / -1; grid-row: 1; margin-top: var(--s-2); }
+  .hero__h1 { position: absolute; left: 0; bottom: -.075em; width: auto; margin: 0; }
+  .hero__line { padding-inline-start: 0; }
+  .hdr::before { transform-origin: 50% 0; transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-slow) var(--hero-ease-hdr); }
+  .hdr__bar { transition: transform var(--dur-slow) var(--hero-ease-hdr); }
+  .hdr[data-condensed]::before { transform: scaleY(var(--hero-hdr-k)); }
+  .hdr[data-condensed] .hdr__bar { transform: translateY(calc(var(--header-h) * (var(--hero-hdr-k) - 1) / 2)); }
+  .hdr[data-condensed] .hdr__logo { transform: scale(.78); }
+  .hero__hud--next { grid-column: 2; grid-row: 3; margin: 0; grid-template-columns: 1.7fr 1fr; }
+  .hero__act { grid-column: 2; grid-row: 4; margin-top: var(--s-4); }
+  .hero__rev { grid-column: 2; grid-row: 5; margin-top: var(--s-4); }
+}
+
+/* ---------- destination highlight (window.EF.highlight / export highlight): a light wash and a bar that sweeps the top edge once ---------- */
+.ef-hl { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-base); }
+.ef-hl::before { content: ""; position: absolute; inset: 0; background: var(--line); opacity: 0; animation: ef-hl-wash 1.2s var(--ease-out) both; }
+.ef-hl::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0);
+  animation: ef-hl-bar 1.3s var(--ease-out) both; }
+@keyframes ef-hl-wash { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes ef-hl-bar { 0% { transform: scaleX(0); opacity: 1; } 45% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ef-hl::after { animation: none; transform: scaleX(1); opacity: .9; } .ef-hl::before { animation: none; opacity: .5; } }

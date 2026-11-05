@@ -1,0 +1,176 @@
+/* classes.css · Version: v3.4 — 2026-10-02 · owner: classes lane
+   Changelog: v3.4 CLS 0: every text line of the live card, the tab counts and the day heading reserve their final line height before data arrives (motion lane request). v3.3 round instructor portraits (card + every row), phone head on one line, card grid with avatar left. v3.2 lead safe zone. v3.1 compact phone first view. v3.0 created. Classes section: head, live now/next readout, day tabs with sliding indicator, class rows with crisp stagger, weekend note, link to passes.
+   Only var(--token) from tokens.css; lane-only values live in --cls-* below. Classes: .cls, .cls__*. Mobile first (phone = edge-to-edge hairline panels), tablet 760+, desktop 1024+ (two columns). */
+
+.sec--classes {
+  padding-top: var(--s-5);    /* phone: the live card has to fit the first view (24 px, not the full section rhythm) */
+  --cls-tab-h: 68px;          /* day tab height (tap target well over 44) */
+  --cls-row-pad: var(--s-4);
+  --cls-time-w: 3.4rem;       /* time column on a phone (start over end, 16 px mono) */
+  --cls-av-card: 64px;        /* instructor circle on the live card */
+  --cls-av-row: 44px;         /* instructor circle on a row */
+  --cls-mark: 8px;            /* live dot and today mark */
+  --cls-rise: 12px;           /* row arrival distance */
+  --cls-dur-row: 280ms;       /* one row */
+  --cls-stagger: 45ms;        /* between rows; 7 rows land in ~0.55 s (UI feedback <= 600 ms) */
+  --cls-breathe: 4400ms;      /* the one loop: 2200 ms each way */
+  --cls-readout: clamp(36px, 10.5vw, 48px);   /* phone; grows from 760 */
+  --cls-wa-safe: 72px;       /* WhatsApp button (56 px + 16 px gap) on the right edge of a phone: no text runs under it */
+  --cls-name: calc(var(--fs-h3) * .95);   /* row class name on a phone, grows from 760 */
+  --cls-live-name: var(--fs-h3);
+  background: var(--bg);
+  border-top: var(--bw) solid var(--line);
+}
+.sec--classes [hidden] { display: none !important; }
+
+/* ---------- layout ---------- */
+.cls__grid { display: block; }
+.cls__aside { display: flex; flex-direction: column; }
+.cls__head { order: 1; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: var(--s-3); }
+.cls__live { order: 2; }
+.cls__lead { order: 3; }
+.cls__main { margin-top: var(--s-6); }
+
+/* ---------- head ---------- */
+.cls__eyebrow { order: 2; display: flex; align-items: center; gap: var(--s-3); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.cls__eyebrow::before { display: none; content: ""; width: var(--s-5); height: var(--bw); background: var(--brand); }
+.sec--classes .cls__title { order: 1; font-family: var(--font-display); font-weight: var(--fw-display); font-size: calc(var(--fs-h2) * .92); line-height: var(--lh-tight); letter-spacing: var(--tr-display); color: var(--fg); text-wrap: balance; }
+.cls__lead { margin-top: var(--s-5); max-width: 34ch; padding-right: var(--cls-wa-safe); font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--fg-muted); }
+
+/* ---------- live now / next readout ---------- */
+.cls__live { position: relative; display: grid; grid-template-columns: var(--cls-av-card) minmax(0, 1fr); column-gap: var(--s-3); row-gap: var(--s-2); align-items: start; margin: var(--s-3) calc(var(--gutter) * -1) 0; padding: var(--s-4) var(--gutter); background: var(--bg-raised); border-block: var(--bw) solid var(--line-strong); }
+.cls__live-label { grid-column: 1 / -1; }
+.cls__live > .cls__av { grid-column: 1; grid-row: 2 / span 2; align-self: center; }
+.cls__live > .cls__readout { grid-column: 2; grid-row: 2; }
+.cls__live > .cls__live-main { grid-column: 2; grid-row: 3; min-width: 0; }
+.cls__live > .cls__then { grid-column: 1 / -1; }
+.cls__live[data-state="none"] > .cls__av { display: none; }
+.cls__live[data-state="none"] > :is(.cls__readout, .cls__live-main) { grid-column: 1 / -1; }
+.cls__live-label { display: flex; align-items: center; gap: var(--s-3); min-height: 1.3em; font: var(--fw-mono) var(--fs-label)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.cls__dot { flex: none; width: var(--cls-mark); height: var(--cls-mark); background: var(--fg-faint); }
+.cls__live[data-state="live"] .cls__dot { background: var(--live); }
+.cls__live[data-state="live"] .cls__live-label { color: var(--fg); }
+.cls__readout { font-family: var(--font-mono); font-weight: var(--fw-mono); font-size: var(--cls-readout); line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--fg); white-space: nowrap; }
+.cls__live[data-state="loading"] .cls__readout { color: var(--fg-faint); }
+.cls__live-name { min-height: 1.2em; min-height: 1lh; font-family: var(--font-display); font-weight: var(--fw-strong); font-size: var(--cls-live-name); line-height: var(--lh-snug); letter-spacing: calc(var(--tr-display) / 2); color: var(--fg); }
+.cls__live-meta { margin-top: var(--s-1); min-height: 1.2em; min-height: 1lh; display: flex; flex-wrap: wrap; column-gap: var(--s-3); color: var(--fg-muted); font-size: var(--fs-body); line-height: var(--lh-snug); }
+.cls__live-time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--fg); }
+.cls__bar { display: none; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); overflow: hidden; }   /* phone: sits on the card's bottom edge, costs no height */
+.cls__bar i { display: block; height: 100%; background: var(--live); transform-origin: 0 50%; transform: scaleX(var(--cls-p, 0)); }
+.motion-ok .cls__bar i { transition: transform 1s linear; }
+.cls__live[data-state="live"] .cls__bar { display: block; }
+.cls__then { display: none; margin-top: var(--s-4); padding-top: var(--s-3); border-top: var(--bw) solid var(--line); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); }
+
+
+/* round instructor portrait (the only round shape in the section); a monogram stands in when a portrait is missing, same size, so nothing shifts */
+.cls__av { position: relative; display: block; flex: none; width: var(--cls-av-row); height: var(--cls-av-row); border-radius: 50%; overflow: hidden; background: var(--bg-sunken); box-shadow: 0 0 0 var(--bw) var(--line-strong); }
+.cls__av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cls__av--card { width: var(--cls-av-card); height: var(--cls-av-card); }
+.cls__av--mono { display: grid; place-items: center; background: var(--bg-raised); color: var(--fg); font: var(--fw-strong) calc(var(--cls-av-row) * .42)/1 var(--font-mono); }
+.cls__av--card.cls__av--mono { font-size: calc(var(--cls-av-card) * .42); }
+.cls__live .cls__av--mono { background: var(--bg-sunken); }
+
+/* the one loop: the live dot breathes, only while the section is on screen */
+@keyframes cls-breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.motion-ok .cls[data-visible] .cls__live[data-state="live"] .cls__dot { animation: cls-breathe var(--cls-breathe) var(--ease-inout) infinite; }
+/* the readout changes meaning (new now / next): the text arrives, never jumps */
+@keyframes cls-up { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.motion-ok .cls__live[data-swap] :is(.cls__live-main, .cls__then, .cls__live-label) { animation: cls-up var(--dur-ui) var(--ease-out) backwards; }
+
+/* ---------- day tabs + sliding indicator ---------- */
+.cls__tabs { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin: 0 calc(var(--gutter) * -1); border-block: var(--bw) solid var(--line-strong); }
+.cls__ind { position: absolute; top: 0; bottom: 0; left: 0; width: calc(100% / 7); background: var(--bg-raised); box-shadow: inset 0 3px 0 var(--accent); transform: translateX(calc(var(--cls-i, 0) * 100%)); opacity: 0; pointer-events: none; }
+.cls__tabs[data-set] .cls__ind { opacity: 1; }
+.motion-ok .cls__tabs[data-anim] .cls__ind { transition: transform var(--dur-ui) var(--ease-out); }
+.cls__tab { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-1); min-width: 0; min-height: var(--cls-tab-h); padding: var(--s-2) 0; color: var(--fg-muted); text-align: center; }
+.cls__tab + .cls__tab { border-left: var(--bw) solid var(--line); }
+.cls__tab > span { display: block; transition: transform var(--dur-press) var(--ease-press), color var(--dur-ui) var(--ease-out); }
+.cls__tab-d { font: var(--fw-mono) var(--fs-small)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }
+.cls__tab-n { min-height: 1em; font: var(--fw-strong) var(--fs-lead)/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+.cls__tab[aria-selected="true"] { color: var(--fg); }
+.cls__tab:active > span { transform: scale(.9); }
+.cls__tab[data-today]::after { content: ""; position: absolute; top: var(--s-2); right: var(--s-2); width: 5px; height: 5px; background: var(--brand); }
+.cls__tab:focus-visible { outline-offset: -4px; z-index: 2; }
+@media (hover: hover) { .cls__tab:hover { color: var(--fg); } }
+
+/* ---------- panel: day line, rows, notes ---------- */
+.cls__panel { margin-inline: calc(var(--gutter) * -1); min-height: 300px; }
+.cls__panel:focus-visible { outline-offset: -4px; }
+.cls__daymeta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding: var(--s-5) var(--gutter) var(--s-4); }
+.cls__day { min-height: 1.2em; min-height: 1lh; display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-3); font-family: var(--font-display); font-weight: var(--fw-strong); font-size: var(--fs-h3); line-height: var(--lh-snug); letter-spacing: calc(var(--tr-display) / 2); color: var(--fg); }
+.cls__today { padding: var(--s-1) var(--s-2); border: var(--bw) solid var(--line-strong); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.cls__count { flex: none; font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+@keyframes cls-fade { from { opacity: 0; } to { opacity: 1; } }
+.motion-ok .cls__daymeta[data-anim] { animation: cls-fade var(--dur-ui) var(--ease-out); }
+
+.cls__row { position: relative; display: grid; grid-template-columns: var(--cls-time-w) var(--cls-av-row) minmax(0, 1fr); column-gap: var(--s-3); padding: var(--cls-row-pad) var(--gutter); border-top: var(--bw) solid var(--line); }
+.cls__row:last-child { border-bottom: var(--bw) solid var(--line); }
+.cls__t { font-family: var(--font-mono); font-size: var(--fs-body); line-height: var(--lh-body); font-variant-numeric: tabular-nums; }
+.cls__t-a { display: block; font-weight: var(--fw-strong); color: var(--fg); }
+.cls__t-b { display: block; color: var(--fg-muted); }
+.cls__tag { display: block; margin-top: var(--s-2); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }
+.cls__tag:empty { display: none; }
+.cls__name { font-family: var(--font-display); font-weight: var(--fw-strong); font-size: var(--cls-name); line-height: var(--lh-snug); letter-spacing: calc(var(--tr-display) / 2); color: var(--fg); overflow-wrap: anywhere; }
+.cls__coach { margin-top: var(--s-1); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); }
+
+.cls__row[data-state="past"] .cls__av { opacity: .6; }
+.cls__row[data-state="past"] .cls__name { color: var(--fg-muted); }
+.cls__row[data-state="past"] .cls__t-a, .cls__row[data-state="past"] .cls__t-b, .cls__row[data-state="past"] .cls__coach { color: var(--fg-faint); }
+.cls__row[data-state="now"] { background: var(--bg-raised); box-shadow: inset 3px 0 0 var(--live); }
+.cls__row[data-state="now"] .cls__tag { color: var(--live); }
+.cls__row[data-state="now"] .cls__tag::before { content: ""; display: none; width: var(--cls-mark); height: var(--cls-mark); margin-right: var(--s-2); background: var(--live); }
+.cls__row[data-state="next"] .cls__tag { color: var(--fg); }
+.cls__row[data-state="next"] .cls__tag::before { content: ""; display: none; width: var(--cls-mark); height: var(--cls-mark); margin-right: var(--s-2); border: var(--bw) solid var(--fg); }
+
+/* crisp stagger when the day changes (new rows are new elements, so each switch restarts it) */
+@keyframes cls-in { from { opacity: 0; transform: translateY(var(--cls-rise)); } to { opacity: 1; transform: none; } }
+.motion-ok .cls__list[data-anim] .cls__row { animation: cls-in var(--cls-dur-row) var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * var(--cls-stagger)); }
+
+.cls__empty { padding: var(--s-6) var(--gutter); border-top: var(--bw) solid var(--line); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); }
+.cls__note { padding: var(--s-4) var(--gutter) 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 52ch; }
+
+/* ---------- link to the passes ---------- */
+.cls__cta { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: 52px; margin-top: var(--s-6); padding: 0 var(--s-5); border: var(--bw) solid var(--line-strong); font: var(--fw-mono) var(--fs-small)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); transition: background-color var(--dur-ui) var(--ease-out), color var(--dur-ui) var(--ease-out), transform var(--dur-press) var(--ease-press); }
+.cls__cta:active { transform: scale(.98); }
+@media (hover: hover) { .cls__cta:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); } }
+
+/* ---------- tablet and up: contained panels, one-line time range ---------- */
+@media (min-width: 760px) {
+  .sec--classes { padding-top: var(--section-y); --cls-readout: clamp(48px, 7vw, 64px); --cls-av-card: 72px; --cls-name: var(--fs-h3); --cls-live-name: calc(var(--fs-h3) * 1.1); }
+  .cls__head { display: block; }
+  .cls__eyebrow { display: flex; margin-bottom: var(--s-4); }
+  .cls__eyebrow::before { display: block; }
+  .sec--classes .cls__title { font-size: var(--fs-h2); }
+  .cls__lead { order: 2; margin-top: var(--s-4); padding-right: 0; }
+  .cls__live { order: 3; margin-top: var(--s-6); }
+  .cls__live, .cls__tabs, .cls__panel { margin-inline: 0; }
+  .cls__live { padding: var(--s-5); column-gap: var(--s-4); row-gap: var(--s-3); border: var(--bw) solid var(--line-strong); min-height: 200px; }
+  .cls__live-label { min-height: var(--s-5); }
+  .cls__live-meta { line-height: var(--lh-body); }
+  .cls__bar { position: static; grid-column: 1 / -1; height: 2px; margin-top: var(--s-2); }
+  .cls__then { display: block; min-height: calc(1lh + var(--s-3) + var(--bw)); }
+  .cls__then:empty { visibility: hidden; }
+  .cls__tabs { border: var(--bw) solid var(--line-strong); }
+  .cls__panel { border: var(--bw) solid var(--line); border-top: 0; min-height: 340px; }
+  .cls__daymeta, .cls__row, .cls__empty { padding-inline: var(--s-6); }
+  .cls__note { padding-inline: var(--s-6); padding-bottom: var(--s-4); }
+  .cls__row { grid-template-columns: 11rem var(--cls-av-row) minmax(0, 1fr); column-gap: var(--s-4); align-items: center; }
+  .cls__t { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--s-2); }
+  .cls__t-a, .cls__t-b { display: inline; }
+  .cls__t-b::before { content: "–" / ""; margin-right: var(--s-2); color: var(--fg-faint); }
+  .cls__tag { margin: 0 0 0 var(--s-3); }
+  .cls__row .cls__tag::before { display: inline-block; }
+  .cls__cta { display: inline-flex; min-width: 260px; }
+}
+
+/* ---------- desktop: head and live readout on the left, tabs and rows on the right ---------- */
+@media (min-width: 1024px) {
+  .cls__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-8); align-items: start; }
+  .cls__aside { position: sticky; top: calc(var(--header-h) + var(--s-5)); }
+  .cls__main { margin-top: 0; }
+  .cls__lead { max-width: 30ch; }
+  .cls__live { margin-top: var(--s-7); }
+  .sec--classes { --cls-readout: clamp(44px, 4.6vw, 64px); }
+  .cls__then { min-height: 0; }
+  .cls__then:empty { display: none; }
+}

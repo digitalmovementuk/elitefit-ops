@@ -1,0 +1,38 @@
+/* whatsapp.css · Version: v3.0 — 2026-10-02 · owner: pricing lane
+   Changelog: v3.0 created. Always-visible WhatsApp button, fixed bottom right; lifts above the buy bar (html[data-buybar="open"]); ring pulse (transform + opacity only).
+   Own classes (.wa*). Only var(--token). Reduced motion / data-saver: no pulse, a static halo stays so the button is still easy to spot. */
+.wa-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.wa {
+  --wa-size: 56px;                       /* 48 px minimum tap target, 56 px reads as a button on a phone */
+  position: fixed; z-index: var(--z-wa);
+  right: calc(var(--s-4) + env(safe-area-inset-right)); bottom: calc(var(--s-4) + env(safe-area-inset-bottom));
+  width: var(--wa-size); height: var(--wa-size); display: grid; place-items: center;
+  border-radius: var(--r-pill); color: var(--fg-inverse); -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  opacity: 0; transform: translate3d(0, 0, 0);
+}
+.wa[hidden] { display: none; }
+/* short phones: a 48 px button (still a full tap target) and a slimmer margin keep it off the first-view content (390x844 and taller keep 56 px) */
+@media (max-height: 760px) {
+  .wa { --wa-size: 48px; right: calc(var(--s-3) + env(safe-area-inset-right)); bottom: calc(var(--s-3) + env(safe-area-inset-bottom)); }
+  .wa__ic { width: 24px; height: 24px; }
+}
+/* first view: steps aside while it would cover the live class card (whatsapp.js sets data-away at scroll top only) */
+.wa[data-away], .wa.is-ready[data-away] { opacity: 0; visibility: hidden; pointer-events: none; }
+.wa.is-ready { opacity: 1; }
+.wa__disc { position: relative; display: grid; place-items: center; width: 100%; height: 100%; border-radius: var(--r-pill); background: var(--wa); box-shadow: 0 0 0 var(--bw) var(--line-strong); }
+.wa__ring { position: absolute; inset: 0; border-radius: var(--r-pill); background: var(--wa); opacity: .3; transform: scale(1.28); pointer-events: none; }   /* static halo (reduced motion) */
+.wa__ic { width: 28px; height: 28px; }
+.wa:focus-visible { outline-offset: 4px; }
+/* lift above the buy bar: bar height + the safe area is already in the bottom offset, so the lift is the bar's own height */
+html[data-buybar="open"] .wa { transform: translate3d(0, calc(var(--buybar-h) * -1), 0); }
+.motion-ok .wa { transition: opacity var(--dur-ui) var(--ease-out), transform 280ms var(--ease-out), visibility 0s; }
+.motion-ok .wa[data-away] { transition: opacity var(--dur-ui) var(--ease-out), transform 280ms var(--ease-out), visibility 0s linear var(--dur-ui); }
+.motion-ok .wa:active { transform: translate3d(0, 0, 0) scale(.94); transition-duration: var(--dur-press); }
+html[data-buybar="open"].motion-ok .wa:active { transform: translate3d(0, calc(var(--buybar-h) * -1), 0) scale(.94); }
+/* the pulse: two rings grow and fade, half a cycle apart, behind the disc; the disc breathes a little with the first one */
+.wa::before { content: ""; position: absolute; inset: 0; border-radius: var(--r-pill); background: var(--wa); opacity: 0; pointer-events: none; }
+.motion-ok .wa__ring { opacity: 0; transform: scale(1); animation: wa-ring 2.6s var(--ease-out) infinite; }
+.motion-ok .wa::before { animation: wa-ring 2.6s var(--ease-out) 1.3s infinite; }
+.motion-ok .wa__disc { animation: wa-breathe 2.6s var(--ease-inout) infinite; }
+@keyframes wa-ring { 0% { opacity: .55; transform: scale(1); } 75%, 100% { opacity: 0; transform: scale(1.55); } }
+@keyframes wa-breathe { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.07); } 30% { transform: scale(1); } }

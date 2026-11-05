@@ -1,0 +1,118 @@
+/* Elite Fit /groupfitness design concepts · chooser · v1 rev 5 · 29 Oct 2026 (motion layer: motion.css)
+   Tokens, Gilroy files and logo come from ../v1/assets/ (linked, not copied).
+   Brand: #1B1B1B #353535 #FCFCFA #E94A2B only, flat, no gradients. Terracotta = one word in the headline
+   plus the tertiary "Try the booking" links. The "Open" buttons are white outline pills, so a screen never holds
+   more than one terracotta button (it holds none). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--black); color: var(--white); color-scheme: dark; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--black); color: var(--white); font-family: var(--font); font-weight: 400; font-size: var(--fs-body); line-height: var(--lh-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; }
+p, h1, h2, ol { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: var(--s4); top: -4rem; z-index: 10; min-height: 48px; display: inline-flex; align-items: center; padding: 0 var(--s5); background: var(--white); color: var(--black); font-weight: 700; border-radius: var(--r-pill); text-decoration: none; }
+.skip:focus { top: var(--s4); }
+
+/* header */
+.hdr { border-bottom: 1px solid var(--w-14); }
+.hdr__in { min-height: var(--hdr-h); display: flex; align-items: center; padding-block: var(--s4); }
+.brand { display: block; line-height: 0; }
+.brand img, .ftr__logo { display: block; width: 176px; height: auto; }
+@media (min-width: 1024px) { .brand img { width: 208px; } }
+
+/* intro */
+.intro { padding-top: clamp(2.5rem, 1rem + 5vw, 5.5rem); padding-bottom: clamp(2rem, 1rem + 3.4vw, 4rem); }
+.eyebrow { font-weight: 600; font-size: .8125rem; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--w-72); }
+.intro h1 { margin: var(--s4) 0 var(--s5); font-weight: 800; font-size: clamp(2.5rem, 1.3rem + 5.6vw, 6.25rem); line-height: var(--lh-tight); text-transform: uppercase; }
+.intro h1 span { display: block; }
+.intro h1 .t { color: var(--terra); }
+.lead { max-width: 36rem; font-size: var(--fs-lead); line-height: 1.5; color: var(--w-72); }
+/* desktop: lead beside the headline so the card titles show in the first 900 px */
+@media (min-width: 72rem) {
+  .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); column-gap: 3rem; align-items: end; padding-top: 4rem; padding-bottom: 3rem; }
+  .intro .eyebrow { grid-column: 1 / -1; }
+  .intro h1 { margin-bottom: 0; }
+  .intro .lead { margin-bottom: .6rem; }
+}
+
+/* cards */
+.grid { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 44rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+@media (min-width: 72rem) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* rev 4 (29 Oct 2026): a last card that would sit alone in its row (2 columns: odd count; 3 columns: count = 3n+1) spans the row,
+   picture left and words right. It follows the card count, so adding or removing a card needs no class. */
+@media (min-width: 44rem) and (max-width: 71.9375rem) {
+  .grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .grid > li:last-child:nth-child(odd) .card { flex-direction: row; }
+  .grid > li:last-child:nth-child(odd) .card__media { flex: 0 0 46%; align-self: stretch; }
+  .grid > li:last-child:nth-child(odd) .card__img { object-position: 0 0; }
+  .grid > li:last-child:nth-child(odd) .card__body { justify-content: center; }
+  .grid > li:last-child:nth-child(odd) .card__best { flex: 0 1 auto; }
+}
+@media (min-width: 72rem) and (max-width: 79.9375rem) {
+  .grid > li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  .grid > li:last-child:nth-child(3n + 1) .card { flex-direction: row; }
+  .grid > li:last-child:nth-child(3n + 1) .card__media { flex: 0 0 46%; align-self: stretch; }
+  .grid > li:last-child:nth-child(3n + 1) .card__body { justify-content: center; padding: 2rem 2.5rem; }
+  .grid > li:last-child:nth-child(3n + 1) .card__best { flex: 0 1 auto; }
+}
+
+/* rev 5 (29 Oct 2026), audit card CH-1: 4 columns from 80rem (1280 px). The grid runs on 12 tracks so a short last row shares
+   the full width: 3 left = thirds, 2 left = halves, 1 left = one full-width card, picture left (as above). Follows the card count. */
+@media (min-width: 80rem) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .grid > li { grid-column: span 3; }
+  .grid > li:nth-child(4n + 1):nth-last-child(3), .grid > li:nth-child(4n + 1):nth-last-child(3) ~ li { grid-column: span 4; }
+  .grid > li:nth-child(4n + 1):nth-last-child(2), .grid > li:nth-child(4n + 1):nth-last-child(2) ~ li { grid-column: span 6; }
+  .grid > li:nth-child(4n + 1):last-child { grid-column: 1 / -1; }
+  .grid > li:nth-child(4n + 1):last-child .card { flex-direction: row; }
+  .grid > li:nth-child(4n + 1):last-child .card__media { flex: 0 0 46%; align-self: stretch; }
+  .grid > li:nth-child(4n + 1):last-child .card__img { object-position: 0 0; }
+  .grid > li:nth-child(4n + 1):last-child .card__body { justify-content: center; padding: 2rem 2.5rem; }
+  .grid > li:nth-child(4n + 1):last-child .card__best { flex: 0 1 auto; }
+}
+
+.card { display: flex; flex-direction: column; height: 100%; background: var(--grey); border: 1px solid var(--w-08); border-radius: var(--r-card); overflow: hidden; -webkit-tap-highlight-color: transparent; }
+/* Screenshot thumbs: <id>-d.webp (desktop first view, 8:5) from 641 px up, <id>-m.webp (phone first view, 3:4) below.
+   On phones the 3:4 shot is cropped to a square (4:3 cut the Kinetic headline and hid Home's white card); swapping a screenshot = replace the file. */
+.card__media { display: block; aspect-ratio: 8 / 5; background: var(--black); overflow: hidden; }
+.card__media picture { display: block; width: 100%; height: 100%; }
+.card__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+@media (max-width: 640px) { .card__media { aspect-ratio: 1 / 1; } .card__img { object-position: 50% 20%; } }
+
+.card__body { flex: 1; display: flex; flex-direction: column; padding: 1.375rem 1.375rem 1.5rem; }
+.card h2 { margin: 0 0 .6rem; font-weight: 800; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem); line-height: 1.04; text-transform: uppercase; }
+.card__desc { margin-bottom: .75rem; font-size: 1.0625rem; line-height: 1.55; color: var(--w-72); }
+.card__best { flex: 1; margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.5; color: var(--white); }
+.card__best span { font-weight: 600; }
+.card__acts { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.5rem; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; min-height: 48px; padding: 0 1.5rem; border: 2px solid var(--white); border-radius: var(--r-pill); background: transparent; color: var(--white); font-weight: 700; font-size: 1.2rem; line-height: 1; text-decoration: none; white-space: nowrap; }
+.btn:hover { background: var(--white); color: var(--black); }
+.link-t { display: inline-flex; align-items: center; gap: .4em; min-height: 48px; color: var(--terra); font-weight: 700; font-size: 1.2rem; line-height: 1.2; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .22em; }
+.link-t:hover { text-decoration-thickness: 3px; }
+/* rev 11.1 (29 Oct 2026), audit card CH-3: "Try the booking" answers hover and keyboard focus the way "Open" does, and stays terracotta.
+   Underline 2 px, lifted from .22em (about 4 px) to 5 px; the arrow steps 4 px right. Paint and transform only, so the link's box never moves.
+   The 3 px thickness above is replaced (it was close to invisible against the 2 px resting line). Transitions are 0.18 s and only where
+   motion is allowed; under reduced motion (or without .motion-ok) the end state shows at once. motion.css keeps the press dip (transform). */
+.card .link-t:hover, .card .link-t:focus-visible { text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.card .link-t:hover .arr, .card .link-t:focus-visible .arr { transform: translateX(4px); }
+@media (prefers-reduced-motion: no-preference) {
+  html.motion-ok .card .link-t { transition: transform var(--m-press, .16s) var(--m-spring, cubic-bezier(.25, .9, .3, 1)), text-underline-offset .18s cubic-bezier(.2, .7, .2, 1); }
+  html.motion-ok .card .link-t .arr { transition: transform .18s cubic-bezier(.2, .7, .2, 1); }
+}
+.arr { display: inline-block; }
+
+/* footer */
+.ftr { margin-top: clamp(4rem, 2rem + 6vw, 7rem); border-top: 1px solid var(--w-14); padding-block: 3rem calc(3rem + env(safe-area-inset-bottom, 0px)); }
+.ftr__in { display: flex; flex-direction: column; gap: var(--s5); }
+.ftr__note { font-size: 1rem; color: var(--w-72); }
+@media (min-width: 44rem) { .ftr__in { flex-direction: row; align-items: center; justify-content: space-between; } }
+
+/* motion: moved to chooser/motion.css (v1 rev 5, 29 Oct 2026). Without JS, under reduced motion or Save-Data nothing animates
+   and nothing is hidden. Anchor jumps stay smooth, except under reduced motion. */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

@@ -1,0 +1,207 @@
+{
+ "_meta": {
+  "version": "Home v2a overlay 1.0",
+  "date": "2026-10-28",
+  "about": "Data the shared ../../v1/assets/data/groupfitness.json lacks, merged over it by assets/js/api.js (overlay wins; objects merge, arrays replace). The shared file is never edited.",
+  "sources": {
+   "prices": "elitefitbali.com /membership/ and /promo-duo/, re-read 28 Oct 2026 (ef-gf/s3v2/FACTS.md F2-PRC)",
+   "rating": "Google knowledge panel, read 28 Oct 2026 (F2-REV-01)",
+   "address": "Google listing (F2-ADR-01)",
+   "drive": "Google Maps, Wed 28 Oct 2026 ~9:20am WITA (F2-DRV-01)",
+   "capacity": "Sample (no source; the club publishes no capacity)",
+   "hero_quotes": "Google reviews; swap list from ef-gf/s3v2/reviews/REVIEWS.md when ready",
+   "reviews": "Google Maps reviews via Firecrawl, 28 Oct 2026 (172 of 497 read); ef-gf/s3v2/reviews/reviews.json"
+  }
+ },
+ "club": {
+  "address_gbp": "Jl. Sempol No.26, Pererenan, Kec. Mengwi, Kabupaten Badung, Bali 80351",
+  "address_short": "Jl. Sempol No.26, Pererenan",
+  "rating": {
+   "value": 4.7,
+   "count": 497,
+   "as_of": "2026-10-28",
+   "source": "Google"
+  },
+  "hours": {
+   "perform": "06:00 to 22:00, every day",
+   "recharge": "06:30 to 22:00, every day"
+  },
+  "drive": {
+   "from": "Pantai Berawa",
+   "motorbike_min": 12,
+   "motorbike_km": 4.4,
+   "car_min": 27,
+   "car_km": 6.7,
+   "read": "2026-10-28"
+  },
+  "geo": {
+   "lat": -8.6389587,
+   "lng": 115.1378823,
+   "source": "club map link, re-check against the Google Business Profile pin"
+  },
+  "maps_url": "https://maps.app.goo.gl/4qwxZzF3nnM1jeh36",
+  "privacy_url": null
+ },
+ "passes": {
+  "order": [
+   "member",
+   "class-1",
+   "membership",
+   "duo"
+  ],
+  "includes": {
+   "class-1": {
+    "classes": 1,
+    "gym": false,
+    "recharge": false
+   },
+   "duo": {
+    "classes": "all",
+    "gym": true,
+    "recharge": true
+   },
+   "perform-4w": {
+    "classes": "unlimited",
+    "gym": true,
+    "recharge": false
+   },
+   "elite-4w": {
+    "classes": "unlimited",
+    "gym": true,
+    "recharge": true
+   }
+  }
+ },
+ "payload": {
+  "schema_version": "ef-booking-1",
+  "privacy_notice_version": "2026-10-28",
+  "source_page": "https://elitefitbali.com/class-schedule/"
+ },
+ "timetable": {
+  "capacity_sample": true,
+  "capacity_note": "The club publishes no class capacity. These per-class capacities are Sample numbers for the free-spots graphic; free spots = min(capacity, the stable sample hash) minus demo bookings.",
+  "capacity": {
+   "hyrox-conditioning": 16,
+   "off-court-training": 12,
+   "boxercise-beginner": 12,
+   "boxercise-advanced": 10,
+   "booty-and-core": 14,
+   "body-sculpt": 14,
+   "booty": 12,
+   "stretching": 16,
+   "mobility": 12,
+   "injury-prevention-mobility": 10
+  }
+ },
+ "coach_lines": {
+  "hyrox-conditioning": "I built this hour on the HYROX race format: HIIT, functional moves, endurance. Join me at {time}.",
+  "off-court-training": "I designed this hour for performance and injury prevention. Racket player or not, join me at {time}.",
+  "boxercise-beginner": "I teach boxing with no contact, for strength and speed. New is fine; start with me at {time}.",
+  "boxercise-advanced": "My no-contact boxing at the advanced level, for agility and endurance. Come box with me at {time}.",
+  "booty-and-core": "Every level is welcome here, beginners too. We work on strength and flexibility. Join me at {time}.",
+  "body-sculpt": "I mix strength and cardio in one full-body hour. Come work through it with me at {time}.",
+  "booty": "It's Booty with me, one hour at {time}. Come along; I'd love to have you there.",
+  "stretching": "An hour of stretching with me at {time}. I'll save you a spot.",
+  "mobility": "An hour of mobility with me at {time}. I'd be glad to see you there.",
+  "injury-prevention-mobility": "My new class works on injury prevention and mobility. I'd love you to join me at {time}."
+ },
+ "coach_lines_note": "COPY.md v1.3 SHEET.coach.<class-id>; {time} is the class start time; Sample until each coach approves the line.",
+ "reviews": [
+  {
+   "id": "R01",
+   "text": "…There’s a great variety of classes to suit everyone, and the trainers are friendly, knowledgeable, and always happy to help.",
+   "by": "Sonal P., Google review",
+   "tags": {
+    "hero": true
+   }
+  },
+  {
+   "id": "R02",
+   "text": "Amazing facilities and great classes.",
+   "by": "Alex F., Google review",
+   "tags": {
+    "hero": true
+   }
+  },
+  {
+   "id": "R03",
+   "text": "Excellent gym with top-level equipment, a great range of classes…",
+   "by": "Tom H., Google review",
+   "tags": {
+    "hero": true
+   }
+  },
+  {
+   "id": "R04",
+   "text": "…The variety of classes offered is amazing, The trainers are absolute experts, providing guidance and motivation in every session.",
+   "by": "Edi H., Google review",
+   "tags": {
+    "hero": true
+   }
+  },
+  {
+   "id": "R05",
+   "text": "Awesome gym and amazing spa area. Great variety of classes and equipment is exceptional .",
+   "by": "Kieran H., Google review",
+   "tags": {
+    "hero": true
+   }
+  },
+  {
+   "id": "R08",
+   "text": "…I joined the boxercise class 3x a week with Rey who is brilliant.",
+   "by": "Alexandra H., Google review",
+   "tags": {
+    "coach": "rey",
+    "classes": [
+     "boxercise-beginner",
+     "boxercise-advanced"
+    ]
+   }
+  },
+  {
+   "id": "R09a",
+   "text": "…classes are great, tinos’ mobility sorted me out…",
+   "by": "Conor B., Google review",
+   "tags": {
+    "coach": "tinos",
+    "classes": [
+     "injury-prevention-mobility"
+    ]
+   }
+  },
+  {
+   "id": "R09b",
+   "text": "…rey’s hyrox conditioning class is a monster.",
+   "by": "Conor B., Google review",
+   "tags": {
+    "coach": "rey",
+    "classes": [
+     "hyrox-conditioning"
+    ]
+   }
+  },
+  {
+   "id": "R06",
+   "text": "…Ray delivered the lesson at a very high level with terrific dedication.",
+   "by": "Shanti P., Google review",
+   "tags": {
+    "coach": "rey",
+    "classes": [
+     "boxercise-beginner",
+     "boxercise-advanced"
+    ]
+   }
+  },
+  {
+   "id": "R10",
+   "text": "…the energy of the coaches - Icha, Rey, Tinos - that just really makes you want to work harder!",
+   "by": "Rue A., Google review",
+   "tags": {
+    "coach": "icha",
+    "classes": []
+   }
+  }
+ ],
+ "reviews_note": "REAL Google reviews, verbatim (typos, lowercase and … kept): Google Maps reviews read via Firecrawl on 28 Oct 2026, 172 of 497 reviews (ef-gf/s3v2/reviews/REVIEWS.md v1.1). tags.hero = the hero rotator, in file order; tags.coach/classes = the booking sheet (class match first, then coach). The two sets never overlap."
+}

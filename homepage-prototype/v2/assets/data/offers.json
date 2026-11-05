@@ -1,0 +1,70 @@
+{
+  "version": "v3.0 — 2026-10-02 (pricing lane)",
+  "status": "from FACTS.md section 13 (F-OFR), all verified live on 2026-10-02; expired offers are excluded (F-OFR-04 /promo/ ended April 2026)",
+  "source": "https://elitefitbali.com/offers-discounts/ and https://elitefitbali.com/promo-duo/",
+  "checked": "2026-10-02",
+  "partner": {
+    "text": "Memberships of 4, 12, 26 weeks and yearly come with discounts at the club’s partners.",
+    "appliesTo": [
+      "w4",
+      "w12",
+      "w26",
+      "w52"
+    ],
+    "appliesToSource": "F-PRC-11: '*Exclusive discounts are applicable for the 4, 12, 26 Weeks and Yearly Memberships.' (printed in every membership pop-up)",
+    "categories": [
+      {
+        "label": "Food & Drink",
+        "count": 37
+      },
+      {
+        "label": "Wellness",
+        "count": 6
+      },
+      {
+        "label": "Energise",
+        "count": 6
+      },
+      {
+        "label": "Stay",
+        "count": 4
+      },
+      {
+        "label": "Activities",
+        "count": 2
+      }
+    ],
+    "count": 55,
+    "min": "10%",
+    "max": "30%",
+    "statSource": "F-OFR-07 (55 cards in five groups) and F-OFR-08 (printed range 10% to '3o%', the club's typo for 30%). The club prints no partner names as text (F-OFR-09), so none are shown.",
+    "conditions": "F-OFR-11: offers may be subject to specific hours, locations or service restrictions; the club asks visitors to swing by reception to see what is on."
+  },
+  "offers": [
+    {
+      "id": "duo-day-pass",
+      "status": "live",
+      "title": "Grab a day pass. Buy 1, get 1 free.",
+      "text": "Bring a friend, your partner, or your regular workout buddy. IDR {duoDayEach} each for the Elite day pass.",
+      "waText": "Hello Elite Fit Bali, I’m interested in the Duo day pass offer.",
+      "url": "https://elitefitbali.com/promo-duo/",
+      "source": "F-OFR-01 verbatim for the heading and the first sentence; 'for the full Elite experience' (club) shortened to 'for the Elite day pass' (F-PRC-06: the Duo day pass is the Elite day pass) so Elite stays a name, not a boast. WhatsApp text after the club's own link (F-ADR-14), opening with a comma as copy.json does."
+    },
+    {
+      "id": "duo-membership",
+      "status": "live",
+      "title": "Duo membership",
+      "text": "Join with a friend, partner, or family member. Every membership comes with a Duo price.",
+      "url": "https://elitefitbali.com/promo-duo/",
+      "source": "F-OFR-02 (club wording, 'DUO' set as Duo)"
+    },
+    {
+      "id": "free-tour",
+      "status": "live",
+      "title": "Free tour",
+      "text": "Feel free to visit us any day of the week. We will be happy to give you a tour.",
+      "waText": "Hello Elite Fit Bali, I’d like to book a tour.",
+      "source": "F-OFR-03 verbatim; WhatsApp text after the club's own link (F-ADR-14), comma as in copy.json"
+    }
+  ]
+}

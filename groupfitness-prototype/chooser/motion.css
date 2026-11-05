@@ -1,0 +1,127 @@
+/* Elite Fit /groupfitness chooser · motion layer · v1 rev 5 · 29 Oct 2026 · Digital Movement
+   Spec: upgrade/MOTION-BRIEF.md (#39). "Light: it is a menu." Native scroll only, nothing is pinned or intercepted.
+   Rules kept here:
+   - Skim-first: nothing above the fold is ever hidden. The header hairline draws and the intro and first-row cards
+     settle (transform only, full opacity) on first paint. Only cards that start fully below the fold cascade in, once.
+   - Reveals are 0.55 s; a row's stagger group ends within 0.9 s of its first card.
+   - Compositor only: transform and opacity. Hover shadow and ring are pseudo-elements on opacity, never box-shadow.
+   - Faces: the thumbnail settle (1.04 -> 1) and the hover lean-in (1.03) run only where chooser.js has set data-settle /
+     data-zoom after checking data-faces (>= 10 % margin at rest and at the extreme frame).
+   - Off: html without .motion-ok (no JS, reduced motion, Save-Data) or prefers-reduced-motion. Final state at once.
+   Changelog: v1 rev 5 (29 Oct 2026), first motion layer; replaces the rev 1-4 block in chooser.css. */
+
+:root {
+  /* one easing family: a calm out-curve for reveals, settles and lifts, and a critically damped spring (no overshoot) for UI */
+  --m-out: cubic-bezier(.2, .7, .2, 1);
+  --m-spring: cubic-bezier(.25, .9, .3, 1);
+  --m-press: .16s;
+  --m-ui: .3s;
+  --m-reveal: .55s;
+  --m-draw: .6s;
+  --m-pan: .9s;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root { --m-spring: linear(0, .0788, .2359, .4028, .5507, .6709, .7636, .8327, .8831, .919, .9444, .9621, .9743, .9826, .9883, .9922, .9948, .9965, .9977, .9985, 1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* 1. First paint: header hairline draws, intro lines settle (never hidden) */
+  html.motion-ok .hdr { position: relative; border-bottom-color: transparent; }
+  html.motion-ok .hdr::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--w-14); transform-origin: 0 50%; animation: m-draw var(--m-draw) var(--m-out) both; pointer-events: none; }
+  html.motion-ok .intro .eyebrow,
+  html.motion-ok .intro h1 > span,
+  html.motion-ok .intro .lead { animation: m-settle var(--m-reveal) var(--m-out) backwards; }
+  html.motion-ok .intro h1 > span:first-child { animation-delay: .04s; }
+  html.motion-ok .intro h1 > span.t { animation-delay: .09s; }
+  html.motion-ok .intro .lead { animation-delay: .14s; }
+
+  /* 2. First row: the cards in view at load settle in sequence, at full opacity. Below-the-fold ones play it unseen. */
+  html.motion-ok .grid > li:nth-child(-n + 4) { animation: m-settle-card var(--m-draw) var(--m-out) backwards; }
+  html.motion-ok .grid > li:nth-child(1) { animation-delay: .12s; }
+  html.motion-ok .grid > li:nth-child(2) { animation-delay: .19s; }
+  html.motion-ok .grid > li:nth-child(3) { animation-delay: .26s; }
+  html.motion-ok .grid > li:nth-child(4) { animation-delay: .33s; }
+
+  /* 3. Cascade: chooser.js adds .rv only to items fully below the fold, then .in once as each enters (--d = row stagger).
+        The frame rises 28 px, the words follow 70 ms later from 12 px: two layers, one gesture. */
+  html.motion-ok .grid > li.rv { transition: opacity var(--m-reveal) var(--m-out) var(--d, 0ms), transform var(--m-reveal) var(--m-out) var(--d, 0ms); }
+  html.motion-ok .grid > li.rv:not(.in) { opacity: 0; transform: translate3d(0, 28px, 0); }
+  html.motion-ok .grid > li.rv .card__body { transition: transform var(--m-reveal) var(--m-out) calc(var(--d, 0ms) + 70ms); }
+  html.motion-ok .grid > li.rv:not(.in) .card__body { transform: translate3d(0, 12px, 0); }
+  html.motion-ok .rv.now, html.motion-ok .rv.now .card__body, html.motion-ok .rv.now .card__img, html.motion-ok .rv.now .ftr__in, html.motion-ok .rv.now::before { transition: none; }
+
+  /* 4. Thumbnail settle 1.04 -> 1. Scroll-driven where supported (tied to the card's own entry, compositor), locked once
+        settled (.settled) so it never replays; otherwise a one-off transition with the reveal. Origin from chooser.js. */
+  html.motion-ok .card__img { transform-origin: var(--m-o, 50% 50%); }
+  @supports (animation-timeline: view()) {
+    html.motion-ok .grid > li.rv { view-timeline: --m-card block; }
+    html.motion-ok .grid > li.rv[data-settle]:not(.settled) .card__img {
+      animation: m-thumb linear both;
+      animation-timeline: --m-card;
+      animation-range: entry 0% entry 50%;
+    }
+  }
+  @supports not (animation-timeline: view()) {
+    html.motion-ok .grid > li.rv[data-settle] .card__img { transition: transform var(--m-draw) var(--m-out) var(--d, 0ms); }
+    html.motion-ok .grid > li.rv[data-settle]:not(.in) .card__img { transform: scale(1.04); }
+  }
+
+  /* 5. Press: buttons and links dip to 0.97 on the spring; a tap on the picture dips the whole card */
+  html.motion-ok .btn { transition: background-color .2s var(--m-out), color .2s var(--m-out), transform var(--m-press) var(--m-spring); }
+  html.motion-ok .link-t { transition: transform var(--m-press) var(--m-spring); }
+  html.motion-ok .btn:active, html.motion-ok .link-t:active { transform: scale(.97); }
+  html.motion-ok .grid > li > .card { transition: transform var(--m-ui) var(--m-spring); }
+  html.motion-ok .grid > li > .card:has(.card__media:active) { transform: scale(.985); transition-duration: var(--m-press); }
+  html.motion-ok .arr { transition: transform var(--m-ui) var(--m-spring); }
+
+  /* 6. Focus: the ring eases in from slightly larger (same 3 px white ring, 3 px off the element, as the static one) */
+  html.motion-ok :is(.btn, .link-t) { position: relative; }
+  html.motion-ok :is(.btn, .link-t):focus-visible { outline-color: transparent; }
+  html.motion-ok :is(.btn, .link-t)::after { content: ""; position: absolute; inset: -6px; border: 3px solid var(--white); border-radius: var(--r-pill); opacity: 0; transform: scale(1.1); transition: opacity .18s var(--m-out), transform var(--m-ui) var(--m-spring); pointer-events: none; }
+  html.motion-ok .link-t::after { border-radius: 9px; }
+  html.motion-ok :is(.btn, .link-t):focus-visible::after { opacity: 1; transform: none; }
+
+  /* 7. Desktop hover (fine pointer): the card lifts 3 px; shadow (below) and ring (above) are pseudo-elements that fade in on
+        opacity. The li itself never moves, so the hover target is stable. The picture leans in 1.03 where data-zoom allows,
+        once the card has settled. */
+  @media (hover: hover) and (pointer: fine) {
+    html.motion-ok .grid > li { position: relative; isolation: isolate; }
+    html.motion-ok .grid > li::before,
+    html.motion-ok .grid > li::after { content: ""; position: absolute; inset: 0; border-radius: var(--r-card); pointer-events: none; opacity: 0; transition: opacity var(--m-ui) var(--m-out), transform var(--m-ui) var(--m-out); }
+    html.motion-ok .grid > li::before { z-index: -1; box-shadow: 0 24px 44px -20px rgba(0, 0, 0, .75), 0 6px 14px -6px rgba(0, 0, 0, .45); }
+    html.motion-ok .grid > li::after { z-index: 1; border: 1px solid var(--w-14); }
+    html.motion-ok .grid > li > .card { transition: transform var(--m-ui) var(--m-out); }
+    html.motion-ok .grid > li:hover > .card,
+    html.motion-ok .grid > li:hover::before,
+    html.motion-ok .grid > li:hover::after { transform: translate3d(0, -3px, 0); }
+    html.motion-ok .grid > li:hover::before,
+    html.motion-ok .grid > li:hover::after { opacity: 1; }
+    html.motion-ok .grid > li:hover > .card:has(.card__media:active) { transform: translate3d(0, -1px, 0) scale(.99); transition-duration: var(--m-press); }
+    html.motion-ok .card__media picture { transform-origin: var(--m-oz, 50% 0%); transition: transform var(--m-pan) var(--m-out); }
+    html.motion-ok .grid > li[data-zoom]:not(.rv):hover .card__media picture,
+    html.motion-ok .grid > li[data-zoom].settled:hover .card__media picture { transform: scale(1.03); }
+    html.motion-ok .btn:hover .arr, html.motion-ok .link-t:hover .arr { transform: translateX(4px); }
+  }
+
+  /* 8. Footer: its rule draws in and the line below rises, once */
+  html.motion-ok .ftr.rv { position: relative; border-top-color: transparent; }
+  html.motion-ok .ftr.rv::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--w-14); transform-origin: 0 50%; transform: scaleX(0); transition: transform var(--m-draw) var(--m-out); pointer-events: none; }
+  html.motion-ok .ftr.rv.in::before { transform: none; }
+  html.motion-ok .ftr.rv .ftr__in { transition: opacity var(--m-reveal) var(--m-out) .12s, transform var(--m-reveal) var(--m-out) .12s; }
+  html.motion-ok .ftr.rv:not(.in) .ftr__in { opacity: 0; transform: translate3d(0, 12px, 0); }
+}
+
+@keyframes m-draw { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes m-settle { from { transform: translate3d(0, 10px, 0); } }
+@keyframes m-settle-card { from { transform: translate3d(0, 16px, 0); } }
+@keyframes m-thumb { from { transform: scale(1.04); } to { transform: none; } }
+
+@media (forced-colors: active) {
+  html.motion-ok :is(.btn, .link-t)::after { display: none; }
+  html.motion-ok :is(.btn, .link-t):focus-visible { outline-color: Highlight; }
+}
+@media print {
+  html.motion-ok .rv, html.motion-ok .rv .card__body, html.motion-ok .rv .card__img, html.motion-ok .rv .ftr__in { opacity: 1 !important; transform: none !important; }
+  html.motion-ok .ftr.rv::before { transform: none !important; }
+}

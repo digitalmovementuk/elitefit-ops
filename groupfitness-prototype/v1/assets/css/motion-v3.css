@@ -1,0 +1,113 @@
+/* Elite Fit Group Fitness concept v1 · motion-v3.css · v1.0, 29 Oct 2026
+   The Original's motion language, refined and carried into every section (ef-gf/upgrade/MOTION-BRIEF.md, RULINGS 39).
+   v1's own grammar stays: things rise into place on its fast-start ease (--ease-out), cards are dealt, the day indicator glides.
+   New: headlines rise line by line out of clean masks, ruled rows draw their hairline before the row lifts, media frames settle,
+   the hero recedes as the week arrives, the pinned Now bar carries a scroll hairline, the sheet and sticky bar move on one spring.
+   Compositor only (transform, opacity). Never a clip or scale across a face: media use opacity + translate.
+   Everything is gated by html.motion-ok (not reduced motion, not Save-Data) and html.m3-ready (set by motion-v3.js). */
+
+:root {
+  --m3-ease: var(--ease-out);                 /* one family: v1's cubic-bezier(.16, 1, .3, 1) */
+  /* a critically damped spring (no overshoot, no bounce) for the UI: sheet, sticky bar, presses */
+  --m3-spring: linear(0, .034 2%, .13 4.5%, .258 7.4%, .4 10.7%, .535 14.4%, .66 18.7%, .762 23.4%, .845 28.6%, .907 34.3%, .949 40.6%, .977 47.8%, .993 56.3%, 1);
+}
+html.m3-boot *, html.m3-boot *::before, html.m3-boot *::after { transition: none !important; }
+
+/* ---------- headlines: line by line ---------- */
+.m3l { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+.m3l__in { display: block; transition: transform .6s var(--m3-ease); transition-delay: calc(var(--l, 0) * 80ms); }
+.motion-ok.m3-ready [data-motion~="lines"]:not(.v-in) .m3l__in { transform: translateY(105%); }
+
+/* ---------- cascades (children rise one after another) ---------- */
+.motion-ok [data-motion~="cascade"] > * { transition: opacity .35s linear, transform .55s var(--m3-ease), color var(--t-fast), background-color var(--t-fast), border-color var(--t-fast); }
+.motion-ok.m3-ready [data-motion~="cascade"]:not(.v-in) > *:not(.days__ind) { opacity: 0; transform: translateY(14px); }
+[data-motion~="cascade"] > :nth-child(2) { transition-delay: 45ms; }
+[data-motion~="cascade"] > :nth-child(3) { transition-delay: 90ms; }
+[data-motion~="cascade"] > :nth-child(4) { transition-delay: 135ms; }
+[data-motion~="cascade"] > :nth-child(5) { transition-delay: 180ms; }
+[data-motion~="cascade"] > :nth-child(6) { transition-delay: 225ms; }
+[data-motion~="cascade"] > :nth-child(7) { transition-delay: 270ms; }
+[data-motion~="cascade"] > :nth-child(n+8) { transition-delay: 315ms; }
+[data-motion~="cascade"].v-done > *, [data-motion~="rows"].v-done > *, [data-motion~="rows"].v-done > *::after { transition-delay: 0s !important; }
+/* the day pills: the indicator keeps its own glide; the pills cascade in under it */
+.days[data-motion~="cascade"] > .days__ind { transition: transform .25s var(--ease), width .25s var(--ease), opacity .3s linear .3s; }
+.motion-ok.m3-ready .days[data-motion~="cascade"]:not(.v-in) > .days__ind { opacity: 0; }
+
+/* ---------- media settle: the frame rises into place, its picture untouched ---------- */
+.motion-ok [data-motion~="settle"] { transition: opacity .4s linear, transform .6s var(--m3-ease); }
+.motion-ok.m3-ready [data-motion~="settle"]:not(.v-in) { opacity: 0; transform: translateY(32px); }
+.motion-ok.m3-ready .offer__photo[data-motion~="settle"]:not(.v-in) { transform: translateY(32px) rotate(0deg); }   /* dealt onto its 3 deg tilt */
+.motion-ok .recharge[data-motion~="settle"] .wcard { transition: opacity .35s linear .15s, transform .55s var(--m3-ease) .15s; }
+.motion-ok.m3-ready .recharge[data-motion~="settle"]:not(.v-in) .wcard { opacity: 0; transform: translateY(24px); }
+
+/* ---------- ruled rows: the hairline draws, then the row lifts ---------- */
+.motion-ok.m3-ready [data-motion~="rows"] > * { position: relative; border-bottom-color: transparent !important; transition: opacity .35s linear, transform .5s var(--m3-ease); }
+.motion-ok.m3-ready [data-motion~="rows"] > *::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: currentColor; opacity: .14; transform-origin: 0 50%; transition: transform .6s var(--m3-ease); pointer-events: none; }
+.motion-ok.m3-ready [data-motion~="rows"]:not(.v-in) > * { opacity: 0; transform: translateY(12px); }
+.motion-ok.m3-ready [data-motion~="rows"]:not(.v-in) > *::after { transform: scaleX(0); }
+[data-motion~="rows"] > :nth-child(2), [data-motion~="rows"] > :nth-child(2)::after { transition-delay: 60ms; }
+[data-motion~="rows"] > :nth-child(3), [data-motion~="rows"] > :nth-child(3)::after { transition-delay: 120ms; }
+[data-motion~="rows"] > :nth-child(4), [data-motion~="rows"] > :nth-child(4)::after { transition-delay: 180ms; }
+[data-motion~="rows"] > :nth-child(5), [data-motion~="rows"] > :nth-child(5)::after { transition-delay: 240ms; }
+[data-motion~="rows"] > :nth-child(n+6), [data-motion~="rows"] > :nth-child(n+6)::after { transition-delay: 300ms; }
+
+/* ---------- a single hairline (the day heading on phones) ---------- */
+.motion-ok.m3-ready .sched__day[data-motion~="draw"] { position: relative; border-bottom-color: transparent; }
+.motion-ok.m3-ready .sched__day[data-motion~="draw"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--black); transform-origin: 0 50%; transition: transform .6s var(--m3-ease); }
+.motion-ok.m3-ready .sched__day[data-motion~="draw"]:not(.v-in)::after { transform: scaleX(0); }
+
+/* ---------- seat dots fill in sequence when their list comes into view ---------- */
+.motion-ok.m3-ready [data-week]:not(.v-in) .seat--free,
+.motion-ok.m3-ready .sched:has(.sched__day:not(.v-in)) .rows .seat--free,
+.motion-ok.m-ready [data-nextup]:not(.m-in) .seat--free { animation-play-state: paused; }
+
+/* ---------- numbers ---------- */
+.m3num { display: inline-block; min-width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- depth, scroll-driven (compositor): the hero recedes as the week arrives; the pinned bar shows how far you are ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-ok .hero__panels, .motion-ok .hero__stage { animation: m3-recede linear both; animation-timeline: view(); animation-range: exit 10% exit 100%; transform-origin: 50% 100%; }
+    .motion-ok .nowbar::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 2px; background: var(--w-56); transform: scaleX(0); transform-origin: 0 50%; animation: m3-progress linear both; animation-timeline: scroll(root block); }
+  }
+}
+@keyframes m3-recede { to { transform: scale(.95); opacity: .5; } }
+@keyframes m3-progress { to { transform: scaleX(1); } }
+
+/* ---------- the sticky bar: in on the spring; the pulse is a pseudo-element (opacity + transform, never box-shadow) ---------- */
+.motion-ok .buybar { transition: transform .5s var(--m3-spring), visibility 0s .5s; }
+.motion-ok .buybar.is-on { transition: transform .5s var(--m3-spring); }
+.buybar { isolation: isolate; }
+.buybar__btn { position: relative; }
+.buybar__btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--terra); opacity: 0; pointer-events: none; }
+/* a ring about 11 px wide that grows from the pill and fades, every 2.3 s; off on hover and focus, off when the bar hides */
+.motion-ok .buybar.is-on .buybar__btn::before { animation: m3-pulse 2.3s cubic-bezier(.2, .6, .35, 1) .8s infinite; }
+.buybar .buybar__btn:hover::before, .buybar .buybar__btn:focus::before, .buybar .buybar__btn:focus-visible::before { animation: none; }
+@keyframes m3-pulse { 0% { opacity: .55; transform: scale(1, 1); } 70% { opacity: 0; transform: scale(var(--m3-px, 1.08), 1.42); } 100% { opacity: 0; transform: scale(var(--m3-px, 1.08), 1.42); } }
+@media (min-width: 1024px) { .buybar__btn { --m3-px: 1.11; } }
+
+/* ---------- the sheet opens and closes on the same spring (<= 0.45 s) ---------- */
+.motion-ok .sheet__panel { transition: transform .42s var(--m3-spring); }
+
+/* ---------- micro-interactions ---------- */
+.motion-ok .btn:active, .motion-ok .rbtn:active, .motion-ok .fchip:active, .motion-ok .pill:active, .motion-ok .tog:active, .motion-ok .chipbtn:active { transform: scale(.97); }
+.motion-ok .rbtn, .motion-ok .fchip, .motion-ok .tog, .motion-ok .chipbtn { transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast), transform .2s var(--m3-spring); }
+.motion-ok .wk__cls { transition: border-color var(--t-fast), transform .25s var(--m3-spring); }
+.motion-ok .wk__cls:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .motion-ok button.wk__cls:hover { transform: translateY(-2px); } }
+/* coach photos no longer zoom on hover (a zoom would crowd a face against the frame); the pointer tilt stays */
+@media (min-width: 1024px) { .coach:hover .coach__photo img { transform: none; } }
+/* focus rings ease in */
+.motion-ok :focus-visible { animation: m3-ring .18s var(--m3-ease); }
+@keyframes m3-ring { from { outline-offset: 8px; outline-color: transparent; } }
+
+/* ---------- fast scroll (motion.js sets html.m-fast): everything in flight lands in 0.15 s ---------- */
+.m-fast .m3l__in, .m-fast [data-motion] > *::after, .m-fast [data-motion~="settle"], .m-fast [data-motion~="settle"] .wcard { transition-duration: .15s !important; transition-delay: 0s !important; }
+
+/* ---------- reduced motion and Save-Data: no html.motion-ok, so no pre-state above ever applies (final states at once) ---------- */
+@media (prefers-reduced-motion: reduce) { .buybar__btn::before { animation: none !important; } }
+
+/* the header's "scrolled" hairline sentinel (page.js watches it) */
+.scroll-sentinel { position: absolute; top: 5px; left: 0; width: 1px; height: 1px; pointer-events: none; }
+/* coach photo tilt: the perspective lives on the card (motion-v3.js writes only rotateX/rotateY) */
+[data-motion~="tilt"] { perspective: 900px; }

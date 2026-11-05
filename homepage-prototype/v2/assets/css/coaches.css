@@ -1,0 +1,77 @@
+/* coaches.css · Version: v3.0 — 2026-10-02 · owner: coaches lane
+   Changelog: v3.0 created. Section "Coaches": hairline rows, a round portrait, an oversized caps name in the display type of the section titles, a mono class count and a square
+   plus/minus tile; a row is a native <details>, its body lists the week by day (rows are links to the Classes section). Tokens only; the one round thing is the portrait (like classes.css).
+   Phone first, one column; from 900 px the row runs portrait, name, count, tile on one line. Row height is reserved by the skeleton rows (CLS 0). */
+.crc { --crc-av: clamp(72px, 22vw, 96px); --crc-fs: clamp(44px, 16.4vw, 72px); --crc-pad: var(--s-3);
+  --crc-row-h: calc(var(--crc-av) + 2 * var(--crc-pad) + var(--bw)); }
+
+.crc__head { display: grid; gap: var(--s-3); margin-bottom: var(--s-6); justify-items: start; }
+.crc__head .sec__eyebrow, .crc__head .sec__lead { margin: 0; }
+
+.crc__list { border-bottom: var(--bw) solid var(--line); }
+.crc__sk { height: var(--crc-row-h); border-top: var(--bw) solid var(--line); }
+html:not(.js) .crc__list { display: none; }
+
+.crc__c { border-top: var(--bw) solid var(--line); transition: border-color var(--dur-ui) var(--ease-out); }
+.crc__c[open] { border-top-color: var(--accent); }
+
+/* summary: portrait | name over count | tile (the heading is a direct child, as the summary content model asks) */
+.crc__s { display: grid; grid-template-columns: var(--crc-av) minmax(0, 1fr) var(--tap); grid-template-areas: "av name tile" "av meta tile";
+  align-content: center; column-gap: var(--s-3); row-gap: var(--s-1); min-height: calc(var(--crc-av) + 2 * var(--crc-pad));
+  padding-block: var(--crc-pad); list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.crc__s::-webkit-details-marker { display: none; }
+.crc__av { grid-area: av; align-self: center; display: grid; place-items: center; width: var(--crc-av); height: var(--crc-av); overflow: hidden;
+  border-radius: 50%; border: var(--bw) solid var(--line-strong); background: var(--bg-sunken); }
+.crc__av img { width: 100%; height: 100%; object-fit: cover; }
+.crc__av--mono { background: var(--bg-raised); color: var(--fg); font: var(--fw-strong) calc(var(--crc-av) * .42)/1 var(--font-mono); }
+.crc__name { grid-area: name; align-self: end; margin: 0; min-width: 0; font: var(--fw-display) var(--crc-fs)/var(--lh-tight) var(--font-display);
+  letter-spacing: var(--tr-display); text-transform: uppercase; transition: color var(--dur-press) var(--ease-press); }
+.crc__meta { grid-area: meta; align-self: start; font: var(--fw-mono) var(--fs-label)/1.3 var(--font-mono); letter-spacing: var(--tr-label);
+  text-transform: uppercase; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.crc__tile { grid-area: tile; align-self: center; justify-self: end; position: relative; width: var(--tap); height: var(--tap); border: var(--bw) solid var(--line-strong);
+  transition: background-color var(--dur-press) var(--ease-press), border-color var(--dur-press) var(--ease-press); }
+.crc__tile::before, .crc__tile::after { content: ""; position: absolute; left: calc(50% - 7px); top: calc(50% - .75px); width: 14px; height: 1.5px; background: var(--fg);
+  transition: rotate var(--dur-ui) var(--ease-out), background-color var(--dur-press) var(--ease-press); }
+.crc__tile::after { rotate: 90deg; }
+.crc__c[open] .crc__tile::after { rotate: 0deg; }
+.crc__s:active .crc__tile { background: var(--bg-raised); }
+@media (hover: hover) {
+  .crc__s:hover .crc__name { color: var(--accent); }
+  .crc__s:hover .crc__tile { background: var(--fg); border-color: var(--fg); }
+  .crc__s:hover .crc__tile::before, .crc__s:hover .crc__tile::after { background: var(--fg-inverse); }
+}
+
+/* body: the week by day */
+.crc__body { display: grid; gap: var(--s-4); margin-bottom: var(--s-4); padding: var(--s-4) var(--s-3); background: var(--bg-sunken); }
+.crc__c[open] .crc__body { animation: crc-in var(--dur-ui) var(--ease-out); }
+@keyframes crc-in { from { opacity: 0; translate: 0 -8px; } }
+html.motion-off .crc__c[open] .crc__body { animation: none; }
+.crc__role { margin: 0; max-width: 40ch; font: var(--fw-mono) var(--fs-label)/1.4 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); text-wrap: balance; }
+.crc__days { display: grid; border-top: var(--bw) solid var(--line-strong); }
+.crc__day { display: grid; grid-template-columns: 44px minmax(0, 1fr) 16px; align-items: start; column-gap: var(--s-3); min-height: var(--tap);
+  padding: var(--s-3) var(--s-2); border-bottom: var(--bw) solid var(--line); transition: background-color var(--dur-press) var(--ease-press); }
+.crc__d { display: grid; gap: 2px; font: var(--fw-mono) var(--fs-label)/1.4 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.crc__now { font-style: normal; font-size: var(--fs-micro); color: var(--accent); }
+.crc__ls { display: grid; gap: var(--s-1); min-width: 0; }
+.crc__l { display: grid; grid-template-columns: 5.5ch minmax(0, 1fr); column-gap: var(--s-2); line-height: 1.4; }
+.crc__l b { font: var(--fw-mono) var(--fs-label)/1.5 var(--font-mono); letter-spacing: var(--tr-label); font-variant-numeric: tabular-nums; }
+.crc__arr { color: var(--fg-faint); padding-top: 3px; transition: translate var(--dur-ui) var(--ease-out), color var(--dur-press) var(--ease-press); }
+.crc__day:active { background: var(--bg-raised); }
+@media (hover: hover) { .crc__day:hover { background: var(--bg-raised); } .crc__day:hover .crc__arr { color: var(--fg); translate: 3px 0; } }
+.crc__note { margin: 0; max-width: 56ch; font-size: var(--fs-small); line-height: var(--lh-body); color: var(--fg-muted); }
+.crc__msg { margin: 0; padding: var(--s-5) 0; color: var(--fg-muted); }
+
+@media (min-width: 900px) {
+  .crc { --crc-av: 128px; --crc-fs: min(9.375vw, 150px); --crc-pad: var(--s-4); }
+  .crc__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s-8); align-items: end; }
+  .crc__head .sec__eyebrow { grid-column: 1 / -1; }
+  .crc__head .sec__title { max-width: 20ch; }
+  .crc__head .sec__lead { margin-bottom: var(--s-2); }
+  .crc__s { grid-template-columns: var(--crc-av) minmax(0, 1fr) auto var(--control-h); grid-template-areas: "av name meta tile"; column-gap: var(--s-6); align-items: center; }
+  .crc__name { align-self: center; }
+  .crc__meta { align-self: center; justify-self: end; }
+  .crc__tile { width: var(--control-h); height: var(--control-h); }
+  .crc__body { margin-left: calc(var(--crc-av) + var(--s-6)); padding: var(--s-5); }
+  .crc__days { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); column-gap: var(--s-6); }
+}
+@media (prefers-reduced-motion: reduce) { .crc__c[open] .crc__body { animation: none; } }

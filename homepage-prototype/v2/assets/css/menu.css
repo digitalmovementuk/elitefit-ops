@@ -1,0 +1,177 @@
+/* menu.css · Version: v3.0 — 2026-10-02 · owner: menu sheet lane
+   Changelog: v3.0 created (Amendment 1). The header menu sheet: a top-anchored panel that drops from under the header (phone: nearly full height, Lab pattern;
+   desktop: full-width panel with two columns, the page dims below it). States on #menu-sheet[data-s] = closed | open (logical, flips on the tap) and [data-leaving] while the exit plays, set by menu.js. The closed sheet stays laid out (visibility:hidden), so a tap needs no layout.
+   Motion: transform + opacity only. Sheet in 320 ms, out 220 ms, links stagger in (22 ms apart), interruptible (CSS transitions reverse from where they are).
+   Reduced motion / data-saver (html.motion-off, the default here): no slide, no stagger, a 120 ms fade; layout and content unchanged.
+   Own classes: .mnu*, .mnu-btn*. Only var(--token); local constants under --mnu-*. */
+:root {
+  --mnu-in: 320ms; --mnu-out: 220ms; --mnu-fade: 120ms; --mnu-hover: 220ms;
+  --mnu-item: 260ms; --mnu-d0: 70ms; --mnu-step: 18ms; --mnu-rise: 18px;
+  --mnu-ease-in: cubic-bezier(.4, 0, 1, 1);            /* accelerates away: 10 % gone after 55 ms, 93 % after 211 ms, so a tap is answered at once */
+  --mnu-z: var(--z-overlay);
+  --mnu-row: clamp(44px, 5.4vh, 56px);                 /* link row height on a phone: eight rows must fit a 390x844 screen with the actions below (never below --tap) */
+  --mnu-row: clamp(var(--tap), 5.4svh, 56px);
+  --mnu-cell: var(--control-h);                        /* button and social cell height (52 px) */
+  --mnu-fs: clamp(24px, 8.2vw, 56px);                  /* link size: the longest label (Elite Nutrition, 7.2 em wide) stays on one line from 320 px */
+}
+.mnu-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------- shell ---------- */
+.mnu { position: fixed; inset: 0 0 auto 0; height: 100vh; height: 100dvh; z-index: var(--mnu-z); visibility: hidden; pointer-events: none; }   /* closed: laid out but not shown, so opening needs no layout */
+.mnu[data-s="open"] { visibility: visible; pointer-events: auto; }
+.mnu[data-leaving] { visibility: visible; }
+/* warm-up (menu.js, once, in idle time): visible at 0.1 % opacity for two frames so the first open finds its layer and tiles ready */
+.mnu[data-s="warm"] { visibility: visible; pointer-events: none; }
+.mnu[data-s="warm"] .mnu__panel { transform: none; opacity: .001; transition: none; }
+.mnu[data-s="warm"] .mnu__it { opacity: 1; transform: none; transition: none; }
+.mnu__scrim { position: absolute; inset: 0; background: var(--overlay); opacity: 0; transition: opacity var(--mnu-fade) linear; -webkit-tap-highlight-color: transparent; }
+.mnu[data-s="open"] .mnu__scrim { opacity: 1; }
+.mnu__panel {
+  --mnu-pl: max(var(--gutter), env(safe-area-inset-left));
+  --mnu-pr: max(var(--gutter), env(safe-area-inset-right));
+  position: absolute; inset: 0 0 auto 0; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+  padding: var(--header-h) var(--mnu-pr) calc(var(--s-5) + env(safe-area-inset-bottom)) var(--mnu-pl);
+  background: var(--bg); color: var(--fg); box-shadow: 0 var(--bw) 0 var(--line-strong);
+  opacity: 0; transition: opacity var(--mnu-fade) linear;
+}
+.mnu[data-s="open"] .mnu__panel { opacity: 1; }
+.mnu__grid { display: grid; gap: var(--s-4); max-width: var(--maxw); margin-inline: auto; }
+.mnu__side { display: grid; gap: var(--s-4); align-content: start; }
+
+/* ---------- section links ---------- */
+.mnu__list { margin-inline: calc(-1 * var(--mnu-pl)) calc(-1 * var(--mnu-pr)); }   /* the header's hairline is the first rule */
+.mnu__li { border-bottom: var(--bw) solid var(--line); }
+.mnu__link {
+  display: flex; align-items: center; gap: var(--s-4); min-height: max(var(--mnu-row), var(--tap)); padding: var(--s-2) var(--mnu-pr) var(--s-2) var(--mnu-pl);
+  position: relative; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.mnu__idx { flex: none; min-width: 2.2ch; font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); color: var(--fg-faint); font-variant-numeric: tabular-nums; }
+.mnu__lab {
+  min-width: 0; font: var(--fw-display) var(--mnu-fs)/var(--lh-tight) var(--font-display); letter-spacing: var(--tr-display); text-transform: uppercase;
+  text-wrap: balance; overflow-wrap: break-word;
+}
+.mnu__arr { flex: none; margin-left: auto; color: var(--fg-faint); }
+.mnu__link:active { background: var(--bg-raised); }
+.mnu__link:focus-visible { outline-offset: -4px; background: var(--bg-raised); }
+
+/* ---------- actions ---------- */
+.mnu__acts { display: grid; gap: var(--s-2); }
+.mnu-btn {
+  display: grid; align-items: stretch; min-height: var(--mnu-cell); -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  font: var(--fw-mono) var(--fs-small)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase;
+}
+.mnu-btn[hidden] { display: none; }
+.mnu-btn--buy { grid-template-columns: minmax(0, 1fr) var(--mnu-cell); gap: var(--s-1); }
+.mnu-btn--buy .mnu-btn__t, .mnu-btn--buy .mnu-btn__go { display: flex; align-items: center; background: var(--accent); color: var(--accent-ink); border-radius: var(--r-1); }
+.mnu-btn--buy .mnu-btn__t { padding: var(--s-3) var(--s-4); }
+.mnu-btn--buy .mnu-btn__go { justify-content: center; }
+.mnu-btn--wa { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-4); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1); }
+.mnu-btn--wa .mnu-btn__ic { color: var(--wa); }
+.mnu-btn:focus-visible { outline-offset: 3px; }
+
+/* ---------- visit ---------- */
+.mnu__k { margin: 0 0 var(--s-3); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-faint); }
+.mnu__visit .mnu__k { margin-bottom: 0; }
+.mnu__addr { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap); margin-top: calc(-1 * var(--s-1)); font: var(--fw-strong) var(--fs-lead)/var(--lh-snug) var(--font-body);
+  text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: .22em; text-decoration-thickness: var(--bw); }
+.mnu__addr[hidden], .mnu__state[hidden], .mnu__hours[hidden] { display: none; }
+.mnu__ext { flex: none; color: var(--fg-faint); }
+.mnu__state { display: flex; align-items: center; gap: var(--s-2); margin: 0 0 var(--s-2); font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg); }
+.mnu__dot { flex: none; width: 8px; height: 8px; border-radius: var(--r-pill); background: var(--fg-faint); }
+.mnu__state[data-state="open"] .mnu__dot { background: var(--ok); }
+.mnu__state-v { color: var(--fg-muted); }
+.mnu__hours { margin: 0; border-top: var(--bw) solid var(--line); }
+.mnu__hours > div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); padding-block: 6px; border-bottom: var(--bw) solid var(--line); }
+.mnu__hours dt { font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.mnu__hours dd { margin: 0; font: var(--fw-mono) var(--fs-small)/1.2 var(--font-mono); font-variant-numeric: tabular-nums; color: var(--fg); text-align: right; }
+.mnu__hours-note { margin: 0; padding-top: var(--s-2); font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-faint); }
+
+/* ---------- social ---------- */
+.mnu__soc { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+.mnu__soc .mnu__k { margin: 0; }
+.mnu__soc-list { display: flex; gap: var(--s-2); }
+.mnu__soc-a { position: relative; display: grid; place-items: center; width: var(--mnu-cell); height: var(--mnu-cell); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1);
+  color: var(--fg); -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.mnu__soc-a:active { background: var(--fg); color: var(--bg); }
+.mnu__soc-a:focus-visible { outline-offset: 3px; }
+
+/* ---------- header while the sheet is open: it stays above, flips to the light world with the sheet (menu.js adds .theme-light and html[data-menu-open] once the
+   panel covers the header strip, and takes them away as the panel leaves), and the same button closes the sheet ---------- */
+.hdr__buy { transition: transform var(--dur-press) var(--ease-press), opacity var(--mnu-fade) linear, visibility 0s linear 0s; }
+html[data-menu-open] .hdr { z-index: calc(var(--mnu-z) + 1); color: var(--fg); }
+.hdr.theme-light { background: var(--bg); }          /* solid white while open: rows sliding or scrolling under the header never show through its logo and button */
+html[data-menu-open] .hdr::before { opacity: 0; transition: none; }
+html[data-menu-open] .hdr__buy { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity var(--mnu-fade) linear, visibility 0s linear var(--mnu-fade); }
+.hdr__menu-bars, .hdr__menu-bars::before { transition-duration: var(--mnu-out); }
+.hdr__menu[data-open] .hdr__menu-bars, .hdr__menu[data-open] .hdr__menu-bars::before { transition-duration: var(--mnu-in); }
+.hdr__menu[data-open] .hdr__menu-bars { transform: translateY(0) rotate(45deg); }
+.hdr__menu[data-open] .hdr__menu-bars::before { transform: translateY(-7px) rotate(-90deg); }
+.hdr__menu[data-open]:active .hdr__menu-bars { transform: translateY(0) rotate(45deg) scaleX(.85); }
+html.mnu-lock { overflow: hidden; scrollbar-gutter: stable; }
+
+/* destination highlight when the hero lane's window.EF.highlight is missing */
+.mnu-hl { position: absolute; inset: 0; z-index: var(--z-base); pointer-events: none; background: var(--line); opacity: 0; }
+
+/* ---------- motion (transform + opacity only) ---------- */
+.motion-ok .mnu__scrim { transition: opacity var(--mnu-out) linear; }
+.motion-ok .mnu[data-s="open"] .mnu__scrim { transition-duration: var(--mnu-in); transition-timing-function: var(--ease-out); }
+.motion-ok .mnu__panel { opacity: 1; transform: translate3d(0, -100%, 0); transition: transform var(--mnu-out) var(--mnu-ease-in); will-change: transform; }
+.motion-ok .mnu[data-s="open"] .mnu__panel { transform: none; transition: transform var(--mnu-in) var(--ease-out); }
+.motion-ok .mnu[data-s="closed"]:not([data-leaving]) .mnu__it { opacity: 0; transform: translate3d(0, var(--mnu-rise), 0); }
+.motion-ok .mnu[data-s="open"] .mnu__it, .motion-ok .mnu[data-leaving] .mnu__it {
+  opacity: 1; transform: none;
+  transition: opacity var(--mnu-item) var(--ease-out) calc(var(--mnu-d0) + var(--i, 0) * var(--mnu-step)),
+              transform var(--mnu-item) var(--ease-out) calc(var(--mnu-d0) + var(--i, 0) * var(--mnu-step));
+}
+.motion-ok .mnu__lab, .motion-ok .mnu__idx, .motion-ok .mnu__arr, .motion-ok .mnu__link { transition: transform var(--mnu-hover) var(--ease-out), opacity var(--mnu-hover) var(--ease-out), background-color var(--dur-press) linear; }
+.motion-ok .mnu-btn { transition: transform var(--dur-press) var(--ease-press); }
+.motion-ok .mnu-btn:active { transform: scale(.985); }
+.motion-ok .mnu__soc-a { transition: background-color var(--dur-press) linear, color var(--dur-press) linear, transform var(--dur-press) var(--ease-press); }
+.motion-ok .mnu__soc-a:active { transform: scale(.94); }
+
+/* the reference blurs the page behind its menu by 8 px; only where the exposed page is large (desktop), never on a phone */
+@media (min-width: 900px) and (hover: hover) { .mnu__scrim { -webkit-backdrop-filter: blur(var(--overlay-blur)); backdrop-filter: blur(var(--overlay-blur)); } }
+
+/* ---------- desktop pointer: the other links step back, the pointed one moves ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .mnu__list:hover .mnu__link:not(:hover) .mnu__lab, .mnu__list:hover .mnu__link:not(:hover) .mnu__idx { opacity: .45; }
+  .mnu__link:hover { background: var(--bg-raised); }
+  .mnu__link:hover .mnu__arr { color: var(--fg); }
+  .motion-ok .mnu__link:hover .mnu__lab { transform: translateX(var(--s-3)); }
+  .mnu-btn--buy:hover .mnu-btn__go { background: var(--fg); }
+  .mnu-btn--wa:hover { border-color: var(--fg); }
+  .mnu__soc-a:hover { background: var(--fg); color: var(--bg); }
+  .mnu__addr:hover { text-decoration-color: var(--fg); }
+}
+
+/* ---------- tablet portrait: still one column, bigger rows ---------- */
+@media (min-width: 600px) {
+  :root { --mnu-fs: clamp(36px, 6.4vw, 64px); --mnu-row: clamp(56px, 6vh, 72px); --mnu-row: clamp(56px, 6svh, 72px); }
+  .mnu__acts { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- desktop and landscape phones: two columns, the page shows (dimmed) below the panel ---------- */
+@media (min-width: 900px), (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
+  :root { --mnu-fs: clamp(34px, min(6.2vw, 6.8vh), 104px); --mnu-row: 0px; }
+  .mnu__panel { --mnu-pl: var(--gutter); --mnu-pr: var(--gutter); padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
+  .mnu__grid { grid-template-columns: minmax(0, 7fr) minmax(300px, 4fr); column-gap: var(--s-8); padding-top: var(--s-2); align-items: start; }
+  .mnu__list { margin-inline: 0; }
+  .mnu__link { padding-inline: 0; padding-block: var(--s-4); gap: var(--s-5); }
+  .mnu__link:hover, .mnu__link:focus-visible { background: transparent; }
+  .mnu__link:focus-visible { outline-offset: 2px; }
+  .mnu__arr { opacity: 0; transform: translateX(calc(-1 * var(--s-3))); }
+  .mnu__link:hover .mnu__arr, .mnu__link:focus-visible .mnu__arr { opacity: 1; transform: none; }
+  .mnu__acts { grid-template-columns: none; }
+  .mnu__side { gap: var(--s-5); padding-top: var(--s-3); }
+}
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
+  :root { --mnu-fs: clamp(26px, 8.6vh, 48px); --mnu-cell: var(--tap); }
+  .mnu__grid { grid-template-columns: minmax(0, 1.2fr) minmax(250px, 1fr); padding-top: 0; column-gap: var(--s-6); }
+  .mnu__link { padding-block: var(--s-2); }
+  .mnu__side { gap: var(--s-2); padding-top: 0; }
+  .mnu__hours > div { padding-block: 4px; }
+  .mnu__panel { padding-bottom: calc(var(--s-2) + env(safe-area-inset-bottom)); }
+}
+@media (min-width: 1200px) {
+  .mnu__grid { column-gap: var(--s-9); }
+}

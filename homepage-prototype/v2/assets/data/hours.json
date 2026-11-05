@@ -1,0 +1,109 @@
+{
+  "status": "verified",
+  "note": "Verified 2026-10-02 against the club's own pages (footer on every main page: 'Perform: 6:00AM - 10:00PM (7 days a week)', 'Recharge: 6:30AM - 10:00PM (7 days a week)'; tour block: '6:00 AM - 10:00 PM - (7 Days / Week)') and the Google listing ('Open · Closes 10 pm', Friday '6 am–10 pm'). days = the club and the Perform side (first open, last close). areas.recharge opens 30 minutes later. Same hours all seven days; the club publishes no holiday exceptions.",
+  "tz": "Asia/Makassar",
+  "days": {
+    "1": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "2": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "3": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "4": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "5": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "6": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "7": {
+      "open": "06:00",
+      "close": "22:00"
+    }
+  },
+  "areas": {
+    "perform": {
+      "label": "Perform",
+      "days": {
+        "1": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "2": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "3": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "4": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "5": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "6": {
+          "open": "06:00",
+          "close": "22:00"
+        },
+        "7": {
+          "open": "06:00",
+          "close": "22:00"
+        }
+      },
+      "clubWording": "Perform: 6:00AM - 10:00PM (7 days a week)"
+    },
+    "recharge": {
+      "label": "Recharge",
+      "days": {
+        "1": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "2": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "3": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "4": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "5": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "6": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "7": {
+          "open": "06:30",
+          "close": "22:00"
+        }
+      },
+      "clubWording": "Recharge: 6:30AM - 10:00PM (7 days a week)"
+    }
+  },
+  "source": "elitefitbali.com page footer and tour block (WordPress REST 2026-10-02 and Firecrawl live render of /membership/ and /trainers/tinos/ 2026-10-02); Google Maps listing via Firecrawl 2026-10-02; Better Together page /promo-duo/ ('Open 6:00 AM – 10:00 PM, 7 days a week')",
+  "sourceUrl": "https://elitefitbali.com/membership/",
+  "checkedAt": "2026-10-02",
+  "conflict": "The tour block on /recharge/ and /perform/ says '6:00 AM - 10:00 PM - (7 Days / Week)' for the club as a whole; the footer says Recharge from 6:30AM. Both are published; the footer is the area-specific line."
+}

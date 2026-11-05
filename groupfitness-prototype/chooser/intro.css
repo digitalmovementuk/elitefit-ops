@@ -1,0 +1,101 @@
+/* Elite Fit /groupfitness chooser · intro title card · v1 rev 11 · 29 Oct 2026 · Digital Movement
+   Pairs with chooser/intro.js and the guard script in index.html's head (it sets html.efi when the intro should play).
+   Beat 1: the Digital Movement logo (official colour version for dark backgrounds, chooser/brand/) settles at the optical centre:
+   the mark comes into focus, then the wordmark is uncovered left to right by a soft-edged curtain of the page colour.
+   Beat 2: below it, a line-drawn phone frame draws in, a terracotta dimension line measures it, the frame widens into a desktop
+   monitor (9-slice: corners move, edges stretch, strokes stay 1.5 px) while a grey wireframe of this chooser (featured card plus
+   four) reflows from the phone's stacked layout into the desktop row; the stand draws, and the copy rises line by line.
+   Exit: the whole card fades as one with a light push and defocus; no wipe ever crosses the page underneath.
+   All timing lives here (one document timeline), so a single playback-rate change slows every part together.
+   Only transform, opacity, filter (logo arrival and exit) and stroke-dashoffset animate. No JS, ?intro=0, back/forward or a
+   return from a concept page: html.efi is never set and none of this applies. Reduced motion / Save-Data: .efi-still.
+   Changelog: v1 rev 11 (29 Oct 2026) first release. */
+
+:root {
+  /* one family (exponential): arrivals and draws ease out, the morph eases in and out, the exit pushes in */
+  --efi-out: cubic-bezier(.16, 1, .3, 1);
+  --efi-io: cubic-bezier(.87, 0, .13, 1);
+  --efi-soft: cubic-bezier(.45, 0, .55, 1);
+  --efi-in: cubic-bezier(.7, 0, .84, 0);
+}
+
+/* until intro.js takes over: a plain cover in the page colour from first paint. It never takes clicks and hides itself at 1.4 s
+   if the script never arrives, so a failed load can never block the page. */
+html.efi:not(.efi-on) body::after { content: ""; position: fixed; inset: 0; z-index: 2147483000; background: var(--black); pointer-events: none; animation: efi-fade .2s linear 1.4s forwards; }
+
+/* the chooser's own first-paint motion (motion.css, rev 10 accent) waits behind the card and plays as the card leaves */
+html.efi body > :not(.efi-ov), html.efi body > :not(.efi-ov) *,
+html.efi body > :not(.efi-ov)::before, html.efi body > :not(.efi-ov)::after,
+html.efi body > :not(.efi-ov) ::before, html.efi body > :not(.efi-ov) ::after { animation-play-state: paused !important; }
+
+.efi-ov { position: fixed; inset: 0; z-index: 2147483000; contain: strict; overflow: hidden; background: var(--black); color: var(--white); font-family: var(--font); forced-color-adjust: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; animation: efi-fade .45s var(--efi-soft) 2.92s forwards; }
+.efi-ov.efi-x { pointer-events: none; }
+.efi-wait:not(.efi-skip), .efi-wait:not(.efi-skip) * { animation-play-state: paused !important; }
+
+.efi-st { --lw: min(54vw, 560px); --k: .72; position: absolute; inset: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1.25fr); justify-items: center; padding: 0 16px; animation: efi-push .45s var(--efi-in) 2.92s forwards; }
+
+/* the logo box is the artwork's visible bounds (x 81.46-1012.14, y 61.13-163.4 of 1098.12 x 234.2), so it centres optically;
+   the full, unclipped file sits inside it */
+.efi-dm { grid-row: 2; position: relative; width: var(--lw); aspect-ratio: 930.68 / 102.27; }
+.efi-dm img { position: absolute; left: -8.753%; top: -59.77%; width: 117.99%; max-width: none; height: auto; aspect-ratio: 1098.12 / 234.2; transform-origin: 13.47% 47.94%; animation: efi-mark .9s var(--efi-out) .05s backwards; }
+.efi-cl { position: absolute; top: -45%; bottom: -45%; left: 14.6%; right: -6%; overflow: hidden; }
+.efi-cu { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27, 27, 27, 0), var(--black) calc(var(--lw) * .028)); transform: translate3d(101%, 0, 0); animation: efi-uncover 1s var(--efi-out) .42s backwards; }
+
+/* clear space below the logo: more than the mark's height (= the box height, .11 of its width) */
+.efi-ds { grid-row: 3; align-self: start; display: flex; flex-direction: column; align-items: center; margin-top: max(calc(var(--lw) * .15), 28px); }
+.efi-art { flex: none; width: calc(168px * var(--k)); height: calc(136px * var(--k)); }
+.efi-art > div { width: 168px; height: 136px; transform: scale(var(--k)); transform-origin: 0 0; }
+.efi-g { display: block; overflow: visible; fill: none; stroke: var(--white); stroke-width: calc(1.5px / var(--k)); stroke-linecap: round; }
+.efi-g .m { vector-effect: non-scaling-stroke; transform: translate(var(--x), var(--y)) scale(var(--a), var(--b)); transform-origin: 0 0; animation: efi-morph .65s var(--efi-io) 1.18s backwards; }
+.efi-dr { opacity: 0; animation: efi-show 1.18s linear; }
+.efi-dr path { stroke-dasharray: 116 116; --o: 118; animation: efi-draw .45s var(--efi-out) .65s backwards; }
+.efi-fr { animation: efi-hide 1.18s linear; }
+.efi-bk { fill: var(--grey); stroke: var(--black); animation: efi-fadein .25s var(--efi-soft) .92s backwards; }
+.efi-g .efi-bk .m { animation-delay: calc(1.18s + var(--dl)); } /* the cards slide over each other, outlined in the page colour */
+.efi-n { fill: var(--white); stroke: none; opacity: 0; animation: efi-notch 1.35s linear; }
+.efi-dim { stroke: var(--terra); transform-origin: 0 0; animation: efi-measure .36s var(--efi-out) .83s backwards; }
+.efi-g .efi-nk { stroke-dasharray: 16 16; --o: 17; animation: efi-draw .3s var(--efi-out) 1.65s backwards; }
+.efi-g .efi-bs { animation: efi-grow .4s var(--efi-out) 1.72s backwards; }
+
+.efi-copy { margin: calc(24px * var(--k)) 0 0; text-align: center; }
+.efi-l { display: block; overflow: hidden; }
+.efi-l > span { display: block; animation: efi-rise .6s var(--efi-out) 1.02s backwards; }
+.efi-l2 > span { animation-delay: 1.12s; }
+.efi-l1 { padding-top: .06em; font-weight: 800; font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem); line-height: 1.1; letter-spacing: .02em; text-transform: uppercase; }
+.efi-l2 { margin-top: .3em; padding-bottom: .12em; font-size: clamp(.9375rem, .9rem + .2vw, 1.125rem); line-height: 1.35; color: var(--w-72); }
+
+.efi-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* skip (click, tap, any key, wheel, focus): a quick fade, nothing else moves */
+.efi-ov.efi-skip { animation: efi-skip .18s linear forwards; }
+.efi-skip .efi-st { animation: none; }
+
+/* reduced motion and Save-Data: the final frame only, faded in and out on opacity */
+.efi-ov.efi-still { animation: efi-fade .15s linear 1.55s forwards; }
+.efi-still .efi-st { animation: efi-fadein .15s linear both; }
+.efi-still .efi-st * { animation: none; }
+
+@media (min-width: 641px) { .efi-st { --k: .9; } }
+@media (min-width: 1024px) and (min-height: 640px) { .efi-st { --k: 1.1; } }
+@media (min-width: 1600px) and (min-height: 900px) { .efi-st { --lw: 600px; --k: 1.25; } }
+@media (orientation: landscape) and (max-height: 540px) {
+  .efi-st { --lw: min(42vw, 400px); --k: .62; }
+  .efi-ds { flex-direction: row; align-items: center; gap: 18px; margin-top: max(calc(var(--lw) * .12), 20px); }
+  .efi-copy { margin: 0; text-align: left; }
+}
+@media print { .efi-ov, html.efi body::after { display: none; } }
+
+@keyframes efi-fade { to { opacity: 0; } }
+@keyframes efi-fadein { from { opacity: 0; } }
+@keyframes efi-skip { from { opacity: 1; } to { opacity: 0; } }
+@keyframes efi-push { to { transform: scale(1.03); filter: blur(4px); } }
+@keyframes efi-mark { from { opacity: 0; transform: scale(1.08); filter: blur(10px); } }
+@keyframes efi-uncover { from { transform: none; } }
+@keyframes efi-show { from, to { opacity: 1; } }
+@keyframes efi-hide { from, to { opacity: 0; } }
+@keyframes efi-draw { from { stroke-dashoffset: var(--o); } }
+@keyframes efi-morph { from { transform: translate(var(--x0), var(--y0)) scale(var(--a0), var(--b0)); } }
+@keyframes efi-grow { from { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(var(--a0), var(--b0)); } 30% { opacity: 1; } }
+@keyframes efi-notch { 0%, 66% { opacity: 0; } 77%, 87% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes efi-measure { from { opacity: 0; transform: scaleX(0); } }
+@keyframes efi-rise { from { transform: translate3d(0, 105%, 0); } }

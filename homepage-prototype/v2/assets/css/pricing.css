@@ -1,0 +1,203 @@
+/* pricing.css · Version: v3.0 — 2026-10-02 · owner: pricing lane
+   Changelog: v3.0 created. Own classes (.prc-*, .odo*). Only var(--token) from tokens.css; the few lane sizes are tokens of this lane (--prc-*).
+   Look: dark, hard-edged, monospace data style for lengths and prices, hairlines, big numerals; warm words. Mobile first (one column, all three tiers in one phone viewport).
+   Motion: transform and opacity only (pill, frame, odometer strips, entering digits); everything is gated by html.motion-ok, so reduced motion / data-saver change state instantly. */
+.prc {
+  --prc-tap: 44px;            /* minimum tap target */
+  --prc-seg-h: 52px;          /* length selector height */
+  --prc-fs-price: clamp(26px, 8.4vw, 44px);
+  --prc-odo-dur: 420ms;       /* price roll (+ up to 20 ms x 8 digits of stagger = under 600 ms) */
+  --prc-bar-bg: var(--bg);
+  --prc-fs-seg: 18px;         /* numeral in a length segment */
+  --prc-fs-stat: 40px;        /* rating numeral in the trust stack */
+  --prc-switch-w: 44px; --prc-switch-h: 26px; --prc-knob: 18px;
+}
+
+#pricing { scroll-margin-top: calc(var(--section-y) * -1 + var(--s-2)); }   /* anchor jumps land on the heading, not on the section padding */
+
+/* ---- head */
+.prc-head { display: grid; gap: var(--s-3); margin-bottom: var(--s-5); max-width: 40rem; }
+.prc-eyebrow { margin: 0; font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc .sec__title { margin: 0; font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-h2); line-height: var(--lh-tight); letter-spacing: var(--tr-display); text-wrap: balance; }
+.prc-lede { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 34rem; }
+.prc-sentinel { display: block; height: 0; }
+
+/* ---- sticky length selector: pinned under the header while the section is on screen, released when it ends */
+.prc-bar {
+  position: sticky; top: var(--header-h); z-index: var(--z-sticky);
+  margin-inline: calc(var(--gutter) * -1); padding: var(--s-2) var(--gutter);
+  background: var(--prc-bar-bg);
+  box-shadow: 0 0 0 100vmax var(--prc-bar-bg); clip-path: inset(0 -100vmax);   /* background reaches the screen edges on wide screens, without widening the page */
+  border-bottom: var(--bw) solid transparent;
+}
+.prc-bar[data-pinned] { border-bottom-color: var(--line-strong); }
+.prc-seg {
+  position: relative; display: grid; grid-template-columns: repeat(var(--n, 6), minmax(0, 1fr)); isolation: isolate;
+  height: var(--prc-seg-h); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1); overflow: hidden; background: var(--bg-raised);
+}
+.prc-seg__b {
+  position: relative; z-index: 1; display: grid; align-content: center; justify-items: center; gap: var(--s-1); min-width: 0; min-height: var(--prc-tap);
+  padding: 0 1px; color: var(--fg-muted); text-align: center; touch-action: manipulation;
+}
+.prc-seg__b + .prc-seg__b { border-left: var(--bw) solid var(--line); }
+.prc-seg__b:focus-visible { outline-offset: -4px; }
+/* the chosen chip is the focused chip (arrow keys move both) and the opaque pill sits on top of it, so the ring is drawn on the pill */
+@supports selector(:has(*)) {
+  .prc-seg__b:focus-visible { outline: none; }
+  .prc-seg:has(.prc-seg__b:focus-visible) .prc-pill { outline: 2px solid var(--focus); outline-offset: -4px; }
+}
+.prc-seg__n { display: block; font: var(--fw-mono) var(--prc-fs-seg)/1 var(--font-mono); letter-spacing: -.02em; color: var(--fg); font-variant-numeric: tabular-nums; }
+.prc-seg__u { display: block; font: var(--fw-mono) var(--fs-micro)/1 var(--font-mono); letter-spacing: 0; text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; }
+/* the pill: one opaque block that slides; its inner copy of all labels slides the opposite way, so each label changes colour exactly where the pill passes */
+.prc-pill {
+  position: absolute; z-index: 2; inset: 0 auto 0 0; width: calc(100% / var(--n)); overflow: hidden; pointer-events: none;
+  background: var(--accent); color: var(--accent-ink);
+  transform: translate3d(calc(var(--i) * 100%), 0, 0);
+}
+.prc-pill__in {
+  position: absolute; inset: 0 auto 0 0; width: calc(var(--n) * 100%); display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  transform: translate3d(calc(var(--i) * -100% / var(--n)), 0, 0);
+}
+.prc-pill__c { display: grid; align-content: center; justify-items: center; gap: var(--s-1); }
+.prc-pill .prc-seg__n, .prc-pill .prc-seg__u { color: var(--accent-ink); }
+.motion-ok .prc-pill, .motion-ok .prc-pill__in { transition: transform var(--dur-ui) var(--ease-out); }
+.motion-ok .prc-seg__b:active .prc-seg__n { transform: scale(.94); }
+.motion-ok .prc-seg__n { transition: transform var(--dur-press) var(--ease-press); }
+
+/* ---- Duo switch */
+.prc-duo { display: grid; gap: var(--s-1); padding-top: var(--s-3); }
+.prc-switch { display: flex; align-items: center; gap: var(--s-3); min-height: var(--prc-tap); width: 100%; text-align: left; color: var(--fg); touch-action: manipulation; }
+.prc-switch__track { position: relative; flex: none; width: var(--prc-switch-w); height: var(--prc-switch-h); border: var(--bw) solid var(--line-strong); border-radius: var(--r-pill); background: var(--bg-raised); }
+.prc-switch__knob { position: absolute; left: 3px; top: 3px; width: var(--prc-knob); height: var(--prc-knob); border-radius: var(--r-pill); background: var(--fg-muted); }
+.motion-ok .prc-switch__knob { transition: transform var(--dur-ui) var(--ease-out), background-color var(--dur-ui) linear; }
+.prc-switch[aria-checked="true"] .prc-switch__track { background: var(--accent); border-color: var(--accent); }
+.prc-switch[aria-checked="true"] .prc-switch__knob { background: var(--accent-ink); transform: translate3d(calc(var(--prc-switch-w) - var(--prc-knob) - var(--s-2)), 0, 0); }
+.prc-switch__label { font-size: var(--fs-body); line-height: var(--lh-snug); }
+.prc-duo__hint { margin: 0; padding-left: calc(var(--prc-switch-w) + var(--s-3)); font-size: var(--fs-small); line-height: var(--lh-body); color: var(--fg-muted); }
+.prc-duo[data-off] .prc-switch { color: var(--fg-muted); cursor: default; }
+.prc-duo[data-off] .prc-switch__track { opacity: .55; }
+
+/* ---- the three tiers: one column, equal heights, all visible in one phone viewport */
+.prc-cards { position: relative; display: grid; gap: var(--s-3); margin-top: var(--s-2); }
+.prc-card { position: relative; display: grid; grid-template-rows: 1fr auto; gap: var(--s-3); padding: var(--s-3) var(--s-4) var(--s-4); background: var(--bg-raised); border: var(--bw) solid var(--line); border-radius: var(--r-1); }
+.prc-card__pick {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head price" "head per" "inc inc" "bundle bundle";
+  column-gap: var(--s-3); row-gap: var(--s-1); align-items: start; width: 100%; min-height: var(--prc-tap); text-align: left; color: inherit; touch-action: manipulation;
+}
+.prc-card__head { grid-area: head; align-self: center; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.prc-card__name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); font: var(--fw-display) var(--fs-h3)/var(--lh-snug) var(--font-display); letter-spacing: var(--tr-display); }
+.prc-card__badge { font: var(--fw-mono) var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; padding: var(--s-1) var(--s-2); border: var(--bw) solid var(--line-strong); border-radius: var(--r-1); color: var(--fg-muted); }
+.prc-card__price { grid-area: price; justify-self: end; font: var(--fw-strong) var(--prc-fs-price)/1.1 var(--font-mono); letter-spacing: -.03em; color: var(--fg); min-height: 1.1em; }
+.prc-card__per { grid-area: per; justify-self: end; text-align: right; font: var(--fw-mono) var(--fs-micro)/var(--lh-snug) var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc-card__inc { grid-area: inc; margin-top: var(--s-1); font-size: var(--fs-small); line-height: var(--lh-body); color: var(--fg-muted); }
+.prc-card__bundle { grid-area: bundle; font-size: var(--fs-small); line-height: var(--lh-body); color: var(--fg-faint); }
+.prc-card__bundle[hidden] { display: none; }
+.prc-card[data-kind="duo-na"] .prc-card__price { color: var(--fg-muted); }
+.motion-ok .prc-card__pick:active { transform: scale(.985); transition: transform var(--dur-press) var(--ease-press); }
+
+/* selected frame: one outline that travels from card to card (transform only) */
+.prc-frame { position: absolute; left: 0; top: 0; width: var(--w, 100%); height: var(--h, 0); border: 2px solid var(--accent); border-radius: var(--r-1); pointer-events: none; opacity: 0; transform: translate3d(var(--x, 0), var(--y, 0), 0); z-index: 1; }
+.prc-frame.is-on { opacity: 1; }
+.motion-ok .prc-frame { transition: transform var(--dur-ui) var(--ease-out), width var(--dur-ui) var(--ease-out), height var(--dur-ui) var(--ease-out), opacity var(--dur-press) linear; }   /* width and height: an empty absolute outline, no layout of anything else (4x throttle: 0 frames over 20 ms) */
+.motion-ok .prc-frame.no-trans { transition: none; }
+
+/* the one primary button per card: opens WhatsApp with tier + length in the message */
+.prc-cta {
+  display: flex; align-items: center; justify-content: center; gap: var(--s-2); width: 100%; min-height: var(--prc-tap); padding: var(--s-2) var(--s-4);
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--r-1);
+  font: var(--fw-mono) var(--fs-small)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; text-align: center; touch-action: manipulation;
+}
+.prc-cta__ic { flex: none; }
+.motion-ok .prc-cta { transition: transform var(--dur-press) var(--ease-press), opacity var(--dur-press) linear; }
+.motion-ok .prc-cta:active { transform: scale(.97); }
+@media (hover: hover) { .prc-cta:hover { opacity: .9; } .prc-card__pick:hover .prc-card__name { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: var(--bw); } }
+.prc-fail { margin: 0 0 var(--s-3); color: var(--fg-muted); }
+.prc-nojs { margin: var(--s-4) 0; color: var(--fg-muted); }
+
+/* ---- reserved heights: the cards and the block under them are filled from data after load, so until then the section keeps their final height (CLS 0 even when the visitor
+   is already on or below this section, e.g. an #pricing link). Values are upper bounds of the measured final heights at 320 to 1920 px with the current copy and data (default state:
+   day pass, Duo off); pricing.js drops data-reserve once the section is wholly below the viewport, so the usual visitor never sees any surplus.
+   Re-measure after copy or data changes: node _tools/check-pricing-reserve.mjs. */
+.prc[data-reserve] .prc-cards { min-height: 626px; }
+.prc[data-reserve] .prc-more { min-height: calc(1456px - (100vw - 320px) * .8); }
+@media (min-width: 760px) {
+  .prc[data-reserve] .prc-cards { min-height: 320px; }
+  .prc[data-reserve] .prc-more { min-height: 1010px; }
+}
+@media (min-width: 870px) { .prc[data-reserve] .prc-cards { min-height: 281px; } }
+@media (min-width: 900px) { .prc[data-reserve] .prc-more { min-height: 916px; } }
+@media (min-width: 1140px) { .prc[data-reserve] .prc-cards { min-height: 261px; } }
+@media (min-width: 1200px) { .prc[data-reserve] .prc-more { min-height: 674px; } }
+@media (min-width: 1460px) { .prc[data-reserve] .prc-cards { min-height: 280px; } }
+@media (min-width: 1470px) { .prc[data-reserve] .prc-more { min-height: 753px; } }
+@media (min-width: 1700px) { .prc[data-reserve] .prc-more { min-height: 818px; } }
+@media (min-width: 1770px) { .prc[data-reserve] .prc-cards { min-height: 311px; } }
+
+/* ---- Odometer: digits are strips rolled by transform; slots count from the right so digits keep their place */
+.odo { display: inline-flex; justify-content: flex-end; align-items: flex-start; height: 1.1em; line-height: 1.1; overflow: hidden; font-variant-numeric: tabular-nums; vertical-align: top; }
+.odo__vis { display: inline-flex; justify-content: flex-end; height: 1.1em; }
+.odo__d { display: block; position: relative; width: 1ch; height: 1.1em; overflow: hidden; text-align: center; }
+.odo__s { display: block; transform: translate3d(0, calc(var(--d, 0) * -10%), 0); will-change: auto; }
+.odo__s > span { display: block; height: 1.1em; line-height: 1.1em; }
+.odo__sep { display: flex; justify-content: center; width: .5ch; height: 1.1em; line-height: 1.1em; }   /* flex keeps the dot centred in a slot narrower than its glyph */
+.motion-ok .odo.is-live .odo__s { transition: transform var(--prc-odo-dur) var(--ease-out); }
+.motion-ok .odo.is-run .odo__s { will-change: transform; }
+.motion-ok .odo.is-live .odo__d, .motion-ok .odo.is-live .odo__sep { transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out); }
+.odo__d[data-s="pre"], .odo__sep[data-s="pre"] { opacity: 0; transform: translate3d(0, 40%, 0); }
+.odo__d[data-s="out"], .odo__sep[data-s="out"] { opacity: 0; transform: translate3d(0, -40%, 0); }
+
+/* ---- below the cards */
+.prc-more { display: grid; gap: var(--s-6); margin-top: var(--s-6); }
+.prc-more > [hidden] { display: none; }
+.prc-h3 { margin: 0 0 var(--s-3); font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc-notes__list { display: grid; gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+.prc-notes__list li { padding-left: var(--s-4); position: relative; font-size: var(--fs-body); line-height: var(--lh-body); }
+.prc-notes__list li::before { content: ""; position: absolute; left: 0; top: .72em; width: var(--s-2); height: var(--bw); background: var(--fg-muted); }
+.prc-partner, .prc-offers { padding: var(--s-4); border: var(--bw) solid var(--line); border-radius: var(--r-1); background: var(--bg-raised); }
+.prc-partner__text { margin: 0 0 var(--s-3); font-size: var(--fs-body); line-height: var(--lh-body); }
+.prc-partner__stat { margin: 0 0 var(--s-3); font: var(--fw-mono) var(--fs-label)/var(--lh-snug) var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc-chip__n { margin-left: var(--s-2); color: var(--fg); }
+.prc-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0 0 var(--s-3); padding: 0; list-style: none; }
+.prc-chips[hidden] { display: none; }
+.prc-chip { padding: var(--s-1) var(--s-3); border: var(--bw) solid var(--line-strong); border-radius: var(--r-pill); font: var(--fw-mono) var(--fs-label)/var(--lh-snug) var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc-link { display: inline-flex; align-items: center; min-height: var(--prc-tap); font-size: var(--fs-small); color: var(--fg); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: var(--bw); }
+.prc-link:hover { text-decoration-thickness: 2px; }
+.prc-offers__list { display: grid; gap: var(--s-4); margin: 0; padding: 0; list-style: none; }
+.prc-offer { display: grid; gap: var(--s-1); padding-top: var(--s-4); border-top: var(--bw) solid var(--line); }
+.prc-offer:first-child { padding-top: 0; border-top: 0; }
+.prc-offer__t { margin: 0; font: var(--fw-strong) var(--fs-lead)/var(--lh-snug) var(--font-body); }
+.prc-offer__x, .prc-offer__u { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); }
+.prc-offer__u { font: var(--fw-mono) var(--fs-label)/var(--lh-snug) var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }
+
+/* trust stack: four cells, two by two on a phone */
+.prc-trust { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; border: var(--bw) solid var(--line); border-radius: var(--r-1); }
+.prc-t { display: grid; align-content: start; gap: var(--s-2); padding: var(--s-4); min-width: 0; border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); }
+.prc-t:nth-child(2n) { border-right: 0; }
+.prc-t:nth-last-child(-n+2) { border-bottom: 0; }
+.prc-t:nth-child(odd):last-child { grid-column: 1 / -1; border-right: 0; }
+.prc-t__l { margin: 0; font: var(--fw-mono) var(--fs-micro)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.prc-t__v { margin: 0; font-size: var(--fs-small); line-height: var(--lh-body); overflow-wrap: anywhere; }
+.prc-t__v--big { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2); }
+.prc-t__n { font: var(--fw-strong) var(--prc-fs-stat)/1 var(--font-mono); letter-spacing: -.03em; }
+.prc-t__s { font-size: var(--fs-small); color: var(--fg-muted); }
+.prc-t .prc-link { min-height: var(--prc-tap); }
+
+/* destination highlight when nothing else provides window.EF.highlight (anchor jump from the buy bar) */
+.prc-hl .prc-head { position: relative; }
+.prc-hl .prc-head::after { content: ""; position: absolute; inset: calc(var(--s-3) * -1); border: 2px solid var(--accent); border-radius: var(--r-1); pointer-events: none; opacity: 0; animation: prc-hl 1.2s var(--ease-out) 1; }
+@keyframes prc-hl { 0% { opacity: 0; transform: scale(1.02); } 18% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
+
+/* ---- from 760 px: three tiers side by side, selector inside the same sticky bar */
+@media (min-width: 760px) {
+  .prc-head { margin-bottom: var(--s-6); }
+  .prc-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; gap: var(--s-4); }
+  .prc-card { padding: var(--s-5); }
+  .prc-seg { max-width: 640px; }
+  .prc-more { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--s-5); margin-top: var(--s-7); }
+  .prc-trust { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .prc-t { border-bottom: 0; border-right: var(--bw) solid var(--line); }
+  .prc-t:nth-child(2n) { border-right: var(--bw) solid var(--line); }
+  .prc-t:last-child { border-right: 0; }
+}
+@media (min-width: 1200px) { .prc-more { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .prc-hl .prc-head::after { animation: none; opacity: 1; } }

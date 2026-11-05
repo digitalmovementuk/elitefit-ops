@@ -1,0 +1,92 @@
+{
+  "version": "v3.0 — 2026-10-02 (checkout lane)",
+  "status": "Journey data. Prices, tier names, lengths and the Duo rules are NOT here: the journey reads passes.json and site.json (pricing.duoEach, pricing.duoDayPassTiers) exactly like the pricing cards, so both always agree. This file holds what only the journey needs. Every club sentence carries its FACTS id (src). Nothing on this file is a price.",
+  "concept": {
+    "notice": true,
+    "noticeNote": "Set notice to false to remove the concept notice from the payment and confirmation screens. The notice text is the copy slot checkout.concept_notice.",
+    "payDelayMs": 700,
+    "payDelayNote": "The pay button shows a short loading state for this long (700 ms at most), then the journey moves on. No request is made.",
+    "methodsNote": "PLACEHOLDERS (status concept). The club's real payment set-up is not known: no club page names a payment provider or a method. The four names are the ones the v2.0 design concept used. Replace or empty this list when the club's set-up is known; an empty list hides the method choice.",
+    "methods": [
+      { "id": "card", "label": "Card", "status": "concept" },
+      { "id": "qris", "label": "QRIS", "status": "concept" },
+      { "id": "ewallet", "label": "E-wallet", "status": "concept" },
+      { "id": "bank", "label": "Bank transfer", "status": "concept" }
+    ]
+  },
+  "start": {
+    "maxDaysAhead": 90,
+    "note": "Upper bound of the date picker only. A design default, NOT a club rule: the club publishes no limit. Remove maxDaysAhead to lift it."
+  },
+  "fields": {
+    "nameMax": 120,
+    "phoneMinDigits": 7,
+    "phoneMaxDigits": 15,
+    "emailMax": 254,
+    "note": "House rule: WhatsApp number required (7 to 15 digits, country code, spaces, dashes, dots and brackets allowed), email optional."
+  },
+  "tierLabels": {
+    "perform": { "sub": "Gym & classes", "src": "F-PRC-09 (club label on /promo-duo/: Gym & Classes)" },
+    "elite": { "sub": "All access", "src": "F-PRC-08 (club label on /promo-duo/: All Access)" },
+    "recharge": { "sub": "Recovery & pool", "src": "F-PRC-10 (club label on /promo-duo/: Recovery & Pool)" }
+  },
+  "duo": {
+    "notOfferedFor": [],
+    "note": "Duo follows the published prices (F-PRC-05, F-PRC-06): day pass for Elite only, 4 weeks and 52 weeks for all three tiers. OPEN: the club prints a Recharge Duo price but also 'DUO access requires Perform or Elite' under the Recharge card (F-PRC-07, unexplained). Add \"recharge\" to notOfferedFor to switch Recharge Duo off here."
+  },
+  "includes": {
+    "note": "Club wording from /promo-duo/ (F-PRC-08 Elite, F-PRC-09 Perform, F-PRC-10 Recharge), the '+ N more inclusions' artefacts left out. skip = 'tier:length' pairs where the line is not stated by the club (F-CLS-29: classes are stated from the weekly Perform membership, a Perform day pass is not). only = lengths the line is stated for (F-PRC-11: partner discounts apply to memberships of 4, 12, 26 weeks and yearly).",
+    "perform": [
+      { "t": "Full access to the indoor gym and outdoor functional area, equipped with Arsenal Strength, Panatta, and Prime", "src": "F-PRC-08, F-PRC-09" },
+      { "t": "Unlimited group classes", "src": "F-PRC-09, F-CLS-29", "skip": ["perform:day"] },
+      { "t": "Functional training zone & cardio floor", "src": "F-PRC-09" },
+      { "t": "Free co-working in indoor cafe and outdoor restaurant", "src": "F-PRC-09" },
+      { "t": "Shower, towel & locker room", "src": "F-PRC-09" },
+      { "t": "Water (bring your own bottle)", "src": "F-PRC-09" },
+      { "t": "Access to discounts and benefits from our partners", "src": "F-PRC-09, F-PRC-11", "only": ["w4", "w12", "w26", "w52"] }
+    ],
+    "elite": [
+      { "t": "Full access to the indoor gym and outdoor functional area, equipped with Arsenal Strength, Panatta, and Prime", "src": "F-PRC-08" },
+      { "t": "Unlimited group classes", "src": "F-PRC-08, F-PRC-06" },
+      { "t": "Functional training zone & cardio floor", "src": "F-PRC-08" },
+      { "t": "Full recovery suite: pool, jacuzzi, ice bath, sauna, steam room", "src": "F-PRC-08" },
+      { "t": "Free co-working in our indoor cafe and outdoor restaurant", "src": "F-PRC-08" },
+      { "t": "Shower, towel & locker room", "src": "F-PRC-08" },
+      { "t": "Water (bring your own bottle)", "src": "F-PRC-08" },
+      { "t": "Access to discounts and benefits from our partners", "src": "F-PRC-08, F-PRC-11", "only": ["w4", "w12", "w26", "w52"] }
+    ],
+    "recharge": [
+      { "t": "Outdoor pool with sunbeds and lounge area", "src": "F-PRC-10" },
+      { "t": "Ice bath, jacuzzi, steam room & sauna", "src": "F-PRC-10" },
+      { "t": "Shower, towel & locker room", "src": "F-PRC-10" },
+      { "t": "Water (bring your own bottle)", "src": "F-PRC-10" },
+      { "t": "Access to discounts and benefits from our partners", "src": "F-PRC-10, F-PRC-11", "only": ["w4", "w12", "w26", "w52"] }
+    ]
+  },
+  "termsUrl": "https://elitefitbali.com/terms-conditions/",
+  "terms": {
+    "note": "The club's own sentences, verbatim, shown on the review step. not = lengths the sentence does not apply to; only = lengths it is printed for. The club's T&C call weekly and longer passes 'memberships'; day passes are not named as memberships. Nothing here is written by us.",
+    "items": [
+      { "t": "All passes and memberships must be paid in full upfront at the time of purchase.", "src": "F-PRC-14 (T&C, Passes and memberships)" },
+      { "t": "All memberships are non-refundable under any circumstances.", "src": "F-PRC-14 (T&C, Passes and memberships)" },
+      { "t": "All gym and PT prices are net; F&B prices are subject to tax and service.", "src": "F-PRC-14 (footer of /promo-duo/)" },
+      { "t": "Members can temporarily suspend their contracts, with each month of suspension, incurring a fee of Rp200k.", "src": "F-PRC-15 (T&C, Membership freezes)", "not": ["day"] },
+      { "t": "Members have the option to transfer their memberships to others if necessary, subject to a fee of Rp200k.", "src": "F-PRC-15 (T&C, Passes and memberships)", "not": ["day"] },
+      { "t": "Decide to join after? We’ll credit your day pass toward your membership.", "src": "F-PRC-13 (/promo-duo/; the club does not say whether it covers every day pass)", "only": ["day"] }
+    ]
+  },
+  "whatsapp": {
+    "note": "The only handoff. The page sends nothing: it fills a wa.me link (number from site.json, status TO CONFIRM) and the visitor taps send in WhatsApp. Lines are joined with line breaks; a line whose variable is empty is left out. The greeting follows the club's own pre-filled texts (F-ADR-14).",
+    "greeting": "Hello Elite Fit Bali! I'd like to get a pass.",
+    "order": ["pass", "duo", "start", "name", "number", "email", "total"],
+    "lines": {
+      "pass": "Pass: {tier}, {length}",
+      "duo": "Duo: yes, with {partner}",
+      "start": "Start date: {start}",
+      "name": "Name: {name}",
+      "number": "WhatsApp: {number}",
+      "email": "Email: {email}",
+      "total": "Total: IDR {total}"
+    }
+  }
+}

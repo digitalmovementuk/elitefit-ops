@@ -1,0 +1,93 @@
+/* reviews.css · Version: v3.0 — 2026-10-02 · owner: reviews lane (Phase 2)
+   Changelog: v3.0 created. Reviews section (#reviews): a large mono rating readout (rating, count), then the verified quotes as a stacked list with hairlines, then one link out to Google.
+   Only var(--token) from tokens.css; lane-only values live in --rvw-* below. Classes: .rvw, .rvw__*. Mobile first: one column below 760 px (readout, quotes, link); from 760 px the readout
+   sits left and stays pinned while the quotes pass on the right. No motion of its own (the motion layer rolls the numerals and reveals the blocks). */
+
+.sec--reviews {
+  --rvw-big: clamp(96px, 30vw, 120px);        /* rating numeral, phone (fits 3 mono cells + "out of 5" down to 320 px) */
+  --rvw-count: clamp(56px, 16vw, 64px);       /* count numeral, phone */
+  --rvw-q: var(--fs-lead);                    /* quote type, phone 20 px */
+  --rvw-q-lh: 1.3;
+  --rvw-hang: .42em;                          /* the opening quotation mark hangs in this indent, so every line of text shares one edge */
+  --rvw-star: 10px;                           /* stars under a quote */
+  --rvw-star-lg: 18px;                        /* stars under the rating */
+  background: var(--bg);
+}
+
+/* ---------- head ---------- */
+.rvw__head { margin-bottom: var(--s-6); }
+.rvw__lead { margin-top: var(--s-4); }
+
+/* ---------- layout: phone = one column in reading order (readout, quotes, link) ---------- */
+.rvw__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); align-items: start; }
+.rvw__read { grid-area: read; }
+.rvw__list { grid-area: list; }
+.rvw__cta { grid-area: cta; }
+.rvw__grid { grid-template-areas: "read" "list" "cta"; }
+
+/* ---------- readout: label above value, the value is the biggest thing in its block (the Lab's form) ---------- */
+.rvw__read { margin: 0; padding: var(--s-5); background: var(--bg-raised); border: var(--bw) solid var(--line); }
+.rvw__r { display: grid; gap: var(--s-2); min-width: 0; }
+.rvw__r + .rvw__r { margin-top: var(--s-5); padding-top: var(--s-5); border-top: var(--bw) solid var(--line); }
+.rvw__r[hidden] { display: none; }
+.rvw__k { font: var(--fw-mono) var(--fs-micro)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.rvw__v { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--s-3); min-width: 0; }
+.rvw__num { display: block; font: var(--fw-mono) var(--rvw-count)/1 var(--font-mono); letter-spacing: -.04em; font-variant-numeric: tabular-nums; color: var(--fg); white-space: nowrap; }
+.rvw__num--score { font-size: var(--rvw-big); letter-spacing: -.14em; }   /* mono cells are wide; "4.7" never has two digits side by side, so it runs tight and the point does not float */
+.rvw__grid[data-state="loading"] .rvw__num { color: var(--fg-faint); }
+.rvw__of { font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; }
+.rvw__stars, .rvw__st { display: inline-flex; gap: 3px; margin: 0; }
+.rvw__stars i, .rvw__st i { flex: none; width: var(--rvw-star); height: var(--rvw-star); --f: 1;
+  background: linear-gradient(90deg, var(--fg) calc(var(--f) * 100%), var(--line-strong) calc(var(--f) * 100%));
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.rvw__stars { gap: 4px; }
+.rvw__stars i { --f: 0; width: var(--rvw-star-lg); height: var(--rvw-star-lg); }
+
+/* ---------- quotes: a stacked list, hairlines between, type large enough to read as speech ---------- */
+.rvw__list { margin: 0; padding: 0; list-style: none; border-top: var(--bw) solid var(--line-strong); }
+.rvw__item { padding-block: var(--s-6); border-bottom: var(--bw) solid var(--line); min-width: 0; }
+.rvw__fig { margin: 0; display: grid; gap: var(--s-4); }
+.rvw__q { margin: 0; }
+.rvw__t { margin: 0; margin-left: var(--rvw-hang); text-indent: calc(var(--rvw-hang) * -1); font: var(--fw-body) var(--rvw-q)/var(--rvw-q-lh) var(--font-display);
+  letter-spacing: -.02em; color: var(--fg); text-wrap: pretty; overflow-wrap: break-word; hyphens: manual; }
+.rvw__t::before { content: "\201C"; }
+.rvw__t::after { content: "\201D"; }
+.rvw__by { display: grid; gap: var(--s-2); }
+.rvw__name { font: var(--fw-strong) var(--fs-body)/1.2 var(--font-display); letter-spacing: var(--tr-body); color: var(--fg); overflow-wrap: anywhere; }
+.rvw__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-3); }
+.rvw__src { font: var(--fw-mono) var(--fs-micro)/1.3 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* placeholders while the data loads (partials/45-reviews.html): the real markup and classes, so the box is the real box; the text is a transparent stand-in, the grey bars are a background */
+.rvw__item.is-sk :is(.rvw__t, .rvw__name, .rvw__src) { color: transparent; user-select: none; -webkit-user-select: none; pointer-events: none; }
+.rvw__item.is-sk :is(.rvw__t, .rvw__name, .rvw__src) > span { background: linear-gradient(transparent .16em, var(--bg-raised) .16em 1.04em, transparent 1.04em); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.rvw__item.is-sk .rvw__t > span { letter-spacing: -.012em; }   /* the real text sets -.02em; +.008em on the stand-in makes it wrap like the real text (calibrated at 31 widths, 320 to 1920 px) */
+.rvw__item.is-sk .rvw__fig { animation: rvw-pulse 1.4s var(--ease-inout) infinite; }
+@keyframes rvw-pulse { 50% { opacity: .55; } }
+
+/* ---------- the one action: a plain link out, no embed, no script ---------- */
+.rvw__cta { margin: 0; }
+.rvw__link { display: flex; width: 100%; white-space: normal; text-align: center; padding-block: var(--s-3); }
+.rvw__ext { flex: none; }
+.rvw__link:is(:hover, :focus-visible) .rvw__ext { transform: translate(2px, -2px); }
+.rvw__ext { transition: transform var(--dur-ui) var(--ease-out); }
+
+/* ---------- states ---------- */
+.rvw__grid[data-state="empty"] .rvw__list { display: none; }
+html:not(.js) .rvw__read, html:not(.js) .rvw__list { display: none; }          /* no script: heading and the link stay, nothing half-empty */
+html:not(.js) .rvw__grid { grid-template-areas: "cta"; }
+
+/* ---------- from 760 px: readout left (pinned), quotes right, link under the quotes ---------- */
+@media (min-width: 760px) {
+  .sec--reviews { --rvw-q: clamp(22px, 1.9vw, 30px); --rvw-count: clamp(56px, 5.5vw, 80px); --rvw-big: var(--fs-giant); --rvw-star: 12px; --rvw-star-lg: 22px; }
+  .rvw__head { margin-bottom: var(--s-7); }
+  .rvw__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: var(--s-8); row-gap: var(--s-6); grid-template-areas: "read list" ". cta"; }
+  .rvw__read { position: sticky; top: calc(var(--header-h) + var(--s-5)); padding: var(--s-6); }
+  .rvw__item { padding-block: var(--s-7); }
+  .rvw__item:first-child { padding-top: var(--s-6); }
+  .rvw__link { display: inline-flex; width: auto; justify-self: start; }
+  .rvw__cta { display: flex; }
+  html:not(.js) .rvw__grid { grid-template-areas: ". cta"; }
+}
+@media (min-width: 1200px) {
+  .rvw__grid { column-gap: var(--s-9); }
+}

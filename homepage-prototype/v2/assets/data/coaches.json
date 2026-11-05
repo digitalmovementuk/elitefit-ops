@@ -1,0 +1,69 @@
+[
+  {
+    "published": "Rey",
+    "display": "Rey",
+    "role": "Sports Strength & Conditioning – Weight loss – 1:1 Boxing",
+    "page": "https://elitefitbali.com/trainers/rey/",
+    "onTimetable": true,
+    "fullName": "Rey Aditya",
+    "classes": [
+      "Boxercise Advanced",
+      "Boxercise Beginner",
+      "HYROX Conditioning",
+      "Off-Court Training"
+    ],
+    "note": "Role line verbatim from the club's trainer grid and trainer page (the club prints it with en dashes). 'Rey Aditya' appears only in the Off-Court Training class text ('designed by Rey Aditya'). Teaches 11 of the 36 weekly classes."
+  },
+  {
+    "published": "AIN",
+    "display": "Ain",
+    "role": null,
+    "page": "https://elitefitbali.com/trainers/ain/",
+    "onTimetable": true,
+    "fullName": null,
+    "classes": [
+      "Booty",
+      "Mobility",
+      "Stretching"
+    ],
+    "note": "Timetable prints AIN; the class pages' body text spells Ain. The trainer page prints 'Specialises In:' with no text. Teaches 15 of the 36 weekly classes. Club's class text for her classes is not her own description (see FACTS F-CLS)."
+  },
+  {
+    "published": "Icha",
+    "display": "Icha",
+    "role": null,
+    "page": "https://elitefitbali.com/trainers/icha/",
+    "onTimetable": true,
+    "fullName": null,
+    "classes": [
+      "Body Sculpt",
+      "Booty and Core"
+    ],
+    "note": "No speciality line on the club's trainer entry. Teaches 5 of the 36 weekly classes. Club copy: 'Icha’s class, designed to maximise the power of your glutes and abdominals' (Booty and Core)."
+  },
+  {
+    "published": "TINOS",
+    "display": "Tinos",
+    "role": null,
+    "page": "https://elitefitbali.com/trainers/tinos/",
+    "onTimetable": true,
+    "fullName": null,
+    "alsoOnTrainerGrid": "Martijn Taken",
+    "identityStatus": "probable, not stated by the club",
+    "classes": [
+      "Calisthenics",
+      "Mobility"
+    ],
+    "note": "CERTAIN: the timetable and class pages publish TINOS / Tinos (5 of the 36 weekly classes); the trainer entry /trainers/tinos/ exists (created 2026-05-20) and prints no speciality. The Calisthenics class page, headed 'WITH TINOS', reads 'Martijn’s new Calisthenics class'. The trainer grid has a separate entry 'Martijn Taken' whose portrait file is named TINOS-scaled.webp (uploaded 2025-02); /trainers/martijn-taken/ redirects to the Perform page. NOT CERTAIN: the club nowhere says in words that Tinos is Martijn Taken. Use 'Tinos' on the page (it matches the timetable the visitor sees); add the surname only after Raoul or the club confirms."
+  },
+  {
+    "published": "Putu’s",
+    "display": "Putu’s",
+    "role": null,
+    "page": "https://elitefitbali.com/trainers/putus/",
+    "onTimetable": false,
+    "fullName": null,
+    "classes": [],
+    "note": "On the club's trainer grid ('Putu’s', slug putus) but teaches none of the 36 timetable classes; no speciality line. The apostrophe looks like a stray possessive in the club's entry; v2.x notes used 'Putu'. Do not show unless a class or role is confirmed."
+  }
+]

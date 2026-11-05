@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Group classes · Elite Fit Bali · Ensemble</title>
+<meta name="description" content="Boxing, HYROX, sculpt and stretch at Elite Fit Bali in Pererenan. 33 group classes a week. Design concept, Ensemble, with a demo booking flow.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B1B1B">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../../v1/assets/logo/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Group classes · Elite Fit Bali · Ensemble">
+<meta property="og:description" content="Boxing, HYROX, sculpt and stretch. 33 classes a week in Pererenan. Design concept, Ensemble.">
+<meta property="og:url" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/variants/s1-stage/">
+<meta property="og:image" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/variants/s1-stage/og-gf-s1.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(d,w){var r=d.documentElement;r.className+=' js';try{var m=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;var c=navigator.connection;if(!m&&!(c&&c.saveData)){r.className+=' motion-ok';}}catch(e){}w.setTimeout(function(){if(!/\bm-ready\b/.test(r.className)){r.className+=' m-off';}},2500);})(document,window);</script>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-extrabold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../v1/assets/fonts/gilroy-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/trailer-v2-m-poster.webp" fetchpriority="high" media="not all and (min-width: 1024px) and (min-aspect-ratio: 5/4)">
+<link rel="preload" as="image" href="assets/img/trailer-v2-wide-poster.webp" fetchpriority="high" media="(min-width: 1024px) and (min-aspect-ratio: 5/4)">
+<link rel="stylesheet" href="assets/css/s1.css">
+<link rel="stylesheet" href="../../engine-v2/sheet-base.css">
+<link rel="stylesheet" href="assets/css/s1-sheet-v2.css">
+</head>
+<body>
+<a class="skip" href="#schedule">Skip to the schedule</a>
+
+<div class="page" id="page">
+<!-- 0. NOW / NEXT (P23): what's on now, or next, with a live countdown, over a slow blurred shot of that class -->
+<div class="nowbar" data-nowbar data-fam="boxing">
+  <div class="nowbar__surface" aria-hidden="true">
+    <img class="media__poster" src="assets/img/nowbar-boxing-poster.webp" alt="" width="384" height="16" decoding="async" data-nowbar-poster>
+    <video data-clip data-group="nowbar" data-ambient muted loop playsinline preload="none" data-src-tall="assets/video/nowbar-boxing.mp4" aria-hidden="true" data-nowbar-video></video>
+  </div>
+  <div class="nowbar__in">
+    <button class="nowbar__btn" type="button" data-nowbar-open data-testid="nowbar" aria-haspopup="dialog" aria-describedby="nowbar-sr" hidden>
+      <span class="nowbar__k" data-nowbar-k>Next</span>
+      <span class="nowbar__icon" data-nowbar-icon aria-hidden="true"></span>
+      <span class="nowbar__cls" data-nowbar-cls></span>
+      <span class="nowbar__l2"><span class="nowbar__who"><img src="../../v1/assets/img/avatar-rey.webp" alt="" width="20" height="20" data-nowbar-av><span data-nowbar-coach></span></span><span class="nowbar__time" aria-hidden="true"><span class="nowbar__lbl" data-nowbar-lbl>starts in</span> <b data-nowbar-count>00:00</b><span class="nowbar__lbl2" data-nowbar-lbl2></span></span></span>
+    </button>
+    <button class="pause pause--bar" type="button" data-pause="nowbar" aria-pressed="false" aria-label="Pause the bar's background"><span class="pause__icon" aria-hidden="true"></span></button>
+    <p class="nowbar__demo"><span>Ensemble · demo</span> <a class="conceptbar__all" href="../../">All concepts <span aria-hidden="true">→</span></a></p>
+  </div>
+  <p class="vh" id="nowbar-sr" role="timer" data-nowbar-sr></p>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="hdr__in wrap">
+    <a class="brand" href="#top">
+      <img class="brand__type" src="../../v1/assets/logo/elitefit-logotype-white.svg" width="169" height="18" alt="Elite Fit">
+      <span class="brand__focus">PERFORM</span>
+    </a>
+    <a class="hdr__all conceptbar__all" href="../../">All concepts <span aria-hidden="true">→</span></a>
+    <nav class="hdr__nav" aria-label="On this page">
+      <a href="#classes">Classes</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#coaches">Coaches</a>
+      <a href="#after">After class</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <button class="btn btn--primary btn--sm hdr__cta" type="button" data-book-next data-testid="hdr-book" tabindex="-1" aria-hidden="true">Book a class <span class="arr" aria-hidden="true">→</span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1. TITLE CARD: the trailer opens the film -->
+<section class="title" id="top" aria-labelledby="hero-title">
+  <div class="title__grid">
+    <figure class="title__screen">
+      <picture>
+        <source media="(min-width: 1024px) and (min-aspect-ratio: 5/4)" srcset="assets/img/trailer-v2-wide-poster.webp" width="1280" height="720">
+        <img class="media__poster" src="assets/img/trailer-v2-m-poster.webp" alt="A kettlebell class on the outdoor turf at Elite Fit" width="960" height="540" fetchpriority="high" decoding="async">
+      </picture>
+      <video data-clip data-group="hero" muted loop playsinline preload="none" data-src-tall="assets/video/trailer-v2-m.mp4" data-src-wide="assets/video/trailer-v2-wide.mp4" aria-hidden="true"></video>
+      <button class="pause" type="button" data-pause="hero" aria-pressed="false" aria-label="Pause the trailer"><span class="pause__icon" aria-hidden="true"></span></button>
+    </figure>
+    <div class="title__in">
+      <p class="eyebrow title__eyebrow">PERFORM · GROUP CLASSES</p>
+      <h1 class="h1 title__h1" id="hero-title"><span class="ln"><span>Find your</span></span> <span class="ln"><span><span class="t">people.</span></span></span></h1>
+      <p class="lead title__lead">Boxing, HYROX, sculpt and stretch. <span data-bind="weekly-count">33</span> classes a week in Pererenan, with coaches who learn your name.</p>
+      <div class="actions">
+        <button class="btn btn--primary" type="button" data-book-next data-testid="hero-book" aria-haspopup="dialog">Book a class <span class="arr" aria-hidden="true">→</span></button>
+        <a class="btn btn--outline" href="#schedule">See the schedule</a>
+      </div>
+      <p class="title__next" data-hero-next></p>
+    </div>
+    <div class="title__trust">
+      <a class="trust" href="https://maps.app.goo.gl/4qwxZzF3nnM1jeh36" target="_blank" rel="noopener" title="Google rating, read 28 Oct 2026" data-testid="hero-rating"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-hero"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-hero)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src">497 Google reviews</span></span></a>
+      <div class="hq" role="region" aria-roledescription="carousel" aria-label="What people say about our classes" data-hq>
+        <div class="hq__slides"><figure class="hq__slide is-on" role="group" aria-roledescription="slide" aria-label="1 of 1"><blockquote><p>“Amazing facilities and great classes.”</p></blockquote><figcaption><span>Alex F., Google review</span></figcaption></figure></div>
+        <button class="hq__pause" type="button" data-hq-pause aria-pressed="false" aria-label="Pause the review quotes" hidden><span class="pause__icon" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THE WEEK (P22): the showtimes board, right after the title card -->
+<section class="stage stage--week" id="schedule" aria-labelledby="schedule-title" tabindex="-1">
+  <div class="wrap week" data-schedule>
+    <div class="week__rail">
+      <div class="week__head">
+        <p class="eyebrow">THE WEEK</p>
+        <h2 class="h2" id="schedule-title" data-motion="wipe">When works for <span class="t">you?</span></h2>
+        <p class="lead head__lead">The next seven days. Tap a class to book.</p>
+      </div>
+      <div class="days" role="tablist" aria-label="Pick a day" data-days></div>
+      <div class="sched__tools">
+        <div class="fchips" role="group" aria-label="Class type" data-fchips>
+          <button class="fchip" type="button" data-fam="" aria-pressed="true">All classes</button>
+          <button class="fchip" type="button" data-fam="boxing" aria-pressed="false">Boxing</button>
+          <button class="fchip" type="button" data-fam="conditioning" aria-pressed="false">Conditioning</button>
+          <button class="fchip" type="button" data-fam="sculpt" aria-pressed="false">Sculpt</button>
+          <button class="fchip" type="button" data-fam="mobility" aria-pressed="false">Mobility &amp; Stretch</button>
+        </div>
+        <button class="btn btn--outline btn--sm filters-btn" type="button" data-open-filters data-testid="open-filters" aria-haspopup="dialog">Filters <span class="badge" data-filter-count hidden>0</span></button>
+      </div>
+    </div>
+    <div class="week__list">
+      <div class="wgrid" data-wgrid data-motion="flap" role="group" aria-label="This week's classes, Monday to Sunday"></div>
+      <div class="sched__day" aria-live="polite">
+        <h3 class="sched__date" data-day-title>This week</h3>
+        <p class="sched__count" data-day-count></p>
+      </div>
+      <p class="sched__done" data-day-done hidden></p>
+      <ol class="rows" data-rows aria-label="Classes"></ol>
+      <noscript><p class="sched__note">The live timetable needs JavaScript. This week's classes are on <a href="https://elitefitbali.com/class-schedule/">elitefitbali.com/class-schedule</a>.</p></noscript>
+      <div class="sched__empty" data-empty hidden>
+        <p>Nothing matches on this day. Try another day or clear the filters.</p>
+        <button class="btn btn--outline btn--sm" type="button" data-clear-filters>Clear filters</button>
+      </div>
+      <p class="sched__note" data-bind="weekend-note">Weekend classes run on set dates. Check the GymMaster app or ask at the front desk.</p>
+      <p class="sched__note"><span class="sample">Sample</span> Spots, waitlists and dates are sample data. The live page would read them from the club's booking system.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 3. NEXT UP: three classes with a clip each -->
+<section class="stage stage--next" id="today" aria-labelledby="today-title">
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="eyebrow">NEXT UP</p>
+        <h2 class="h2" id="today-title" data-motion="wipe">Your coach is saving you a <span class="t">spot.</span></h2>
+      </div>
+      <div class="head__side">
+        <div class="trustrow" data-trust-badge>
+          <a class="trust trust--badge" href="https://maps.app.goo.gl/4qwxZzF3nnM1jeh36" target="_blank" rel="noopener" title="Google rating, read 28 Oct 2026" data-testid="trust-badge"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-badge"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-badge)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src">497 Google reviews</span></span></a>
+          <ul class="trustrow__facts" aria-label="Club facts">
+            <li class="chip"><span data-bind="weekly-count">33</span>&nbsp;classes a week</li>
+            <li class="chip">4 coaches</li>
+            <li class="chip">Open 06:00 to 22:00 daily</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nextup" data-nextup data-motion="stagger">
+      <p class="nextup__loading">Loading the next classes…</p>
+    </div>
+    <div class="nextup__note">
+      <p><span class="sample">Sample</span> <span class="legend" aria-hidden="true"><i class="seat seat--free"></i> free spot <i class="seat"></i> taken</span><span class="vh">Spots are sample data.</span></p>
+      <button class="pause pause--inline" type="button" data-pause="next" aria-pressed="false" aria-label="Pause the class clips"><span class="pause__icon" aria-hidden="true"></span></button>
+    </div>
+    <noscript><p class="nextup__loading">The live timetable needs JavaScript. This week's classes are on <a href="https://elitefitbali.com/class-schedule/">elitefitbali.com/class-schedule</a>.</p></noscript>
+  </div>
+</section>
+
+
+<!-- 4. CHAPTER MENU -->
+<section class="menu" id="classes" aria-labelledby="classes-title">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">THE CLASSES</p>
+      <h2 class="h2" id="classes-title" data-motion="wipe">What do you feel like <span class="t">today?</span></h2>
+      <p class="lead head__lead">Four kinds of class, each an hour long. Pick the one that fits your mood.</p>
+    </div>
+    <ol class="menu__list" data-motion="stagger" aria-label="The four class families">
+      <li><a class="mitem" href="#family-boxing"><span class="mitem__frame"><img src="assets/img/boxing-tall-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async" style="--pos:50% 38%"></span><span class="mitem__n">01</span><span class="mitem__name">Boxing</span></a></li>
+      <li><a class="mitem" href="#family-conditioning"><span class="mitem__frame"><img src="assets/img/conditioning-m-poster.webp" alt="" width="720" height="900" loading="lazy" decoding="async" style="--pos:50% 50%"></span><span class="mitem__n">02</span><span class="mitem__name">Conditioning</span></a></li>
+      <li><a class="mitem" href="#family-sculpt"><span class="mitem__frame"><img src="assets/img/sculpt-m-poster.webp" alt="" width="720" height="900" loading="lazy" decoding="async" style="--pos:50% 50%"></span><span class="mitem__n">03</span><span class="mitem__name">Sculpt</span></a></li>
+      <li><a class="mitem" href="#family-mobility"><span class="mitem__frame"><img src="assets/img/mobility-m-poster.webp" alt="" width="720" height="900" loading="lazy" decoding="async" style="--pos:50% 50%"></span><span class="mitem__n">04</span><span class="mitem__name">Mobility &amp; Stretch</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. CHAPTERS -->
+<div class="chapters" data-chapters>
+  <div class="cbar" data-cbar aria-hidden="true">
+    <div class="cbar__in wrap">
+      <p class="cbar__now" data-cbar-now><span class="cbar__n">(.01)</span> <span class="cbar__name">Boxing</span></p>
+      <p class="cbar__meta"><span class="cbar__count" data-cbar-count>6 classes a week</span> <span class="cbar__of" data-cbar-of>1 / 4</span></p>
+    </div>
+    <span class="cbar__line" data-cbar-line></span>
+  </div>
+
+  <article class="chap" id="family-boxing" data-chapter="boxing" aria-labelledby="chap-boxing-title">
+    <div class="chap__run">
+      <div class="chap__stage">
+        <figure class="frame" style="--pos-tall:50% 40%;--pos-wide:50% 30%">
+          <div class="frame__media">
+            <picture>
+              <source media="(min-width: 1024px) and (min-aspect-ratio: 5/4)" srcset="assets/img/boxing-tall-poster.webp" width="720" height="1280">
+              <img class="media__poster" src="assets/img/boxing-tall-poster.webp" alt="A boxer working the pads with a coach" width="720" height="1280" loading="lazy" decoding="async">
+            </picture>
+            <video data-clip data-group="chap-boxing" muted loop playsinline preload="none" data-src-tall="assets/video/boxing-tall.mp4" data-src-wide="assets/video/boxing-tall.mp4" aria-hidden="true"></video>
+          </div>
+        </figure>
+        <div class="frame__deck">
+          <div class="frame__ui">
+            <button class="pause" type="button" data-pause="chap-boxing" aria-pressed="false" aria-label="Pause the boxing video"><span class="pause__icon" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chap__copy wrap">
+      <div class="chap__lead" data-motion="line">
+        <p class="eyebrow chap__label">(.01) · <span data-chap-count="boxing">6 classes</span> a week<span class="chap__stock"> · Stock clip</span></p>
+        <h3 class="chap__title" id="chap-boxing-title" data-motion="wipe">Boxing</h3>
+        <p class="chap__feel">Gloves on, no contact. Rey calls the rounds and the room keeps the rhythm.</p>
+      </div>
+      <div class="chap__detail">
+        <ul class="chap__meta">
+          <li class="chip">60 min</li>
+          <li class="chip">Beginner and advanced</li>
+          <li class="chip"><span class="who"><img src="../../v1/assets/img/avatar-rey.webp" alt="" width="28" height="28" loading="lazy">Rey</span></li>
+        </ul>
+        <ul class="chap__classes" data-chap-classes="boxing" data-motion="stagger">
+          <li class="cline cline--static"><span class="cline__name">Boxercise Beginner</span><span class="cline__when">Mon 09:00, Wed 08:00, Fri 08:00</span></li>
+          <li class="cline cline--static"><span class="cline__name">Boxercise Advanced</span><span class="cline__when">Tue 16:30, Wed 16:30, Thu 16:30</span></li>
+        </ul>
+        <a class="link-t" href="#schedule" data-filter-family="boxing"><span>See boxing times</span> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </article>
+
+  <article class="chap" id="family-conditioning" data-chapter="conditioning" aria-labelledby="chap-conditioning-title">
+    <div class="chap__run">
+      <div class="chap__stage">
+        <figure class="frame" style="--pos-tall:50% 50%;--pos-wide:50% 50%">
+          <div class="frame__media">
+            <picture>
+              <source media="(min-width: 1024px) and (min-aspect-ratio: 5/4)" srcset="assets/img/conditioning-wide-poster.webp" width="1280" height="720">
+              <img class="media__poster" src="assets/img/conditioning-m-poster.webp" alt="A conditioning class training together with kettlebells on the outdoor turf" width="720" height="900" loading="lazy" decoding="async">
+            </picture>
+            <video data-clip data-group="chap-conditioning" muted loop playsinline preload="none" data-src-tall="assets/video/conditioning-m.mp4" data-src-wide="assets/video/conditioning-wide.mp4" aria-hidden="true"></video>
+          </div>
+        </figure>
+        <div class="frame__deck">
+          <div class="frame__ui">
+            <button class="pause" type="button" data-pause="chap-conditioning" aria-pressed="false" aria-label="Pause the conditioning video"><span class="pause__icon" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chap__copy wrap">
+      <div class="chap__lead" data-motion="line">
+        <p class="eyebrow chap__label">(.02) · <span data-chap-count="conditioning">5 classes</span> a week</p>
+        <h3 class="chap__title" id="chap-conditioning-title" data-motion="wipe">Conditioning</h3>
+        <p class="chap__feel">HYROX-style circuits and off-court work. You'll leave out of breath and in good company.</p>
+      </div>
+      <div class="chap__detail">
+        <ul class="chap__meta">
+          <li class="chip">60 min</li>
+          <li class="chip">Open to everyone</li>
+          <li class="chip"><span class="who"><img src="../../v1/assets/img/avatar-rey.webp" alt="" width="28" height="28" loading="lazy">Rey</span></li>
+        </ul>
+        <ul class="chap__classes" data-chap-classes="conditioning" data-motion="stagger">
+          <li class="cline cline--static"><span class="cline__name">HYROX Conditioning</span><span class="cline__when">Mon 08:00, Tue 08:00, Thu 08:30</span></li>
+          <li class="cline cline--static"><span class="cline__name">Off-Court Training</span><span class="cline__when">Tue 12:00, Thu 12:00</span></li>
+        </ul>
+        <a class="link-t" href="#schedule" data-filter-family="conditioning"><span>See conditioning times</span> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </article>
+
+  <article class="chap" id="family-sculpt" data-chapter="sculpt" aria-labelledby="chap-sculpt-title">
+    <div class="chap__run">
+      <div class="chap__stage">
+        <figure class="frame" style="--pos-tall:50% 50%;--pos-wide:50% 50%">
+          <div class="frame__media">
+            <picture>
+              <source media="(min-width: 1024px) and (min-aspect-ratio: 5/4)" srcset="assets/img/sculpt-d-poster.webp" width="1280" height="720">
+              <img class="media__poster" src="assets/img/sculpt-m-poster.webp" alt="A class doing core work on mats on the outdoor turf at Elite Fit" width="720" height="900" loading="lazy" decoding="async">
+            </picture>
+            <video data-clip data-group="chap-sculpt" muted loop playsinline preload="none" data-src-tall="assets/video/sculpt-m.mp4" data-src-wide="assets/video/sculpt-d.mp4" aria-hidden="true"></video>
+          </div>
+        </figure>
+        <div class="frame__deck">
+          <div class="frame__ui">
+            <button class="pause" type="button" data-pause="chap-sculpt" aria-pressed="false" aria-label="Pause the sculpt video"><span class="pause__icon" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chap__copy wrap">
+      <div class="chap__lead" data-motion="line">
+        <p class="eyebrow chap__label">(.03) · <span data-chap-count="sculpt">8 classes</span> a week</p>
+        <h3 class="chap__title" id="chap-sculpt-title" data-motion="wipe">Sculpt</h3>
+        <p class="chap__feel">Glutes, core and full-body strength, at a steady pace.</p>
+      </div>
+      <div class="chap__detail">
+        <ul class="chap__meta">
+          <li class="chip">60 min</li>
+          <li class="chip">All levels</li>
+          <li class="chip"><span class="who"><img src="../../v1/assets/img/avatar-icha.webp" alt="" width="28" height="28" loading="lazy">Icha</span> <span class="who"><img src="../../v1/assets/img/avatar-ain.webp" alt="" width="28" height="28" loading="lazy">Ain</span></li>
+        </ul>
+        <ul class="chap__classes" data-chap-classes="sculpt" data-motion="stagger">
+          <li class="cline cline--static"><span class="cline__name">Booty and Core</span><span class="cline__when">Mon 11:00, Wed 09:00, Fri 15:00</span></li>
+          <li class="cline cline--static"><span class="cline__name">Body Sculpt</span><span class="cline__when">Fri 14:00</span></li>
+          <li class="cline cline--static"><span class="cline__name">Booty</span><span class="cline__when">Mon 17:00, Tue 10:00, Fri 09:00, Sat 09:00</span></li>
+        </ul>
+        <a class="link-t" href="#schedule" data-filter-family="sculpt"><span>See sculpt times</span> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </article>
+
+  <article class="chap" id="family-mobility" data-chapter="mobility" aria-labelledby="chap-mobility-title">
+    <div class="chap__run">
+      <div class="chap__stage">
+        <figure class="frame" style="--pos-tall:50% 50%;--pos-wide:50% 50%">
+          <div class="frame__media">
+            <picture>
+              <source media="(min-width: 1024px) and (min-aspect-ratio: 5/4)" srcset="assets/img/mobility-d-poster.webp" width="1280" height="720">
+              <img class="media__poster" src="assets/img/mobility-m-poster.webp" alt="People stretching on mats in a warm, wood-lined studio" width="720" height="900" loading="lazy" decoding="async">
+            </picture>
+            <video data-clip data-group="chap-mobility" muted loop playsinline preload="none" data-src-tall="assets/video/mobility-m.mp4" data-src-wide="assets/video/mobility-d.mp4" aria-hidden="true"></video>
+          </div>
+        </figure>
+        <div class="frame__deck">
+          <div class="frame__ui">
+            <button class="pause" type="button" data-pause="chap-mobility" aria-pressed="false" aria-label="Pause the mobility video"><span class="pause__icon" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chap__copy wrap">
+      <div class="chap__lead" data-motion="line">
+        <p class="eyebrow chap__label">(.04) · <span data-chap-count="mobility">14 classes</span> a week<span class="chap__stock"> · Stock clip</span></p>
+        <h3 class="chap__title" id="chap-mobility-title" data-motion="wipe">Mobility &amp; Stretch</h3>
+        <p class="chap__feel">The slow hour your body has been asking for.</p>
+      </div>
+      <div class="chap__detail">
+        <ul class="chap__meta">
+          <li class="chip">60 min</li>
+          <li class="chip">All levels</li>
+          <li class="chip"><span class="who"><img src="../../v1/assets/img/avatar-ain.webp" alt="" width="28" height="28" loading="lazy">Ain</span> <span class="who"><img src="../../v1/assets/img/avatar-tinos.webp" alt="" width="28" height="28" loading="lazy">Tinos</span></li>
+        </ul>
+        <ul class="chap__classes" data-chap-classes="mobility" data-motion="stagger">
+          <li class="cline cline--static"><span class="cline__name">Stretching</span><span class="cline__when">Every day, 8 times a week</span></li>
+          <li class="cline cline--static"><span class="cline__name">Mobility</span><span class="cline__when">Fri 10:30, Sat 11:00, Sun 16:00</span></li>
+          <li class="cline cline--static"><span class="cline__name">Injury Prevention &amp; Mobility</span><span class="cline__when">Mon 13:00, Wed 10:00, Thu 10:00</span></li>
+        </ul>
+        <a class="link-t" href="#schedule" data-filter-family="mobility"><span>See mobility times</span> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="wrap">
+  <p class="footnote"><span class="sample">Sample</span> The four families, their levels and the lines on how each feels are our suggestion.</p>
+</div>
+
+<!-- 6. CAST -->
+<section class="sec cast" id="coaches" aria-labelledby="coaches-title">
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="eyebrow">THE TEAM</p>
+        <h2 class="h2" id="coaches-title" data-motion="wipe">Meet your <span class="t">coaches.</span></h2>
+      </div>
+      <p class="lead head__lead">Four coaches teach all <span data-bind="weekly-count">33</span> classes. Tap one to see when they're on.</p>
+    </div>
+    <div class="coaches" data-coaches data-motion="cascade">
+      <button class="coach" type="button" data-coach="rey" data-testid="coach-rey">
+        <span class="coach__photo"><img src="../../v1/assets/img/coach-rey.webp" alt="Rey, coach at Elite Fit" width="600" height="750" loading="lazy" decoding="async"></span>
+        <span class="coach__name">Rey</span>
+        <span class="coach__role">Sports Strength &amp; Conditioning · Weight loss · 1:1 Boxing</span>
+        <span class="coach__count"><span data-coach-count="rey">11 classes</span> a week</span>
+        <span class="coach__link"><span>Meet Rey</span> <span class="arr" aria-hidden="true">→</span></span>
+      </button>
+      <button class="coach" type="button" data-coach="tinos" data-testid="coach-tinos">
+        <span class="coach__photo"><img src="../../v1/assets/img/coach-tinos.webp" alt="Tinos, coach at Elite Fit" width="600" height="750" loading="lazy" decoding="async"></span>
+        <span class="coach__name">Tinos</span>
+        <span class="coach__role" data-coach-role="tinos">Teaches Injury Prevention &amp; Mobility</span>
+        <span class="coach__count"><span data-coach-count="tinos">3 classes</span> a week</span>
+        <span class="coach__link"><span>Meet Tinos</span> <span class="arr" aria-hidden="true">→</span></span>
+      </button>
+      <button class="coach" type="button" data-coach="ain" data-testid="coach-ain">
+        <span class="coach__photo"><img src="../../v1/assets/img/coach-ain.webp" alt="Ain, coach at Elite Fit" width="600" height="750" loading="lazy" decoding="async"></span>
+        <span class="coach__name">Ain</span>
+        <span class="coach__role" data-coach-role="ain">Teaches Stretching, Booty and Mobility</span>
+        <span class="coach__count"><span data-coach-count="ain">15 classes</span> a week</span>
+        <span class="coach__link"><span>Meet Ain</span> <span class="arr" aria-hidden="true">→</span></span>
+      </button>
+      <button class="coach" type="button" data-coach="icha" data-testid="coach-icha">
+        <span class="coach__photo"><img src="../../v1/assets/img/coach-icha.webp" alt="Icha, coach at Elite Fit" width="600" height="750" loading="lazy" decoding="async"></span>
+        <span class="coach__name">Icha</span>
+        <span class="coach__role" data-coach-role="icha">Teaches Booty and Core and Body Sculpt</span>
+        <span class="coach__count"><span data-coach-count="icha">4 classes</span> a week</span>
+        <span class="coach__link"><span>Meet Icha</span> <span class="arr" aria-hidden="true">→</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 7. AFTER CLASS -->
+<section class="sec after" id="after" aria-labelledby="after-title">
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="eyebrow">AFTER CLASS</p>
+        <h2 class="h2" id="after-title" data-motion="wipe">Pull up a <span class="t">chair.</span></h2>
+      </div>
+      <p class="lead head__lead">Class done? Stay for a coffee, have lunch, open the laptop or cool down in Recharge. The restaurant's open to everyone.</p>
+    </div>
+  </div>
+  <figure class="after__shot" data-motion="mask">
+    <img src="../../v1/assets/img/hero-cafe.webp" alt="The café at Elite Fit: a timber counter and long bench seating in warm light" width="1544" height="1029" loading="lazy" decoding="async">
+  </figure>
+  <div class="wrap">
+    <div class="recharge">
+      <figure class="recharge__photo" data-motion="rise">
+        <img src="../../v1/assets/img/rec-jacuzzi.webp" alt="A guest resting at the edge of the jacuzzi" width="900" height="1125" loading="lazy" decoding="async">
+      </figure>
+      <div class="wcard" data-motion="rise" style="--d:.12s">
+        <p class="eyebrow eyebrow--dark">RECHARGE</p>
+        <h3 class="wcard__title">Recover together.</h3>
+        <p>Sauna, ice bath, jacuzzi, steam room and pool, open from 06:30.</p>
+        <p class="wcard__price">Recharge day pass <strong data-price="recharge_day">300K</strong></p>
+        <a class="link-t" href="https://elitefitbali.com/recharge/" target="_blank" rel="noopener"><span>Book a soak</span> <span class="arr" aria-hidden="true">→</span></a>
+        <img class="wcard__mark" src="../../v1/assets/logo/elitefit-logogram-black.svg" width="67" height="40" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. INTERMISSION: the one offer -->
+<section class="inter" id="plus-one" aria-labelledby="offer-title">
+  <div class="inter__curtain" data-motion="curtain">
+    <div class="inter__in wrap">
+      <p class="eyebrow inter__eyebrow">DUO DAY PASS</p>
+      <h2 class="inter__title" id="offer-title">Bring your +1.</h2>
+      <p class="inter__deal">Buy 1, get 1. <span data-price="duo">225K</span> each.</p>
+      <p class="inter__body">An Elite day pass for each of you: every class, the gym floor, pool, ice bath, sauna, café and co-working.</p>
+      <p class="inter__price" aria-label="Was 450K, now 225K each"><s data-price="duo-old">450K</s> <strong><span data-price="duo">225K</span> <small>each</small></strong></p>
+      <button class="btn btn--white" type="button" data-duo-start data-testid="offer-book">Get a Duo Day Pass <span class="arr" aria-hidden="true">→</span></button>
+      <p class="inter__fine">Decide to join after? We'll credit your day pass toward your membership.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. PROGRAMME NOTES: first class -->
+<section class="sec notes" id="first" aria-labelledby="first-title">
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="eyebrow eyebrow--dark">YOUR FIRST CLASS</p>
+        <h2 class="h2" id="first-title" data-motion="wipe">New here? Here's the <span class="t">plan.</span></h2>
+      </div>
+      <p class="lead head__lead">You don't need to know the moves yet.</p>
+    </div>
+    <ol class="steps" data-motion="stagger">
+      <li><span class="steps__n">01</span><h3 class="steps__h">Come 10 minutes early</h3><p>Say hi at the front desk. We'll show you the lockers, the showers and where everything is.</p></li>
+      <li><span class="steps__n">02</span><h3 class="steps__h">Tell your coach</h3><p>Let them know it's your first class so they can keep an eye out for you.</p></li>
+      <li><span class="steps__n">03</span><h3 class="steps__h">Stay a while</h3><p>Nobody's rushing you out. Grab a coffee and tell us how it went.</p></li>
+    </ol>
+    <div class="notes__grid">
+      <div class="bring">
+        <h3 class="h4">What to bring</h3>
+        <ul class="ticks">
+          <li>Your own water bottle.</li>
+          <li>Clothes you can move in, and trainers.</li>
+          <li>Towels, showers and lockers are at the club.</li>
+        </ul>
+      </div>
+      <div class="faq">
+        <h3 class="h4">Good questions</h3>
+        <details>
+          <summary>Do I need a membership?</summary>
+          <p>No. Get a Day Pass (<span data-price="day">350K</span>) or bring a friend on the Duo Day Pass (<span data-price="duo">225K</span> each). Members book in the GymMaster app or at the front desk. You can also join through ClassPass.</p>
+        </details>
+        <details>
+          <summary>I'm a total beginner. Where do I start?</summary>
+          <p>Start with Boxercise Beginner, Booty and Core or Off-Court Training. All three welcome beginners.</p>
+        </details>
+        <details>
+          <summary>How long is a class?</summary>
+          <p>An hour, whichever class you pick.</p>
+        </details>
+        <details>
+          <summary>What if I can't make it?</summary>
+          <p>Please cancel in advance so someone else can take your spot. If nobody has arrived 15 minutes after the start, the class is called off.</p>
+        </details>
+        <details>
+          <summary>Is there an age limit?</summary>
+          <p>Boxercise is recommended from age 14.</p>
+        </details>
+        <details>
+          <summary>Are weekend classes every week?</summary>
+          <p>Not every week. The weekend times in the schedule are the usual pattern, so ask us on WhatsApp which dates are on.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. CLOSING SHOT: visit -->
+<section class="sec visit" id="visit" aria-labelledby="visit-title">
+  <div class="wrap visit__grid">
+    <div class="visit__copy">
+      <p class="eyebrow">VISIT US</p>
+      <h2 class="h2" id="visit-title" data-motion="wipe">See it for <span class="t">yourself.</span></h2>
+      <p class="lead">Come for a class, or come for a coffee first.</p>
+      <dl class="facts">
+        <div><dt>Address</dt><dd data-bind="address">Jalan Sempol No. 26, Pererenan, Bali</dd></div>
+        <div><dt>Gym and classes</dt><dd>06:00 to 22:00, every day</dd></div>
+        <div><dt>Recharge</dt><dd>From 06:30</dd></div>
+        <div><dt>WhatsApp</dt><dd><a href="https://wa.me/6285720221101" target="_blank" rel="noopener" data-bind="wa-link">+62 857-2022-1101</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:info@elitefitbali.com">info@elitefitbali.com</a></dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn btn--outline" href="https://www.google.com/maps/search/?api=1&amp;query=Elite+Fit+Bali+Jalan+Sempol+26+Pererenan" target="_blank" rel="noopener">Get directions</a>
+        <a class="btn btn--outline" href="https://wa.me/6285720221101" target="_blank" rel="noopener">WhatsApp us</a>
+      </div>
+    </div>
+    <div class="visit__side">
+      <figure class="visit__media" data-motion="mask">
+        <img class="media__poster" src="../../v1/assets/img/visit-entrance-poster.webp" alt="The Elite Fit entrance wall with the logo and palms" width="720" height="614" loading="lazy" decoding="async">
+        <video data-clip data-group="visit" muted loop playsinline preload="none" data-src-tall="../../v1/assets/video/visit-entrance.mp4" aria-hidden="true"></video>
+        <button class="pause" type="button" data-pause="visit" aria-pressed="false" aria-label="Pause the entrance video"><span class="pause__icon" aria-hidden="true"></span></button>
+      </figure>
+      <figure class="quote" data-motion="rise">
+        <p class="quote__stars" role="img" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></p>
+        <blockquote><p>A welcoming, laid-back space with genuinely friendly people and a restaurant worth staying for. …</p></blockquote>
+        <figcaption>Skye D.S., Google review · Elite Fit is rated <strong>4.7</strong> from 497 Google reviews (28 Oct 2026)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- END CREDITS -->
+<footer class="ftr" id="footer">
+  <div class="wrap" data-motion="credits">
+    <p class="ftr__line">Better together.</p>
+    <img class="ftr__logo" src="../../v1/assets/logo/elitefit-logotype-white.svg" width="301" height="32" alt="Elite Fit">
+    <div class="ftr__cols">
+      <p>Elite Fit Bali<br>A boutique health club<br>Jalan Sempol No. 26, Pererenan</p>
+      <ul>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#first">Your first class</a></li>
+      </ul>
+      <ul>
+        <li><a href="https://www.instagram.com/elitefitbali/" target="_blank" rel="noopener">Instagram @elitefitbali</a></li>
+        <li><a href="https://elitefitbali.com/" target="_blank" rel="noopener">elitefitbali.com</a></li>
+        <li><a href="https://elitefitbali.com/terms-conditions/" target="_blank" rel="noopener">Terms and conditions</a></li>
+      </ul>
+    </div>
+    <p class="ftr__note">Design concept, Ensemble, 29 October 2026. Bookings on this page are a demo: no payment is taken and nothing you type leaves your browser. Items marked Sample are placeholders. Clips tagged "Stock clip" are free stock footage (Pexels).</p>
+  </div>
+</footer>
+</div>
+
+<div class="buybar" data-buybar aria-hidden="true">
+  <div class="buybar__in">
+    <span class="buybar__faces" aria-hidden="true"><img src="../../v1/assets/img/avatar-rey.webp" alt="" width="34" height="34"><img src="../../v1/assets/img/avatar-ain.webp" alt="" width="34" height="34"><img src="../../v1/assets/img/avatar-icha.webp" alt="" width="34" height="34"><img src="../../v1/assets/img/avatar-tinos.webp" alt="" width="34" height="34"></span>
+    <button class="btn btn--primary buybar__btn" type="button" data-book-next data-testid="buybar-book" tabindex="-1" aria-haspopup="dialog">Book a class <span class="arr" aria-hidden="true">→</span></button>
+    <p class="buybar__quote" data-testid="dock-quote">One of the top premium gyms in Bali! Must see!</p>
+    <p class="buybar__rate" data-testid="dock-rating"><span class="grate" role="img" aria-label="Rated 4.7 out of 5 from 497 Google reviews"><svg class="gmark" viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><b class="grate__num">4.7</b><svg class="grate__stars" viewBox="0 0 104 20" width="70" height="13" aria-hidden="true" focusable="false"><defs><clipPath id="gstars-bar"><rect x="0" y="0" width="98.7" height="20"/></clipPath></defs><g class="grate__base"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g><g class="grate__fill" clip-path="url(#gstars-bar)"><path d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(21 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(42 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(63 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/><path transform="translate(84 0)" d="M10 1.2l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.4l6.1-.6z"/></g></svg><span class="grate__src">497 Google reviews</span></span></p>
+  </div>
+</div>
+
+<!-- Sheet: class flow, coach and filters share one dialog (v1 booking engine) -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet__scrim" data-sheet-close></div>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1" data-testid="sheet">
+    <div class="sheet__bar">
+      <span class="sheet__handle" aria-hidden="true"></span>
+      <button class="iconbtn" type="button" data-sheet-back data-testid="sheet-back" aria-label="Back"><span aria-hidden="true">←</span></button>
+      <p class="sheet__step" data-sheet-step aria-live="polite"></p>
+      <button class="iconbtn" type="button" data-sheet-close data-testid="sheet-close" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="sheet__progress" data-sheet-progress aria-hidden="true" hidden><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="sheet__body" data-sheet-body></div>
+    <div class="sheet__foot" data-sheet-foot></div>
+  </div>
+</div>
+
+<p class="toast" data-toast role="status" aria-live="polite" hidden></p>
+
+<script src="../../engine-v2/api.js" data-store-key="ef-gf-v3-s1" defer></script>
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/media.js" defer></script>
+<script src="../../engine-v2/booking.js" defer></script>
+<script src="assets/js/page.js" defer></script>
+</body>
+</html>

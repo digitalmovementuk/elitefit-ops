@@ -1,0 +1,43 @@
+{
+  "version": "v3.0 — 2026-10-02 (pricing lane)",
+  "status": "follows FACTS.md (F-ADR, F-PRC, F-HRS, F-OFR) as read on 2026-10-02",
+  "club": { "name": "Elite Fit Bali", "area": "Pererenan", "tz": "Asia/Makassar" },
+  "address": {
+    "line": "Jalan Sempol No. 26, Pererenan, Bali",
+    "mapsUrl": "https://www.google.com/maps/place/Elite+Fit+Bali/@-8.6389587,115.1378823,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd2393801fdcfc5:0xfb844a2d05cc9d84!8m2!3d-8.6389587!4d115.1378823!16s%2Fg%2F11s94b82f_?entry=ttu",
+    "source": "FACTS F-ADR-01 and F-ADR-05 (club pages /membership/, /join-us-today/; /memberships/ is stale, F-ADR-04)"
+  },
+  "whatsapp": {
+    "number": "6285195520220",
+    "display": "+62 851-9552-0220",
+    "status": "TO CONFIRM by Raoul before launch",
+    "source": "F-ADR-10: the number on the club's newest sales page /promo-duo/ (every 'Choose ...' button, 'Get a DUO Day Pass', 'Book a free tour'); it is the number v2.1 used, so both design directions point to the same line. F-ADR-09: the main site and the Google listing use +62 857-2022-1101. F-ADR-12: the club's pages do not decide between them.",
+    "alternatives": [
+      { "number": "6285720221101", "display": "+62 857-2022-1101", "where": "main site buttons, footer phone, Google listing (F-ADR-08, F-ADR-09)" },
+      { "number": "6287776717889", "display": "+62 877-7671-7889", "where": "stale /memberships/ page only (F-ADR-11), do not use" }
+    ]
+  },
+  "rating": { "value": 4.7, "count": 488, "source": "assets/data/reviews.json" },
+  "numberFormat": { "group": ".", "currency": "IDR" },
+  "pricing": {
+    "defaultLength": "day",
+    "badges": {},
+    "badgesNote": "The club labels Elite 'BEST DEAL' (/membership/) and 'All Access · Most Popular' (/promo-duo/), F-PRC-02 and F-PRC-08. Not shown by default (voice guard: no superlatives); the Elite card carries a factual price comparison instead. To switch a badge on, add {\"elite\": \"Best deal\"} here.",
+    "bundleLine": true,
+    "includes": {
+      "perform": ["Gym and outdoor area", "Unlimited group classes"],
+      "elite": ["Gym and outdoor area", "Unlimited group classes", "Pool, jacuzzi, ice bath, sauna and steam room"],
+      "recharge": ["Outdoor pool with sunbeds", "Ice bath, jacuzzi, steam room and sauna"]
+    },
+    "includedEvery": ["Shower, towel and locker room", "Water (bring your own bottle)"],
+    "includesSkip": { "perform": { "day": ["Unlimited group classes"] } },
+    "includesSkipSource": "FACTS section 17 and F-CLS-29: the club does not say that a Perform-only day pass includes classes (they start 'from our weekly Perform membership'); the card therefore lists no classes for the Perform day pass. The Elite day pass lists them (F-PRC-06: the Duo day pass is the Elite day pass, 'all classes').",
+    "includesSource": "Club wording on /promo-duo/ (F-PRC-08, F-PRC-09, F-PRC-10), shortened; the club's membership pop-ups list the same rooms (F-PRC-01 to F-PRC-03, F-PRC-10). 'Shower, towel & locker room' and 'Water' are in the Perform, Recharge and Elite lists.",
+    "duoDayPassTiers": ["elite"],
+    "duoEach": { "w52": { "elite": 22500000, "perform": 16000000, "recharge": 13250000 } },
+    "duoSource": "F-PRC-05, F-PRC-06 (D-03, D-04 in FACTS section 12): the club publishes the Duo day pass (225.000 each) for the full Elite experience only, and a yearly Duo price per person that passes.json lacks. These two keys override passes.json until the facts lane updates it; 4-week Duo = passes.json duo.fourWeek divided by two people (each, as on /promo-duo/).",
+    "notes": [
+      { "text": "Decide to join after? We’ll credit your day pass toward your membership.", "source": "F-PRC-13 (club wording; the club does not say whether it covers every day pass)" }
+    ]
+  }
+}

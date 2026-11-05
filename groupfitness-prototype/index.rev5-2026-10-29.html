@@ -1,0 +1,186 @@
+<!doctype html>
+<!-- Elite Fit /groupfitness design concepts: chooser page
+     Version: v1 rev 5, 29 Oct 2026. Built by Digital Movement.
+     Changelog
+       v1 rev 5 (29 Oct 2026): motion pass (#39, upgrade/MOTION-BRIEF.md), the new concept names (#44) and audit card CH-1.
+          Names (#44, naming/NAMES-v1.0.md, exact copy): Cinematic stage -> Ensemble, Editorial -> Coffee Table, Kinetic type -> Big Hello,
+          Panels app -> Pocket Club, Original -> Ground Floor, Home v2a, booking-first -> Front Desk; Home v2 unchanged. Titles, descriptor,
+          "Best for" and the hidden button labels changed; folders, URLs and data-ids unchanged.
+          Motion (new chooser/motion.css + chooser/chooser.js; native scroll only): the header hairline draws and the intro and first-row cards
+          settle at full opacity on first paint (nothing is hidden above the fold); cards below the fold cascade in once (opacity + rise,
+          0.55 s, 70 ms stagger); their thumbnails settle 1.04 -> 1 on a CSS scroll-driven view timeline (IntersectionObserver + transition
+          where unsupported), only where the faces rule allows; desktop hover lifts 3 px with a pseudo-element shadow and ring and a slow
+          1.03 lean-in on the thumbnail; press states; focus rings ease in; the footer rule draws in. Reduced motion, Save-Data and no JS: static.
+          Faces rule: data-faces on each thumb <img>/<source> holds the face boxes of THAT file. After replacing any thumb, run
+          scratchpad ef-gf/chooser/_motion/apply_faces.py to refresh it; a missing data-faces means no zoom on that thumb (safe default).
+          CH-1 (VISUAL-AUDIT-v1): 4 columns from 80rem (1280 px); a short last row shares the full width, so no row is ragged.
+       v1 rev 4 (29 Oct 2026): the Home card (variants/s3-home/) is removed from the chooser at Raoul's request. Seven cards now.
+          Counts in the intro, meta and section label say seven. variants/s3-home/ and chooser/thumbs/s3-home-*.webp stay on disk (the folder URL still works;
+          Home v2 still uses s3-home-m.webp as its stand-in). Chooser CSS: with seven cards the last card spans the full row (2-column and 3-column grids) so no card sits alone.
+       v1 rev 3 (28 Oct 2026): two cards added at the top, Home v2 (variants/s3-home-v2/) and Home v2a, booking-first (variants/s3-home-v2a/).
+          Home v2 uses the Home thumbnail as a stand-in (data-thumb-pending="s3-home-v2"; the ship step replaces chooser/thumbs/s3-home-v2-m.webp and the src).
+          New cards use the phone thumbnail at every width (no -d file yet). Intro and meta counts say eight.
+       v1 rev 2 (27 Oct 2026): real screenshots replace the stock stand-ins (chooser/thumbs/<id>-m.webp = phone first view,
+          <id>-d.webp = desktop first view; swap by replacing those files, the HTML stays). Cards in show order:
+          Home, Panels app, Kinetic type, Editorial, Cinematic stage, Original. Names only.
+          "Best for" line per card.
+          Square phone crops (shorter cards), lead beside the headline on desktop, OG image = 3x2 grid of the screenshots.
+       v1 (27 Oct 2026): first release. Six cards, Open plus Try the booking (?class=boxercise-beginner),
+          staggered reveal, hover/press lift, reduced motion = none.
+     Files: this page, chooser/chooser.css, chooser/chooser.js, chooser/thumbs/, chooser/og-chooser.jpg.
+     Fonts, tokens and logo come from ./v1/assets/ (linked, not copied). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pick your favourite · Elite Fit group class concepts</title>
+<meta name="description" content="Seven design concepts for Elite Fit's group classes page. Open each one and try a demo booking.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B1B1B">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="./v1/assets/logo/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pick your favourite. Elite Fit group class concepts">
+<meta property="og:description" content="Seven ways to show Elite Fit's group classes. Every one has a working demo booking.">
+<meta property="og:url" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/">
+<meta property="og:image" content="https://digitalmovementuk.github.io/elitefit-ops/groupfitness-prototype/chooser/og-chooser.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(d){var r=d.documentElement;r.className+=' js';try{var m=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var c=navigator.connection;if(!m&&!(c&&c.saveData)){r.className+=' motion-ok';}}catch(e){}})(document);</script>
+<link rel="preload" href="./v1/assets/fonts/gilroy-extrabold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./v1/assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="./v1/assets/css/tokens.css">
+<link rel="stylesheet" href="./chooser/chooser.css">
+<link rel="stylesheet" href="./chooser/motion.css">
+</head>
+<body>
+<a class="skip" href="#concepts">Skip to the concepts</a>
+
+<header class="hdr">
+  <div class="hdr__in wrap">
+    <div class="brand"><img src="./v1/assets/logo/elitefit-logotype-white.svg" width="301" height="32" alt="Elite Fit"></div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="intro wrap" aria-labelledby="title">
+    <p class="eyebrow">GROUP CLASSES · DESIGN CONCEPTS</p>
+    <h1 id="title"><span>PICK YOUR</span> <span class="t">FAVOURITE.</span></h1>
+    <p class="lead">Seven ways to show Elite Fit's group classes. Every one has a working demo booking.</p>
+  </section>
+
+  <section class="wrap" id="concepts" aria-label="The seven concepts">
+    <ol class="grid">
+    <li data-reveal>
+      <article class="card" data-id="s3-home-v2">
+        <a class="card__media" href="./variants/s3-home-v2/" tabindex="-1" aria-hidden="true"><picture><img class="card__img" src="./chooser/thumbs/s3-home-m.webp" data-faces="0.437,0.474,0.083,0.062;0.22,0.423,0.259,0.109;0.698,0.485,0.186,0.078" alt="" width="720" height="960" loading="eager" decoding="async" data-thumb-pending="s3-home-v2"></picture></a>
+        <div class="card__body">
+          <h2>Home v2</h2>
+          <p class="card__desc">The class-booking page for people who search “classes gym Canggu”. The Home look, plus a two-step booking sheet with your coach, real Google reviews, free spots at a glance, and Pay now or Pay at reception.</p>
+          <p class="card__best"><span>Best for:</span> visitors from Google who are ready to book</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s3-home-v2/" data-testid="open-s3-home-v2">Open<span class="sr"> the Home v2 concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s3-home-v2/?class=boxercise-beginner" data-testid="try-s3-home-v2">Try the booking<span class="sr"> in the Home v2 concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="s3-home-v2a">
+        <a class="card__media" href="./variants/s3-home-v2a/" tabindex="-1" aria-hidden="true"><picture><img class="card__img" src="./chooser/thumbs/s3-home-v2a-m.webp" data-faces="0.417,0.311,0.137,0.054;0.067,0.349,0.112,0.078" alt="" width="720" height="960" loading="eager" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Front Desk</h2>
+          <p class="card__desc">Home's warm look, booking first. Today's classes on top, with prices and coaches.</p>
+          <p class="card__best"><span>Best for:</span> booking today's class</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s3-home-v2a/" data-testid="open-s3-home-v2a">Open<span class="sr"> the Front Desk concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s3-home-v2a/?class=boxercise-beginner" data-testid="try-s3-home-v2a">Try the booking<span class="sr"> in the Front Desk concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="s5-panels">
+        <a class="card__media" href="./variants/s5-panels/" tabindex="-1" aria-hidden="true"><picture><source media="(min-width: 641px)" srcset="./chooser/thumbs/s5-panels-d.webp" data-faces="0.094,0.529,0.052,0.083;0.549,0.412,0.035,0.08;0.108,0.49,0.082,0.122;0.833,0.457,0.052,0.09" width="960" height="600"><img class="card__img" src="./chooser/thumbs/s5-panels-m.webp" data-faces="0.34,0.862,0.222,0.167" alt="" width="720" height="960" loading="lazy" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Pocket Club</h2>
+          <p class="card__desc">Works like an app. Tap a class panel and it opens into your booking.</p>
+          <p class="card__best"><span>Best for:</span> booking from your phone</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s5-panels/" data-testid="open-s5-panels">Open<span class="sr"> the Pocket Club concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s5-panels/?class=boxercise-beginner" data-testid="try-s5-panels">Try the booking<span class="sr"> in the Pocket Club concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="s4-kinetic">
+        <a class="card__media" href="./variants/s4-kinetic/" tabindex="-1" aria-hidden="true"><picture><source media="(min-width: 641px)" srcset="./chooser/thumbs/s4-kinetic-d.webp" data-faces="0.66,0.442,0.076,0.121;0.812,0.475,0.065,0.103;0.574,0.339,0.154,0.133" width="960" height="600"><img class="card__img" src="./chooser/thumbs/s4-kinetic-m.webp" data-faces="0.785,0.411,0.054,0.041;0.851,0.407,0.074,0.065;0.74,0.386,0.09,0.068" alt="" width="720" height="960" loading="lazy" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Big Hello</h2>
+          <p class="card__desc">Giant words that move as you scroll. Class names roll past, numbers count up.</p>
+          <p class="card__best"><span>Best for:</span> launching something new</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s4-kinetic/" data-testid="open-s4-kinetic">Open<span class="sr"> the Big Hello concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s4-kinetic/?class=boxercise-beginner" data-testid="try-s4-kinetic">Try the booking<span class="sr"> in the Big Hello concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="s2-editorial">
+        <a class="card__media" href="./variants/s2-editorial/" tabindex="-1" aria-hidden="true"><picture><source media="(min-width: 641px)" srcset="./chooser/thumbs/s2-editorial-d.webp" data-faces="0.6,0.711,0.086,0.077;0.365,0.763,0.078,0.109;0.758,0.736,0.067,0.065;0.9,0.775,0.05,0.07" width="960" height="600"><img class="card__img" src="./chooser/thumbs/s2-editorial-m.webp" data-faces="0.429,0.422,0.119,0.052;0.1,0.467,0.104,0.062;0.86,0.44,0.075,0.055;0.675,0.43,0.065,0.06" alt="" width="720" height="960" loading="lazy" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Coffee Table</h2>
+          <p class="card__desc">Reads like the club's own magazine, with numbered pages and reviews set large.</p>
+          <p class="card__best"><span>Best for:</span> reading over a coffee</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s2-editorial/" data-testid="open-s2-editorial">Open<span class="sr"> the Coffee Table concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s2-editorial/?class=boxercise-beginner" data-testid="try-s2-editorial">Try the booking<span class="sr"> in the Coffee Table concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="s1-stage">
+        <a class="card__media" href="./variants/s1-stage/" tabindex="-1" aria-hidden="true"><picture><source media="(min-width: 641px)" srcset="./chooser/thumbs/s1-stage-d.webp" data-faces="0.449,0.297,0.036,0.071;0.795,0.395,0.055,0.075;0.805,0.345,0.05,0.06;0.83,0.33,0.045,0.06;0.545,0.565,0.085,0.12" width="960" height="600"><img class="card__img" src="./chooser/thumbs/s1-stage-m.webp" data-faces="0.375,0.384,0.132,0.098;-0.014,0.588,0.085,0.064;0.664,0.67,0.078,0.082;0.007,0.554,0.089,0.14;0.38,0.33,0.227,0.245" alt="" width="720" height="960" loading="lazy" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Ensemble</h2>
+          <p class="card__desc">Plays like a film, dark and slow, with the coaches as its cast.</p>
+          <p class="card__best"><span>Best for:</span> watching before you book</p>
+          <div class="card__acts">
+            <a class="btn" href="./variants/s1-stage/" data-testid="open-s1-stage">Open<span class="sr"> the Ensemble concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./variants/s1-stage/?class=boxercise-beginner" data-testid="try-s1-stage">Try the booking<span class="sr"> in the Ensemble concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    <li data-reveal>
+      <article class="card" data-id="v1">
+        <a class="card__media" href="./v1/" tabindex="-1" aria-hidden="true"><picture><source media="(min-width: 641px)" srcset="./chooser/thumbs/v1-d.webp" data-faces="0.459,0.429,0.091,0.146;0.873,0.37,0.052,0.083;0.634,0.23,0.048,0.077;0.651,0.195,0.072,0.176;0.827,0.303,0.085,0.166;0.494,0.351,0.126,0.247" width="960" height="600"><img class="card__img" src="./chooser/thumbs/v1-m.webp" data-faces="0.553,0.626,0.324,0.244;0.635,0.505,0.337,0.259" alt="" width="720" height="960" loading="lazy" decoding="async"></picture></a>
+        <div class="card__body">
+          <h2>Ground Floor</h2>
+          <p class="card__desc">The first one, and the rest grew from it. Class videos open the page.</p>
+          <p class="card__best"><span>Best for:</span> comparing the rest</p>
+          <div class="card__acts">
+            <a class="btn" href="./v1/" data-testid="open-v1">Open<span class="sr"> the Ground Floor concept</span> <span class="arr" aria-hidden="true">→</span></a>
+            <a class="link-t" href="./v1/?class=boxercise-beginner" data-testid="try-v1">Try the booking<span class="sr"> in the Ground Floor concept</span> <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </li>
+    </ol>
+  </section>
+</main>
+
+<footer class="ftr" data-reveal>
+  <div class="ftr__in wrap">
+    <img class="ftr__logo" src="./v1/assets/logo/elitefit-logotype-white.svg" width="301" height="32" alt="Elite Fit" loading="lazy">
+    <p class="ftr__note">Design concepts by Digital Movement · 27 Oct 2026 · v1</p>
+  </div>
+</footer>
+
+<script src="./chooser/chooser.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+/* Base · Version: v3.0 — 2026-10-02 · owner: design-system lane (D1, Fable 5.1)
+   Changelog: v3.0-provisional (orchestrator): reset, frame, skip link, focus ring, section frame, reduced-motion floor.
+   v3.0 (D1, 11:40): reset completed (text-wrap, media, tables, forms), page frame on the measured system, focus ring that is visible and AA on dark
+   and light (2 px ring in --focus with a 2 px gap in the page colour, so it also shows on an accent button), selection, scrollbar polish (colour only,
+   no width change), section frame (.sec, .wrap) and the shared section head (.sec__eyebrow, .sec__title, .sec__lead) so every lane's head sits alike. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + var(--s-4)); color-scheme: dark;
+  background: var(--bg); }
+body { margin: 0; min-height: 100svh; background: var(--bg); color: var(--fg);
+  font: var(--fw-body) var(--fs-body)/var(--lh-body) var(--font-body); letter-spacing: var(--tr-body);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; overflow-x: clip; overscroll-behavior-y: none; }
+img, video, svg, canvas, picture { display: block; max-width: 100%; }
+img, video { height: auto; }
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, dl, dd, blockquote, fieldset { margin: 0; padding: 0; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: var(--fw-display); letter-spacing: var(--tr-display); line-height: var(--lh-snug); text-wrap: balance; }
+p, li, dd { text-wrap: pretty; overflow-wrap: break-word; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+a:not([class]) { text-decoration: underline; text-underline-offset: .14em; text-decoration-thickness: var(--bw); }
+a:not([class]):hover { color: var(--accent); }
+strong, b { font-weight: var(--fw-strong); }
+small { font-size: var(--fs-small); }
+code, kbd, samp, pre { font-family: var(--font-mono); font-weight: var(--fw-mono); }
+hr { border: 0; border-top: var(--bw) solid var(--line); margin: 0; }
+table { border-collapse: collapse; border-spacing: 0; width: 100%; }
+fieldset { border: 0; min-width: 0; }
+legend { padding: 0; }
+button, input, select, textarea { font: inherit; letter-spacing: inherit; color: inherit; margin: 0; }
+button { background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; text-align: inherit; }
+button:disabled { cursor: default; }
+input, select, textarea { border-radius: 0; }
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+::placeholder { color: var(--fg-faint); opacity: 1; }
+[hidden] { display: none !important; }
+:target { scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+
+/* focus: one ring for everything. The outline sits 2 px outside the element, so on an accent button the ring is seen against the page, not the fill.
+   Dark world: #f3f1ec on #171717 = 15.9:1. Light world (.theme-light): #171717 on #ffffff = 17.9:1. Mouse clicks show no ring. */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; box-shadow: 0 0 0 2px var(--bg); }
+.skip { position: fixed; left: var(--s-3); top: -80px; z-index: var(--z-overlay); background: var(--accent); color: var(--accent-ink); padding: var(--s-3) var(--s-4);
+  font: var(--fw-mono) var(--fs-label)/1 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; }
+.skip:focus { top: var(--s-3); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* selection and scrollbar: colour only, nothing that changes layout */
+::selection { background: var(--accent); color: var(--accent-ink); }
+@supports (scrollbar-color: auto) { html { scrollbar-color: var(--line-strong) var(--bg); scrollbar-width: thin; } }
+
+/* page frame */
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.wrap--full { max-width: none; }
+.sec { position: relative; padding-block: var(--section-y); }
+.sec + .sec { border-top: var(--bw) solid var(--line); }
+
+/* shared section head: eyebrow (mono, a short rule, uppercase), title (display, tight), lead (muted). Lanes that already have their own head
+   keep it; the shapes here match the live sections so a later switch is a class rename. */
+.sec__eyebrow { display: inline-flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-4);
+  font: var(--fw-mono) var(--fs-label)/1.2 var(--font-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--fg-muted); }
+.sec__eyebrow::before { content: ""; width: var(--s-5); height: var(--bw); background: var(--brand); flex: none; }
+.sec__title { font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-h2); line-height: var(--lh-tight); letter-spacing: var(--tr-display); }
+.sec__lead { max-width: 34ch; margin-top: var(--s-4); font-size: var(--fs-lead); line-height: var(--lh-snug); letter-spacing: var(--tr-display); color: var(--fg-muted); }
+
+/* reduced motion: nothing loops, nothing travels; information and layout stay */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
